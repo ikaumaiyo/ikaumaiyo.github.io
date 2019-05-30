@@ -1,0 +1,42 @@
+  #block {
+    margin-left: -300px;
+    width: 600px;
+    height: 400px;
+    position: absolute;
+    left: 50%;
+    top: 50px;
+    z-index:10;
+  }
+ 
+  #puzzle {
+    margin: 50px auto;
+    width: 600px;
+    height: 400px;
+    position: relative;
+  }
+  #puzzle li {
+    background-image: url(img/puzzle.png);
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    cursor: pointer;
+    box-sizing: border-box;
+  }
+  #start {
+    margin: 0 auto;
+    width: 220px;
+  }
+  #time {
+    margin-bottom: 15px;
+    text-align: center;
+    font-size: 20px;
+    display: none;
+ 
+  }
+  #again {
+    text-align: center;
+    display: none;
+  }
+  .btn {
+    cursor: pointer;
+  }
