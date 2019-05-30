@@ -1,21 +1,167 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE HTML>
+<html lang="ja">
 <head>
-<meta charset="utf-8" />
- <link rel="stylesheet" type="text/css" href="main.css">
- <script type="text/javascript" src="main.js"></script>
-<title>HTML 5 complete</title>
+<meta charset="utf-8">
+<title></title>
+<style type="text/css">
+<!--
+  * { margin:0; padding:0; }
+  body { background:#EEE; }
+  li { list-style:none; }
+  img { vertical-align:middle;}
 
+  #block {
+    margin-left: -300px;
+    width: 600px;
+    height: 400px;
+    position: absolute;
+    left: 50%;
+    top: 50px;
+    z-index:10;
+  }
+
+  #puzzle {
+    margin: 50px auto;
+    width: 600px;
+    height: 400px;
+    position: relative;
+  }
+  #puzzle li {
+    background-image: url(pict.jpg);
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    cursor: pointer;
+    box-sizing: border-box;
+  }
+  #start {
+    margin: 0 auto;
+    width: 220px;
+  }
+  #time {
+    margin-bottom: 15px;
+    text-align: center;
+    font-size: 20px;
+    display: none;
+
+  }
+  #again {
+    text-align: center;
+    display: none;
+  }
+  .btn {
+    cursor: pointer;
+  }
+
+
+
+-->
+</style>
 </head>
 <body>
+
 <div id="block"></div>
-<ul id="puzzle"></ul>
- 
+<ul id="puzzle">
+</ul>
+
 <div id="start"><img src="img/btn_start.png" class="btn"></div>
 <div id="time">0秒経過</div>
 <div id="again">
   <p><img src="img/clear.png"></p>
   <p><img src="img/btn_again.png" onclick="location.reload();" class="btn"></p>
 </div>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript">
+
+  var pos = [];
+  var change=false, select, timer;
+
+  //配列posの番号からX座標を返す関数
+  function posX(n){
+    return n % 6 * -100;
+  }
+  //配列posの番号からY座標を返す関数
+  function posY(n){
+    return Math.floor(n / 6) * -100;
+  }
+  //配列posの位置に移動させる関数
+  function sortArr(){
+    for(i=0; i<24; i++) {
+      $("#puzzle li#"+i).css({
+        "left" : -posX(pos[i]) + "px ",
+        "top" : -posY(pos[i]) + "px"
+      });
+    }
+  }
+  //配列のシャッフル
+  function shuffle(array) {
+    var random = array.map(Math.random);
+    array.sort(function(a, b) {
+      return random[a] - random[b];
+    });
+  }
+  //タイマー処理
+  function setTimer() {
+      var i = 0;
+      timer = setInterval(function(){
+        i++;
+        $("#time").text(i + "秒経過");
+      },1000);
+  }
+  //クリアー判定
+  function goal(){
+    var goal = true;
+    for(i=0; i<24; i++) {
+      if(pos[i] != i) {
+        goal = false;
+      }
+    }
+    if(goal) {
+      clearInterval(timer);
+      $("#again").show();
+    }
+  }
+
+$(function(){
+
+  //liタグの生成
+  for(i=0; i<24; i++) {
+    pos[i] = i;
+    $("<li id='" + i + "'></li>").css( "background-position", posX(i) + "px " + posY(i) + "px").appendTo($("#puzzle"));
+  }
+  sortArr();
+
+  //スタートボタンクリック
+  $("#start").click(function(){
+    $(this).remove();	//スタートボタンを削除
+    $("#block").remove();	//div#blockの削除
+    shuffle(pos);	//配列posの中身をシャッフル
+    sortArr();	//配列posの中身に沿ってピースを並び替え
+    $("#time").show();	//タイマーの表示
+    setTimer();	//タイマーのスタート
+  })
+
+  //選択したピースの入れ替え
+  $("#puzzle li").click(function (){
+    if(!change) {	//1枚目のピース選択時の処理
+      $(this).fadeTo(0,0.5).css("border","2px solid #ff0");
+      select = $(this).attr("id");
+      change = true;
+    } else {	//2枚目のピース選択時の処理
+      $("#puzzle li#" + select).fadeTo(0,1).css("border","none");
+      var id = $(this).attr("id");
+      var replace = pos[select];
+      pos[select] =  pos[id];
+      pos[id] = replace;
+      sortArr();
+      change = false;
+      goal();
+    }
+  });
+
+});
+
+</script>
 </body>
 </html>
