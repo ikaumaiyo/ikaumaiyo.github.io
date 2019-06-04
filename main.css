@@ -1,11 +1,46 @@
-body{
-  padding: 0;
-  margin: 10px;
-  max-width:950px;
+body {
+	padding: 0;
+	margin: 10px;
+	max-width: 950px;
 }
+
+input[type="text"], input[type="password"], textarea, select, button {
+	outline: none;
+}
+
 input[type="time"] {
-    height: 30px;
-    padding-top: 6px;
-    border-radius: 3px;
-    border: 1px solid rgba(34,36,38,.15);
+	height: 29px;
+	border-radius: 3px;
+	border: 1px solid rgba(34, 36, 38, .15);
+	padding-top: 2px;
+}
+
+label.charChk {
+	cursor: pointer;
+	padding: 5px;
+	border: 1px solid rgba(34, 36, 38, .15);
+	border-radius: 3px;
+	user-select: none;
+}
+
+input.charChk {
+	display: none;
+}
+
+.charChk:checked+label.charChk {
+	background-color: orange;
+}
+
+.button-init, .button-export {
+	width: 100%;
+}
+
+.button-line-insert2 {
+	padding:0px !important;
+	margin:0px !important;
+	margin-top:1em !important;
+	height: 2em;
+	width: 2em;
+	font-size: 1em;
+	font-weight: bold;
 }
