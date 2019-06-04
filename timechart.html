@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>HTML 5 complete</title>
+    <script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.3/semantic.min.css">
+    <link rel="stylesheet" type="text/css" href="main.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.3/semantic.min.js"></script>
+    <script>
+    $(document).ready( function(){
+    
+$('.prcn-char').html($('#prcn-char').html());
+$('.prcn-rank').html($('#prcn-rank').html());
+$('.prcn-star').html($('#prcn-star').html());
+});
+    
+    
+    </script>
+  </head>
+  <body>
+    <div class="ui grid">
+      <div class="three wide column">
+        <div class="prcn-char"></div>
+        <div class="prcn-star"></div>
+        <div class="prcn-rank"></div>
+      </div>
+      <div class="three wide column">
+        <div class="prcn-char"></div>
+        <div class="prcn-rank"></div>
+      </div>
+      <div class="three wide column">
+        <div class="prcn-char"></div>
+        <div class="prcn-rank"></div>
+      </div>
+      <div class="three wide column">
+        <div class="prcn-char"></div>
+        <div class="prcn-rank"></div>
+      </div>
+      <div class="three wide column">
+        <div class="prcn-char"></div>
+        <div class="prcn-rank"></div>
+      </div>
+    </div>
+    <button class="ui primary button">Save </button>
+    <div class="ui segment time-chart-edit">
+      <div>
+        <input type="time" name="example2" value="20:40">
+        <div class="ui input">
+          <input type="text" placeholder="キャラ">
+        </div>
+      </div>
+      <input type="time" name="example2" value="20:40">
+      <input type="time" name="example2" value="20:40">
+    </div>
+    <div style="display:none;">
+      <div id="prcn-char">
+        <div class="ui input">
+          <input type="text" placeholder="キャラ">
+        </div>
+      </div>
+      <div id="prcn-star">
+        <select class="ui dropdown">
+          <option selected="5" value="articles">★5</option>
+          <option value="4" value="articles">★4</option>
+          <option value="3" value="articles">★3</option>
+        </select>
+      </div>
+      <div id="prcn-rank">
+        <select class="ui dropdown">
+          <option selected="14" value="articles">14</option>
+          <option value="13" value="articles">13</option>
+          <option value="12" value="articles">12</option>
+          <option value="11" value="articles">11</option>
+        </select>
+      </div>
+    </div>
+  </body>
+</html>

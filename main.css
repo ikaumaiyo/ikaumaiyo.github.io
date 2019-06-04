@@ -1,0 +1,11 @@
+body{
+  padding: 0;
+  margin: 10px;
+  max-width:950px;
+}
+input[type="time"] {
+    height: 30px;
+    padding-top: 6px;
+    border-radius: 3px;
+    border: 1px solid rgba(34,36,38,.15);
+}
