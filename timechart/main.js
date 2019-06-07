@@ -50,13 +50,7 @@ $(document).ready(function() {
 
 
 		}
-
-
-
-
 		lineCharResult = '<span class=\"timeCharList\">'  +lineCharResult + "</span>";
-
-
 
 		let lineBiko = $('#prcn-timeline-biko').html();
 		let lineBikoResult = '';
@@ -70,9 +64,11 @@ $(document).ready(function() {
 		$(".edit-area").append($("<div></div>").html(lineTimeResult + lineCharResult + lineBikoResult + lineDelete));
 
 
-		Sortable.create($('.timeCharList')[0], {
+		for (let i = 0; i < $('.timeCharList').length; i++) {
+		Sortable.create($('.timeCharList')[i], {
 			  animation: 110  // ミリ秒で指定
 			});
+		}
 
 	});
 
