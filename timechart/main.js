@@ -186,24 +186,27 @@ function createTeamSet() {
 	// charImg.attr("src",imgUrl);
 	// $('#imgTmp').append(charImg);
 
-	html2canvas(document.body, {
+	html2canvas(document.getElementById("target"), {
 		onrendered : function(canvas) {
 			$(canvas).attr('id','canvas');
-			document.body.appendChild(canvas);
+			document.querySelector("#main-contents > div.ui.clearing.segment.img-export-area > p").appendChild(canvas);
 		},
 		allowTaint : true,
 		useCORS : true,
 		taintTest : false
 	})
 
-//	// HTML内に画像を表示
-//	html2canvas(document.getElementById("target"), {
-//		onrendered : function(canvas) {
-//			// imgタグのsrcの中に、html2canvasがレンダリングした画像を指定する。
-//			var imgData = canvas.toDataURL();
-//			document.getElementById("result").src = imgData;
-//		}
-//	});
+	// HTML内に画像を表示
+	html2canvas(document.getElementById("target"), {
+		onrendered : function(canvas) {
+			// imgタグのsrcの中に、html2canvasがレンダリングした画像を指定する。
+			var imgData = canvas.toDataURL();
+			document.getElementById("result").src = imgData;
+			var imgElm = $('<img>').src;
+			imgElm = imgData;
+			document.querySelector("#main-contents > div.ui.clearing.segment.img-export-area > p").appendChild(imgElm);
+		}
+	});
 //
 //	// ボタンを押下した際にダウンロードする画像を作る
 //	html2canvas(document.getElementById("target"), {
