@@ -220,40 +220,37 @@ $(document).on("click", '.mclose', function() {
 	// モーダルを隠す (open属性を削除する)
 	modal.close();
 });
-$(document)
-		.on(
-				"click",
-				'.mshow',
-				function() {
+$(document).on("click", '.mshow', function() {
 
-					let charArray = getCharList();
+	let charArray = getCharList();
 
-					let idHash = 'radioImg';
+	let idHash = 'radioImg';
 
-					let radioInputHtml = "<input type=\"radio\" id=\"targetId\" name=\"selectChar\" style=\"background-image: url('../img/targetImg.jpg')\" value=\"targetValue\"/>";
-					let radioLabelHtml = '<label for="targetFor"></label>';
+	let radioInputHtml = '<input type="radio" id="targetId" name="selectChar" value="targetValue"/>';
+	let radioLabelHtml = "<label for=\"targetFor\" style=\"background-image: url('..\\img\\targetImg.jpg')\"></label>";
 
-					let appendCharResult = '';
+	let appendCharResult = '';
 
-					for (let i = 0; i < charArray.length; i++) {
+	for (let i = 0; i < charArray.length; i++) {
 
-						let _radioInputHtml = radioInputHtml;
-						let _radioLabelHtml = radioLabelHtml;
+		let _radioInputHtml = radioInputHtml;
+		let _radioLabelHtml = radioLabelHtml;
 
-						_radioInputHtml = _radioInputHtml.replace(/targetId/g, charArray[i].val + idHash);
-						_radioInputHtml = _radioInputHtml.replace(/targetValue/g, charArray[i].val);
-						_radioInputHtml = _radioInputHtml.replace(/targetImg/g, charArray[i].val);
-						_radioLabelHtml = _radioLabelHtml.replace(/targetFor/g, charArray[i].val + idHash);
+		_radioInputHtml = _radioInputHtml.replace(/targetId/g, charArray[i].val + idHash);
+		_radioInputHtml = _radioInputHtml.replace(/targetValue/g, charArray[i].val);
 
-						appendCharResult += _radioInputHtml + _radioLabelHtml;
+		_radioLabelHtml = _radioLabelHtml.replace(/targetImg/g, charArray[i].val);
+		_radioLabelHtml = _radioLabelHtml.replace(/targetFor/g, charArray[i].val + idHash);
 
-					}
+		appendCharResult += _radioInputHtml + _radioLabelHtml;
 
-					$('.input-area').html(appendCharResult);
+	}
 
-					const modal = document.querySelector('dialog');
+	$('.input-area').html(appendCharResult);
 
-					// モーダルを表示する (open属性を与える)
-					modal.showModal();
+	const modal = document.querySelector('dialog');
 
-				});
+	// モーダルを表示する (open属性を与える)
+	modal.showModal();
+
+});
