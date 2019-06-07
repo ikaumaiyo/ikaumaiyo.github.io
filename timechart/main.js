@@ -227,7 +227,7 @@ $(document).on("click", '.mshow', function() {
 	let idHash = 'radioImg';
 
 	let radioInputHtml = '<input type="radio" id="targetId" name="selectChar" value="targetValue"/>';
-	let radioLabelHtml = "<label for=\"targetFor\" style=\"background-image: url('..\\img\\targetImg.jpg')\"></label>";
+	let radioLabelHtml = "<label for=\"targetFor\" style=\"background-image: url('../img/targetImg.jpg')\"></label>";
 
 	let appendCharResult = '';
 
@@ -241,6 +241,10 @@ $(document).on("click", '.mshow', function() {
 
 		_radioLabelHtml = _radioLabelHtml.replace(/targetImg/g, charArray[i].val);
 		_radioLabelHtml = _radioLabelHtml.replace(/targetFor/g, charArray[i].val + idHash);
+
+		console.log(location.protocol);
+		console.log(location.hostname);
+		console.log(location.pathname);
 
 		appendCharResult += _radioInputHtml + _radioLabelHtml;
 
