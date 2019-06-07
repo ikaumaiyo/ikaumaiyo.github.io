@@ -202,8 +202,8 @@ function createTeamSet() {
 			// imgタグのsrcの中に、html2canvasがレンダリングした画像を指定する。
 			var imgData = canvas.toDataURL();
 			document.getElementById("result").src = imgData;
-			var imgElm = $('<img>').src;
-			imgElm = imgData;
+			var imgElm = $('<img>');
+			imgElm.src = imgData;
 			document.querySelector("#main-contents > div.ui.clearing.segment.img-export-area > p").appendChild(imgElm);
 		}
 	});
