@@ -52,3 +52,7 @@ input.charChk {
 .ui.fluid.search.dropdown {
 height: 4em;
 }
+
+.ui.dropdown.selection{
+	min-width:100%;
+}

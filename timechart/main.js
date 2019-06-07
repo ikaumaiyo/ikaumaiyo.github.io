@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-	let charLimit = 5;
+	const charLimit = 5;
 	var lineCount = 0;
 
 	// 初期化
@@ -11,10 +11,10 @@ $(document).ready(function() {
 
 	$('.ui.dropdown').dropdown();
 
-	for (var i = 0; i < charLimit; i++) {
+	for (let i = 0; i < charLimit; i++) {
 		// 画像初期化
-		var selectElm = $('#char' + i + ' > div.prcn-char > div > select');
-		var imgElm = getCharImg(selectElm.val());
+		let selectElm = $('#char' + i + ' > div.prcn-char > div > select');
+		let imgElm = getCharImg(selectElm.val());
 		imgElm.css("width", "100%");
 		selectElm.parent().parent().parent().children('.prcn-img').html('');
 		selectElm.parent().parent().parent().children('.prcn-img').append(imgElm);
@@ -26,18 +26,18 @@ $(document).ready(function() {
 	});
 
 	$('.button-line-insert').click(function() {
-		var lineTime = $('#prcn-timeline-time').html();
-		var lineTimeResult = '';
+		let lineTime = $('#prcn-timeline-time').html();
+		let lineTimeResult = '';
 
 		lineTimeResult = lineTime.replace(/01:30/g, getlastTime);
 
-		var lineChar = $('#prcn-timeline-char').html();
-		var lineCharResult = '';
+		let lineChar = $('#prcn-timeline-char').html();
+		let lineCharResult = '';
 
-		for (var i = 0; i < charLimit; i++) {
-			var insertChar = getCharName(i);
+		for (let i = 0; i < charLimit; i++) {
+			let insertChar = getCharName(i);
 
-			var _lineChar = lineChar;
+			let _lineChar = lineChar;
 
 			_lineChar = _lineChar.replace(/charNum/g, ('char' + i + lineCount));
 			_lineChar = _lineChar.replace(/charName/g, insertChar);
@@ -45,12 +45,12 @@ $(document).ready(function() {
 			lineCharResult += _lineChar;
 		}
 
-		var lineBiko = $('#prcn-timeline-biko').html();
-		var lineBikoResult = '';
+		let lineBiko = $('#prcn-timeline-biko').html();
+		let lineBikoResult = '';
 		lineBikoResult = lineBiko.replace(/biko/g, 'biko' + lineCount);
 
-		var lineDelete = $('#prcn-timeline-delete').html();
-		var lineDeleteResult = '';
+		let lineDelete = $('#prcn-timeline-delete').html();
+		let lineDeleteResult = '';
 
 		lineCount += 1;
 
@@ -62,9 +62,12 @@ $(document).ready(function() {
 	});
 
 	$(document).on("click", '.button-export', function() {
-		var result = '';
 
-		for (var i = 0; i < charLimit; i++) {
+		createTeamSet();
+
+		let result = '';
+
+		for (let i = 0; i < charLimit; i++) {
 			result += getCharName(i);
 			result += getCharStar(i) + ' ';
 			result += getCharRank(i) + ' ';
@@ -75,15 +78,15 @@ $(document).ready(function() {
 
 		result += '<br>';
 
-		var lines = $('.edit-area').children();
-		for (var i = 0; i < lines.length; i++) {
-			var line = lines.eq(i);
+		let lines = $('.edit-area').children();
+		for (let i = 0; i < lines.length; i++) {
+			let line = lines.eq(i);
 			result += $(line).children('input[type="time"]').val() + ' ';
 
-			var chars = $(line).children('input[type="checkbox"]');
+			let chars = $(line).children('input[type="checkbox"]');
 
-			for (var ci = 0; ci < chars.length; ci++) {
-				var chr = chars.eq(ci);
+			for (let ci = 0; ci < chars.length; ci++) {
+				let chr = chars.eq(ci);
 				if ($(chr).prop('checked')) {
 					result += $('label[for="' + $(chr).attr('id') + '"]').html() + ' ';
 				}
@@ -110,17 +113,17 @@ $(document).ready(function() {
 	});
 
 	$(document).on("click", '.tsts', function() {
-	    let canvas = document.getElementById("canvas");
+		let canvas = document.getElementById("canvas");
 
-	    let link = document.createElement("a");
-	    link.href = canvas.toDataURL("image/jpg");
-	    link.download = "test.png";
-	    link.click();
+		let link = document.createElement("a");
+		link.href = canvas.toDataURL("image/jpg");
+		link.download = "test.png";
+		link.click();
 	});
 
 	// キャラプルダウン変更時 画像更新
 	$('div.prcn-char > div > select').dropdown('setting', 'onChange', function() {
-		var imgElm = getCharImg($(this).val());
+		let imgElm = getCharImg($(this).val());
 		imgElm.css("width", "100%");
 		$(this).parent().parent().parent().children('.prcn-img').html('');
 		$(this).parent().parent().parent().children('.prcn-img').append(imgElm);
@@ -141,7 +144,7 @@ function getCharUnique(num) {
 	return $('#char' + num + ' > div.prcn-unique > div > div.text').html();
 }
 function getlastTime() {
-	var result = $('.edit-area div:last-child').children('input[type="time"]').val();
+	let result = $('.edit-area div:last-child').children('input[type="time"]').val();
 	if (result === undefined) {
 		return "01:30";
 	}
@@ -150,20 +153,20 @@ function getlastTime() {
 
 // タイムチャートコピー
 function execCopy(string) {
-	var tmp = document.createElement("div");
-	var pre = document.createElement('pre');
+	let tmp = document.createElement("div");
+	let pre = document.createElement('pre');
 	pre.style.webkitUserSelect = 'auto';
 	pre.style.userSelect = 'auto';
 
 	string = string.replace(/<br>/g, "\r\n");
 	tmp.appendChild(pre).textContent = string;
-	var s = tmp.style;
+	let s = tmp.style;
 	s.position = 'fixed';
 	s.right = '200%';
 
 	document.body.appendChild(tmp);
 	document.getSelection().selectAllChildren(tmp);
-	var result = document.execCommand("copy");
+	let result = document.execCommand("copy");
 	document.body.removeChild(tmp);
 
 	return result;
@@ -172,57 +175,42 @@ function execCopy(string) {
 // チーム画像生成
 function createTeamSet() {
 
-	var tmp = document.createElement("div");
-	$(tmp).attr('id', 'imgTmp');
-	document.body.appendChild(tmp);
-	//
-	// var charImg = $('#prcn-char-img').children().clone();
-	// console.log(charImg.html());
-	// var imgUrl = getCharImgUrl("アキノ");
-	//
-	// charImg.css('background-image', 'url(' + imgUrl + ')');
+	document.querySelector("div.ui.clearing.segment.img-export-area > p").innerHTML = '';
 
-	// charImg.attr("src",imgUrl);
-	// charImg.attr("src",imgUrl);
-	// $('#imgTmp').append(charImg);
 
-	html2canvas(document.getElementById("target"), {
+	let width = $('#target').width();
+
+	// 描画用コンテンツ生成
+	let teamElm = $('#target').clone();
+	teamElm.attr('id', 'teamImgContents');
+	teamElm.width(width);
+
+	console.log('asdihja');
+	let lines = $(teamElm).children('div div').children();
+	let buttonElmHtml = '<button class="fluid ui button" style="text-align:left;margin-bottom:1px;">charVal</button>'
+	for (let i = 0; i < lines.length; i++) {
+		let line = lines.eq(i);
+		line.css('margin-left','25px;');
+		buttonElmHtml.replace(/charVal/g, getCharName(i));
+		$(line).children('.prcn-char').html(buttonElmHtml.replace(/charVal/g, getCharName(i)));
+		$(line).children('.prcn-star').html(buttonElmHtml.replace(/charVal/g, getCharStar(i)));
+		$(line).children('.prcn-rank').html(buttonElmHtml.replace(/charVal/g, getCharRank(i)));
+		$(line).children('.prcn-unique').html(buttonElmHtml.replace(/charVal/g, getCharUnique(i)));
+	}
+
+	$('body').append($(teamElm));
+
+	// canvas描画
+	html2canvas(document.getElementById("teamImgContents"), {
 		onrendered : function(canvas) {
-			$(canvas).attr('id','canvas');
-			document.querySelector("#main-contents > div.ui.clearing.segment.img-export-area > p").appendChild(canvas);
+			$(canvas).attr('id', 'canvas');
+			document.querySelector("div.ui.clearing.segment.img-export-area p").appendChild(canvas);
+			//$('body').children('#teamImgContents').remove();
 		},
 		allowTaint : true,
 		useCORS : true,
 		taintTest : false
-	})
-
-	// HTML内に画像を表示
-	html2canvas(document.getElementById("target"), {
-		onrendered : function(canvas) {
-			// imgタグのsrcの中に、html2canvasがレンダリングした画像を指定する。
-			var imgData = canvas.toDataURL();
-			document.getElementById("result").src = imgData;
-			var imgElm = $('<img>');
-			imgElm.src = imgData;
-			document.querySelector("#main-contents > div.ui.clearing.segment.img-export-area > p").appendChild(imgElm);
-		}
 	});
-//
-//	// ボタンを押下した際にダウンロードする画像を作る
-//	html2canvas(document.getElementById("target"), {
-//		onrendered : function(canvas) {
-//			// aタグのhrefにキャプチャ画像のURLを設定
-//			var imgData = canvas.toDataURL();
-//			document.getElementById("ss").href = imgData;
-//		}
-//	});
 
-	// document.body.removeChild(tmp);
-
-}
-// キャラ画像取得
-function getCharImg(charId) {
-
-	return $('#prcn-char-img').children('#' + charId + '').clone();
 
 }
