@@ -71,7 +71,7 @@ dialog#char-select {
 	border: 0;
 	border-radius: 0.6rem;
 	box-shadow: 0 0 1em black;
-	max-width: 40%;
+	max-width: 900px;
 }
 
 dialog#char-select::backdrop {
