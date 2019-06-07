@@ -2,6 +2,7 @@ $(document).ready(function() {
 
 	const charLimit = 5;
 	var lineCount = 0;
+	var charModalSelectParentId = '';
 
 	// 初期化
 	$('.prcn-char').html(getCharPulldown());
@@ -26,6 +27,8 @@ $(document).ready(function() {
 	});
 
 	$('.button-line-insert').click(function() {
+
+
 		let lineTime = $('#prcn-timeline-time').html();
 		let lineTimeResult = '';
 
@@ -42,8 +45,18 @@ $(document).ready(function() {
 			_lineChar = _lineChar.replace(/charNum/g, ('char' + i + lineCount));
 			_lineChar = _lineChar.replace(/charName/g, insertChar);
 
+			_lineChar = '<span class=\"item\">'  +_lineChar + "</span>";
 			lineCharResult += _lineChar;
+
+
 		}
+
+
+
+
+		lineCharResult = '<span class=\"timeCharList\">'  +lineCharResult + "</span>";
+
+
 
 		let lineBiko = $('#prcn-timeline-biko').html();
 		let lineBikoResult = '';
@@ -55,6 +68,12 @@ $(document).ready(function() {
 		lineCount += 1;
 
 		$(".edit-area").append($("<div></div>").html(lineTimeResult + lineCharResult + lineBikoResult + lineDelete));
+
+
+		Sortable.create($('.timeCharList')[0], {
+			  animation: 110  // ミリ秒で指定
+			});
+
 	});
 
 	$(document).on("click", '.button-line-delete', function() {
@@ -83,7 +102,7 @@ $(document).ready(function() {
 			let line = lines.eq(i);
 			result += $(line).children('input[type="time"]').val() + ' ';
 
-			let chars = $(line).children('input[type="checkbox"]');
+			let chars = $(line).find('input[type="checkbox"]');
 
 			for (let ci = 0; ci < chars.length; ci++) {
 				let chr = chars.eq(ci);
@@ -185,7 +204,6 @@ function createTeamSet() {
 	teamElm.attr('id', 'teamImgContents');
 	teamElm.width(width);
 
-	console.log('asdihja');
 	let lines = $(teamElm).children('div div').children();
 	let buttonElmHtml = '<button class="fluid ui button img-txt" >charVal</button>'
 	for (let i = 0; i < lines.length; i++) {
@@ -214,13 +232,35 @@ function createTeamSet() {
 
 }
 
-$(document).on("click", '.mclose', function() {
+$(document).on("click", '.char-modal-close', function() {
 	const modal = document.querySelector('dialog');
 
-	// モーダルを隠す (open属性を削除する)
+	// モーダルを隠す
 	modal.close();
 });
-$(document).on("click", '.mshow', function() {
+$(document).on("click", '.char-modal-submit', function() {
+
+	var selectId = $('input[name=selectChar]:checked').val();
+
+	// モーダルを隠す
+	const modal = document.querySelector('dialog');
+	modal.close();
+
+	// 画像初期化
+	let selectElm = $('#' + selectId + ' > div.prcn-char > div > select');
+	let imgElm = getCharImg(selectId);
+
+	imgElm.css("width", "100%");
+	$('#' + charModalSelectParentId).children('div.prcn-img').html('');
+	$('#' + charModalSelectParentId).children('div.prcn-img').append(imgElm);
+
+	$("#" + charModalSelectParentId + " > div.prcn-char > div > select").dropdown('set selected', getCharNameById(selectId));
+
+
+});
+$(document).on("click", '.prcn-img', function() {
+
+	charModalSelectParentId = $(this).parent().attr('id');
 
 	let charArray = getCharList();
 
@@ -241,10 +281,6 @@ $(document).on("click", '.mshow', function() {
 
 		_radioLabelHtml = _radioLabelHtml.replace(/targetImg/g, charArray[i].val);
 		_radioLabelHtml = _radioLabelHtml.replace(/targetFor/g, charArray[i].val + idHash);
-
-		console.log(location.protocol);
-		console.log(location.hostname);
-		console.log(location.pathname);
 
 		appendCharResult += _radioInputHtml + _radioLabelHtml;
 

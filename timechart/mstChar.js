@@ -53,7 +53,7 @@ var charArray = [ {
 	val : "kuuka_o-edo",
 	txt : "クウカ（オーエド）"
 }, {
-	val : "kurisu",
+	val : "kurisuthi-na",
 	txt : "クリス"
 }, {
 	val : "kurumi",
@@ -211,18 +211,30 @@ var charArray = [ {
 }, {
 	val : "rei_nyu-iya-",
 	txt : "レイ（ニューイヤー）"
-} , {
+}, {
 	val : "remu",
 	txt : "レム"
-} , {
+}, {
 	val : "ramu",
 	txt : "ラム"
 } ];
 
-//キャラ配列取得
+// キャラ配列取得
 function getCharList() {
 
 	return charArray;
+
+}
+
+// キャラ名取得
+function getCharNameById(charId) {
+
+	for (let i = 0; i < charArray.length; i++) {
+		if (charId == charArray[i].val) {
+			return charArray[i].txt;
+		}
+	}
+	return '';
 
 }
 
@@ -244,12 +256,12 @@ function getCharPulldown() {
 
 }
 
-//キャラ画像取得
+// キャラ画像取得
 function getCharImg(charId) {
 
 	let charImgElm = $('<img>');
-	$(charImgElm).attr('src','..\\img\\'+charId + '.jpg');
-	$(charImgElm).attr('id',charId);
+	$(charImgElm).attr('src', '..\\img\\' + charId + '.jpg');
+	$(charImgElm).attr('id', charId);
 
 	return charImgElm;
 
