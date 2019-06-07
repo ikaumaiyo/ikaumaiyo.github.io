@@ -4,7 +4,7 @@ body {
 }
 
 div#main-contents {
-	margin : 0 auto;
+	margin: 0 auto;
 	max-width: 1050px;
 }
 
@@ -50,9 +50,50 @@ input.charChk {
 }
 
 .ui.fluid.search.dropdown {
-height: 4em;
+	height: 4em;
 }
 
-.ui.dropdown.selection{
-	min-width:100%;
+.ui.dropdown.selection {
+	min-width: 100%;
+}
+
+.img-txt {
+	text-align: left !important;
+	margin-bottom: 1px !important;
+	padding-left: 8px !important;
+	padding-right: 8px !important;
+}
+
+dialog#char-select {
+	padding: 0;
+	border: 0;
+	border-radius: 0.6rem;
+	box-shadow: 0 0 1em black;
+	max-width: 90%;
+}
+
+dialog#char-select::backdrop {
+	/* 背景を半透明のブラックにする */
+	background-color: rgba(0, 0, 0, 0.4);
+}
+
+dialog#char-select>div>div>input[type="radio"] {
+	display: none;
+}
+
+dialog#char-select>div>div>input[type="radio"]+label {
+	position: relative;
+	margin: 10px;
+	display: inline-block;
+	background-repeat: no-repeat;
+	background-size: contain;
+	width: 40px;
+	height: 40px;
+}
+
+dialog#char-select>div>div>input[type="radio"]:checked+label {
+	background-repeat: no-repeat;
+	background-size: contain;
+	width: 40px;
+	height: 40px;
 }

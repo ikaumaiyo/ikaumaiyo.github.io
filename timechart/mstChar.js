@@ -219,6 +219,13 @@ var charArray = [ {
 	txt : "ラム"
 } ];
 
+//キャラ配列取得
+function getCharList() {
+
+	return charArray;
+
+}
+
 // キャラプルダウン生成
 function getCharPulldown() {
 
@@ -240,13 +247,9 @@ function getCharPulldown() {
 //キャラ画像取得
 function getCharImg(charId) {
 
-
-	//<img src="akari.jpg" id="akari"></img>
-
 	let charImgElm = $('<img>');
-	$(charImgElm).attr('src','../img/'+charId + '.jpg');
+	$(charImgElm).attr('src','..\\img\\'+charId + '.jpg');
 	$(charImgElm).attr('id',charId);
-
 
 	return charImgElm;
 

@@ -175,9 +175,9 @@ function execCopy(string) {
 // チーム画像生成
 function createTeamSet() {
 
+	// 前の描画を削除
 	document.querySelector("div.ui.clearing.segment.img-export-area > p").innerHTML = '';
-
-
+	// 画像のサイズ取得
 	let width = $('#target').width();
 
 	// 描画用コンテンツ生成
@@ -187,15 +187,15 @@ function createTeamSet() {
 
 	console.log('asdihja');
 	let lines = $(teamElm).children('div div').children();
-	let buttonElmHtml = '<button class="fluid ui button" style="text-align:left;margin-bottom:1px;">charVal</button>'
+	let buttonElmHtml = '<button class="fluid ui button img-txt" >charVal</button>'
 	for (let i = 0; i < lines.length; i++) {
 		let line = lines.eq(i);
-		line.css('margin-left','25px;');
+		line.css('margin-left', '25px;');
 		buttonElmHtml.replace(/charVal/g, getCharName(i));
 		$(line).children('.prcn-char').html(buttonElmHtml.replace(/charVal/g, getCharName(i)));
 		$(line).children('.prcn-star').html(buttonElmHtml.replace(/charVal/g, getCharStar(i)));
 		$(line).children('.prcn-rank').html(buttonElmHtml.replace(/charVal/g, getCharRank(i)));
-		$(line).children('.prcn-unique').html(buttonElmHtml.replace(/charVal/g, getCharUnique(i)));
+		$(line).children('.prcn-unique').html(buttonElmHtml.replace(/charVal/g, getCharUnique(i) != '-' ? '専用 ' + getCharUnique(i) : '-'));
 	}
 
 	$('body').append($(teamElm));
@@ -205,12 +205,66 @@ function createTeamSet() {
 		onrendered : function(canvas) {
 			$(canvas).attr('id', 'canvas');
 			document.querySelector("div.ui.clearing.segment.img-export-area p").appendChild(canvas);
-			//$('body').children('#teamImgContents').remove();
+			$('body').children('#teamImgContents').remove();
 		},
 		allowTaint : true,
 		useCORS : true,
 		taintTest : false
 	});
 
-
 }
+
+$(document).on("click", '.mclose', function() {
+	const modal = document.querySelector('dialog');
+
+	// モーダルを隠す (open属性を削除する)
+	modal.close();
+});
+$(document).on("click", '.mshow', function() {
+
+	let charArray = getCharList();
+
+	let idHash = 'radioImg';
+
+	let radioInputHtml = '<input type="radio" id="targetId" name="selectChar" value="targetValue"/>';
+	let radioLabelHtml = '<label for="targetFor"></label>';
+
+	let appendCharResult = '';
+
+	for (let i = 0; i < charArray.length; i++) {
+
+		let _radioInputHtml = radioInputHtml;
+		let _radioLabelHtml = radioLabelHtml;
+
+		_radioInputHtml = _radioInputHtml.replace(/targetId/g, charArray[i].val + idHash);
+		_radioInputHtml = _radioInputHtml.replace(/targetValue/g, charArray[i].val);
+		// _radioInputHtml = _radioInputHtml.replace(/targetImg/g,
+		// charArray[i].val);
+		_radioLabelHtml = _radioLabelHtml.replace(/targetFor/g, charArray[i].val + idHash);
+
+		let _radioInputHtmlDom = $(_radioInputHtml);
+//		_radioInputHtmlDom.css({
+//			backgroundImage : "url('..\\img\\" + charArray[i].val + ".jpg')"
+//		});
+
+
+		$(_radioInputHtmlDom).attr('backgroundImage','..\\img\\'+charArray[i].val + '.jpg');
+
+		//_radioInputHtmlDom = 'url(http://img.yahoo.co.jp/images/new2.gif)';
+
+		//console.log(_radioInputHtmlDom);
+		console.log(_radioInputHtmlDom.prop('outerHTML'));
+
+		appendCharResult += _radioInputHtmlDom.prop('outerHTML') + _radioLabelHtml;
+		// appendCharResult += _radioInputHtml + _radioLabelHtml;
+
+	}
+
+	$('.input-area').html(appendCharResult);
+
+	const modal = document.querySelector('dialog');
+
+	// モーダルを表示する (open属性を与える)
+	modal.showModal();
+
+});

@@ -11,12 +11,14 @@
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
 <script src="main.js"></script>
-<script src="charPulldown.js"></script>
+<script src="mstChar.js"></script>
 <script>
 
 </script>
 </head>
 <body>
+	<button class="mclose">close</button>
+	<button class="mshow">show</button>
 	<div id="main-contents">
 		<h2 class="ui header">
 			<i class="settings icon"></i>
@@ -73,12 +75,6 @@
 		<!-- export -->
 		<button class="ui green button button-export">テキスト出力 ▼</button>
 
-		<!-- TL export area -->
-		<div class="ui clearing segment tl-export-area">
-			<div class="ui green right floated button button-copy">コピー</div>
-			<p>未出力</p>
-		</div>
-
 		<!-- IMG export area -->
 		<div class="ui clearing segment img-export-area">
 			<div class="ui green right floated button tsts">ダウンロード</div>
@@ -86,6 +82,11 @@
 			<img src="" id="result" />
 		</div>
 
+		<!-- TL export area -->
+		<div class="ui clearing segment tl-export-area">
+			<div class="ui green right floated button button-copy">コピー</div>
+			<p>未出力</p>
+		</div>
 		<!-- input modules -->
 		<div style="display: none;">
 			<div id="prcn-char">
@@ -136,5 +137,10 @@
 
 		</div>
 	</div>
+	<dialog id="char-select">
+	<div class="ui placeholder segment">
+		<div class="input-area"></div>
+	</div>
+	</dialog>
 </body>
 </html>
