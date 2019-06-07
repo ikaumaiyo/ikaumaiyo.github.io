@@ -220,51 +220,40 @@ $(document).on("click", '.mclose', function() {
 	// モーダルを隠す (open属性を削除する)
 	modal.close();
 });
-$(document).on("click", '.mshow', function() {
+$(document)
+		.on(
+				"click",
+				'.mshow',
+				function() {
 
-	let charArray = getCharList();
+					let charArray = getCharList();
 
-	let idHash = 'radioImg';
+					let idHash = 'radioImg';
 
-	let radioInputHtml = '<input type="radio" id="targetId" name="selectChar" value="targetValue"/>';
-	let radioLabelHtml = '<label for="targetFor"></label>';
+					let radioInputHtml = "<input type=\"radio\" id=\"targetId\" name=\"selectChar\" style=\"background-image: url('../img/targetImg.jpg')\" value=\"targetValue\"/>";
+					let radioLabelHtml = '<label for="targetFor"></label>';
 
-	let appendCharResult = '';
+					let appendCharResult = '';
 
-	for (let i = 0; i < charArray.length; i++) {
+					for (let i = 0; i < charArray.length; i++) {
 
-		let _radioInputHtml = radioInputHtml;
-		let _radioLabelHtml = radioLabelHtml;
+						let _radioInputHtml = radioInputHtml;
+						let _radioLabelHtml = radioLabelHtml;
 
-		_radioInputHtml = _radioInputHtml.replace(/targetId/g, charArray[i].val + idHash);
-		_radioInputHtml = _radioInputHtml.replace(/targetValue/g, charArray[i].val);
-		// _radioInputHtml = _radioInputHtml.replace(/targetImg/g,
-		// charArray[i].val);
-		_radioLabelHtml = _radioLabelHtml.replace(/targetFor/g, charArray[i].val + idHash);
+						_radioInputHtml = _radioInputHtml.replace(/targetId/g, charArray[i].val + idHash);
+						_radioInputHtml = _radioInputHtml.replace(/targetValue/g, charArray[i].val);
+						_radioInputHtml = _radioInputHtml.replace(/targetImg/g, charArray[i].val);
+						_radioLabelHtml = _radioLabelHtml.replace(/targetFor/g, charArray[i].val + idHash);
 
-		let _radioInputHtmlDom = $(_radioInputHtml);
-//		_radioInputHtmlDom.css({
-//			backgroundImage : "url('..\\img\\" + charArray[i].val + ".jpg')"
-//		});
+						appendCharResult += _radioInputHtml + _radioLabelHtml;
 
+					}
 
-		$(_radioInputHtmlDom).attr('backgroundImage','..\\img\\'+charArray[i].val + '.jpg');
+					$('.input-area').html(appendCharResult);
 
-		//_radioInputHtmlDom = 'url(http://img.yahoo.co.jp/images/new2.gif)';
+					const modal = document.querySelector('dialog');
 
-		//console.log(_radioInputHtmlDom);
-		console.log(_radioInputHtmlDom.prop('outerHTML'));
+					// モーダルを表示する (open属性を与える)
+					modal.showModal();
 
-		appendCharResult += _radioInputHtmlDom.prop('outerHTML') + _radioLabelHtml;
-		// appendCharResult += _radioInputHtml + _radioLabelHtml;
-
-	}
-
-	$('.input-area').html(appendCharResult);
-
-	const modal = document.querySelector('dialog');
-
-	// モーダルを表示する (open属性を与える)
-	modal.showModal();
-
-});
+				});
