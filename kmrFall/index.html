@@ -1,0 +1,93 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>kmrFall</title>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.12.0/matter.min.js"></script>
+<style type="text/css">
+#canvas-container{
+	width: 640px;
+	margin: 30px auto;
+}
+#canvas-container canvas{
+	background: url(./images/texture.png) repeat !important;
+}
+</style>
+</head>
+<body>
+<div id="canvas-container"></div>
+<script type="text/javascript">
+(function(){
+
+	//Matter.js モジュール 初期設定
+	var Engine = Matter.Engine, //物理シュミレーションおよびレンダリングを管理するコントローラーとなるメソッド
+		World = Matter.World, //物理演算領域の作成・操作するメソッドを含む
+		Body = Matter.Body, //剛体のモデルを作成・操作するメソッドを含む
+		Bodies = Matter.Bodies, //一般的な剛体モデルを作成するメソッドを含む
+		Constraint = Matter.Constraint, //制約を作成・操作するメソッドを含む
+		Composites = Matter.Composites,
+		Common = Matter.Common,
+		Vertices = Matter.Vertices, //頂点のセットを作成・操作するメソッドを含む
+		MouseConstraint = Matter.MouseConstraint; //マウスの制約を作成するためのメソッドが含む
+
+	// Matter.jsのEngineを作成
+	var container = document.getElementById('canvas-container');
+	var engine = Engine.create(container, {
+		render: { //レンダリングの設定
+			options: {
+				wireframes: false, //ワイヤーフレームモードをoff
+				width: 1000, //canvasのwidth(横幅)
+				height: 600, //canvasのheight(高さ)
+				background: 'rgba(0, 0, 0, 0)'
+			}
+		}
+	});
+
+	// マウス操作を追加
+	var mouseConstraint = MouseConstraint.create(engine);
+	World.add(engine.world, mouseConstraint);
+
+	//床を作る
+	World.add(engine.world, [Bodies.rectangle(220, 491, 480, 10, {
+		isStatic: true, //固定する
+		render: {
+			fillStyle: '#977559', // 塗りつぶす色: CSSの記述法で指定
+			strokeStyle: 'rgba(0, 0, 0, 0)', // 線の色: CSSの記述法で指定
+			lineWidth: 0
+		}
+	})]);
+
+	//物体を追加する
+	for (var i = 0; i < 10; i++) {
+		var rnd = parseInt(Math.random() * 10);
+		var x = 320 + rnd * 10;
+		var y = 0 - rnd * 120;
+		rnd2 = parseInt(Math.random() * 640);
+		var x2 = rnd2;
+		var y2 = 0 - rnd2 * 2;
+
+		World.add(engine.world, [
+			Bodies.circle(x, y, 60, { //ボールを追加
+				density: 0.0005, // 密度: 単位面積あたりの質量
+				frictionAir: 0.06, // 空気抵抗(空気摩擦)
+				restitution: 1, // 弾力性
+				friction: 0.01, // 本体の摩擦
+				render: { //ボールのレンダリングの設定
+					sprite: { //スプライトの設定
+						texture: './images/kmr.png' //スプライトに使うテクスチャ画像を指定
+					}
+				},
+				timeScale: 1.5 //時間の倍率を設定(1で1倍速)
+			})
+		]);
+
+
+	}
+
+	// 物理シュミレーションを実行
+	Engine.run(engine);
+
+})();
+</script>
+</body>
+</html>
