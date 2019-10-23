@@ -1,6 +1,6 @@
 
 function sound(n) {
-	$('.sound-file' + '.sp-bgm').prop('volume', 0.1);
+	$('.sound-file' + '.sp-bgm').prop('volume', 0.5);
 	$('.sound-file').get(n).play();
 }
 
