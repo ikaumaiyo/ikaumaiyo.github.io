@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>真裸スマブラ</title>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+<link rel="stylesheet" type="text/css" href="main.css">
+<script src="main.js"></script>
+<script>
+</script>
+</head>
+<body>
+	<div id="main-contents">
+		<div id="charSelect">
+
+			<ul>
+				<li class="charBtn" style="background-image: url('img/arisu.png')" onClick="sound(0)"><a>ありす</a></li>
+				<li class="charBtn" style="background-image: url('img/arudo.png')" onClick="sound(1)"><a>アルド</a></li>
+				<li class="charBtn" style="background-image: url('img/asupara.png')" onClick="sound(2)"><a>アスパラ</a></li>
+				<li class="charBtn" style="background-image: url('img/fei.png')" onClick="sound(3)"><a>フェイ</a></li>
+				<li class="charBtn" style="background-image: url('img/forte.png')" onClick="sound(4)"><a>forte</a></li>
+				<li class="charBtn" style="background-image: url('img/iku.png')" onClick="sound(5)"><a>郁</a></li>
+				<li class="charBtn" style="background-image: url('img/kokuyou.png')" onClick="sound(6)"><a>黒・ω・妖</a></li>
+				<li class="charBtn" style="background-image: url('img/kuuhaku.png')" onClick="sound(7)"><a>くうはく</a></li>
+				<li class="charBtn" style="background-image: url('img/megamichan.png')" onClick="sound(8)"><a>めがみちゃん</a></li>
+				<li class="charBtn" style="background-image: url('img/metatoron.png')" onClick="sound(9)"><a>メタトロン</a></li>
+				<li class="charBtn" style="background-image: url('img/mikan.png')" onClick="sound(10)"><a>かんきつるい</a></li>
+				<li class="charBtn" style="background-image: url('img/morisili.png')" onClick="sound(11)"><a>もりしぃ</a></li>
+				<li class="charBtn" style="background-image: url('img/morizo.png')" onClick="sound(12)"><a>Morizoo</a></li>
+				<li class="charBtn" style="background-image: url('img/nendo.png')" onClick="sound(13)"><a>ねんど</a></li>
+				<li class="charBtn" style="background-image: url('img/rimao.png')" onClick="sound(14)"><a>りまお</a></li>
+				<li class="charBtn" style="background-image: url('img/ritopure.png')" onClick="sound(15)"><a>リトプレ</a></li>
+				<li class="charBtn" style="background-image: url('img/rotthi.png')" onClick="sound(16)"><a>ロッティ</a></li>
+				<li class="charBtn" style="background-image: url('img/ruru.png')" onClick="sound(17)"><a>ルル</a></li>
+				<li class="charBtn" style="background-image: url('img/satake.png')" onClick="sound(18)"><a>さたけ</a></li>
+				<li class="charBtn" style="background-image: url('img/sian.png')" onClick="sound(19)"><a>シアン</a></li>
+				<li class="charBtn" style="background-image: url('img/siron.png')" onClick="sound(20)"><a>シロン</a></li>
+				<li class="charBtn" style="background-image: url('img/suke.png')" onClick="sound(21)"><a>すけ</a></li>
+				<li class="charBtn" style="background-image: url('img/sumairu.png')" onClick="sound(22)"><a>すまいる</a></li>
+				<li class="charBtn" style="background-image: url('img/suzu.png')" onClick="sound(23)"><a>スズ</a></li>
+				<li class="charBtn" style="background-image: url('img/tibikuro.png')" onClick="sound(24)"><a>ちびくろ</a></li>
+				<li class="charBtn" style="background-image: url('img/umosan.png')" onClick="sound(25)"><a>うもさん</a></li>
+				<li class="charBtn" style="background-image: url('img/wanpe.png')" onClick="sound(26)"><a>わんぺー</a></li>
+				<li class="charBtn" style="background-image: url('img/yamatano.png')" onClick="sound(27)"><a>ヤマタノ</a></li>
+				<li class="charBtn" style="background-image: url('img/yurisisu.png')" onClick="sound(28)"><a>ゆりしす</a></li>
+				<li class="charBtn" style="background-image: url('img/zakki.png')" onClick="sound(29)"><a>ざっきー</a></li>
+			</ul>
+
+			<br style="clear:both;"/>
+
+			<audio class="sound-file" preload="auto"><source src="sound/arisu.wav" type="audio/wav"></audio>
+			<audio class="sound-file" preload="auto"><source src="sound/arudo.wav" type="audio/wav"></audio>
+			<audio class="sound-file" preload="auto"><source src="sound/asupara.wav" type="audio/wav"></audio>
+			<audio class="sound-file" preload="auto"><source src="sound/fei.wav" type="audio/wav"></audio>
+			<audio class="sound-file" preload="auto"><source src="sound/forte.wav" type="audio/wav"></audio>
+			<audio class="sound-file" preload="auto"><source src="sound/iku.wav" type="audio/wav"></audio>
+			<audio class="sound-file" preload="auto"><source src="sound/kokuyou.wav" type="audio/wav"></audio>
+			<audio class="sound-file" preload="auto"><source src="sound/kuuhaku.wav" type="audio/wav"></audio>
+			<audio class="sound-file" preload="auto"><source src="sound/megamichan.wav" type="audio/wav"></audio>
+			<audio class="sound-file" preload="auto"><source src="sound/metatoron.wav" type="audio/wav"></audio>
+			<audio class="sound-file" preload="auto"><source src="sound/mikan.wav" type="audio/wav"></audio>
+			<audio class="sound-file" preload="auto"><source src="sound/morisili.wav" type="audio/wav"></audio>
+			<audio class="sound-file" preload="auto"><source src="sound/morizo.wav" type="audio/wav"></audio>
+			<audio class="sound-file" preload="auto"><source src="sound/nendo.wav" type="audio/wav"></audio>
+			<audio class="sound-file" preload="auto"><source src="sound/rimao.wav" type="audio/wav"></audio>
+			<audio class="sound-file" preload="auto"><source src="sound/ritopure.wav" type="audio/wav"></audio>
+			<audio class="sound-file" preload="auto"><source src="sound/rotthi.wav" type="audio/wav"></audio>
+			<audio class="sound-file" preload="auto"><source src="sound/ruru.wav" type="audio/wav"></audio>
+			<audio class="sound-file" preload="auto"><source src="sound/satake.wav" type="audio/wav"></audio>
+			<audio class="sound-file" preload="auto"><source src="sound/sian.wav" type="audio/wav"></audio>
+			<audio class="sound-file" preload="auto"><source src="sound/siron.wav" type="audio/wav"></audio>
+			<audio class="sound-file" preload="auto"><source src="sound/suke.wav" type="audio/wav"></audio>
+			<audio class="sound-file" preload="auto"><source src="sound/sumairu.wav" type="audio/wav"></audio>
+			<audio class="sound-file" preload="auto"><source src="sound/suzu.wav" type="audio/wav"></audio>
+			<audio class="sound-file" preload="auto"><source src="sound/tibikuro.wav" type="audio/wav"></audio>
+			<audio class="sound-file" preload="auto"><source src="sound/umosan.wav" type="audio/wav"></audio>
+			<audio class="sound-file" preload="auto"><source src="sound/wanpe.wav" type="audio/wav"></audio>
+			<audio class="sound-file" preload="auto"><source src="sound/yamatano.wav" type="audio/wav"></audio>
+			<audio class="sound-file" preload="auto"><source src="sound/yurisisu.wav" type="audio/wav"></audio>
+			<audio class="sound-file" preload="auto"><source src="sound/zakki.wav" type="audio/wav"></audio>
+
+		</div>
+
+		<div id="charBox">
+			<div id="charTarget"></div>
+			<div id="charTargetDeco"></div>
+			<div id="charTargetDecoCut"></div>
+		</div>
+
+
+
+
+	</div>
+
+</body>
+</html>
