@@ -3,7 +3,8 @@ body {
 	margin: 0px;
 	background-color: #000000;
 	color: #FFFFFF;
-	font-family: 'Hiragino Kaku Gothic Pro','ヒラギノ角ゴ Pro W3','メイリオ',Meiryo,'ＭＳ Ｐゴシック',sans-serif;
+	font-family: 'Hiragino Kaku Gothic Pro', 'ヒラギノ角ゴ Pro W3', 'メイリオ', Meiryo,
+		'ＭＳ Ｐゴシック', sans-serif;
 }
 
 div#main-contents {
@@ -36,6 +37,16 @@ div#charSelect {
 	width: 120px;
 	height: 120px;
 }
+#charSelect li:hover {
+	border: 2px solid #da2121;
+	box-shadow: rgba(255, 0, 0, 0.8) 0px 0px 0px 4px inset,
+	rgba(0, 0, 0, 0.9) 0px 0px 0px 6px inset;
+}
+li.charBtn + .selected {
+	border: 2px solid #da2121;
+	box-shadow: rgba(255, 0, 0, 0.8) 0px 0px 0px 4px inset,
+	rgba(0, 0, 0, 0.9) 0px 0px 0px 6px inset;
+}
 
 #charSelect li.charBtn a {
 	position: absolute;
@@ -49,10 +60,20 @@ div#charSelect {
 		black -1px 1px 2px, black 1px -1px 2px, black -1px -1px 2px;
 }
 
-div#charBox {
+div#charArea {
 	margin-top: 20px;
 	background: linear-gradient(-28deg, #d0ebe3, #3f2b94);
-	padding: 15px;
+	padding: 15px 15px 0px 15px;
+}
+
+div#charBox {
+	display: inline-block;
+	position: relative;
+    border: solid 2px #000000;
+    border-top: solid 10px #000000;
+    padding: 0px;
+    margin: 0px;
+
 }
 
 div#charTarget {
@@ -61,12 +82,16 @@ div#charTarget {
 	height: 300px;
 	display: inline-block;
 	background-color: #b6b5cf;
-	border-top: solid 10px #000000;
-	border-left: solid 2px #000000;
-	border-bottom: solid 2px #000000;
+	vertical-align: bottom;
+}
+
+div#charTargetImg {
 	background-image: url('');
 	background-repeat: no-repeat;
-	background-size:contain;
+	background-size: contain;
+	width: 300px;
+	height: 300px;
+	vertical-align: bottom;
 }
 
 div#charTargetDeco {
@@ -75,11 +100,10 @@ div#charTargetDeco {
 	height: 300px;
 	display: inline-block;
 	background-color: #f63534;
-	border-top: solid 10px #000000;
-	border-bottom: solid 2px #000000;
 	-webkit-transform: skewX(-15deg);
 	-ms-transform: skewX(-15deg);
 	transform: skewX(-15deg);
+	vertical-align: bottom;
 }
 
 div#charTargetDecoCut {
@@ -87,7 +111,20 @@ div#charTargetDecoCut {
 	height: 300px;
 	display: inline-block;
 	background-color: #aa3534;
-	border-top: solid 10px #000000;
-	border-bottom: solid 2px #000000;
-	border-right: solid 2px #000000;
+	vertical-align: bottom;
+}
+
+div#charTargetDecoCut span {
+	position: relative;
+	display: block;
+	width: 200px;
+	top: 138px;
+	left: -118px;
+	font-size: 30px;
+	text-shadow: black 2px 0px 2px, black -2px 0px 2px, black 0px -2px 2px,
+		black -2px 0px 2px, black 2px 2px 2px, black -2px 2px 2px, black 2px
+		-2px 2px, black -2px -2px 2px, black 1px 2px 2px, black -1px 2px 2px,
+		black 1px -2px 2px, black -1px -2px 2px, black 2px 1px 2px, black -2px
+		1px 2px, black 2px -1px 2px, black -2px -1px 2px, black 1px 1px 2px,
+		black -1px 1px 2px, black 1px -1px 2px, black -1px -1px 2px;
 }
