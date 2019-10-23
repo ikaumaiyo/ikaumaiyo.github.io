@@ -16,6 +16,7 @@ div#main-contents {
 div#charSelect {
 	display: inline-block;
 	background: linear-gradient(-28deg, #4580da, #eab131);
+	margin-top: 20px;
 }
 
 #charSelect ul {
@@ -37,15 +38,17 @@ div#charSelect {
 	width: 120px;
 	height: 120px;
 }
+
 #charSelect li:hover {
 	border: 2px solid #da2121;
 	box-shadow: rgba(255, 0, 0, 0.8) 0px 0px 0px 4px inset,
-	rgba(0, 0, 0, 0.9) 0px 0px 0px 6px inset;
+		rgba(0, 0, 0, 0.9) 0px 0px 0px 6px inset;
 }
-li.charBtn + .selected {
+
+li.charBtn+.selected {
 	border: 2px solid #da2121;
 	box-shadow: rgba(255, 0, 0, 0.8) 0px 0px 0px 4px inset,
-	rgba(0, 0, 0, 0.9) 0px 0px 0px 6px inset;
+		rgba(0, 0, 0, 0.9) 0px 0px 0px 6px inset;
 }
 
 #charSelect li.charBtn a {
@@ -69,11 +72,10 @@ div#charArea {
 div#charBox {
 	display: inline-block;
 	position: relative;
-    border: solid 2px #000000;
-    border-top: solid 10px #000000;
-    padding: 0px;
-    margin: 0px;
-
+	border: solid 2px #000000;
+	border-top: solid 10px #000000;
+	padding: 0px;
+	margin: 0px;
 }
 
 div#charTarget {
@@ -127,4 +129,22 @@ div#charTargetDecoCut span {
 		black 1px -2px 2px, black -1px -2px 2px, black 2px 1px 2px, black -2px
 		1px 2px, black 2px -1px 2px, black -2px -1px 2px, black 1px 1px 2px,
 		black -1px 1px 2px, black 1px -1px 2px, black -1px -1px 2px;
+}
+
+div.cursor {
+	width: 80px;
+	height: 80px;
+	border-radius: 100%;
+	position: absolute;
+	top: 100px;
+	z-index: 1;
+	top: 100px;
+	z-index: 1;
+	background-color: #da2121;
+	box-shadow: rgba(255, 141, 141, 0.8) 0px 1px 3px 2px inset,
+		rgba(64, 0, 0, 0.8) 0px 0px 2px 1px inset, rgba(224, 18, 18, 0.8) 0px
+		0px 2px 15px inset, rgba(0, 0, 0, 0.9) 0px 0px 3px 16px inset,
+		rgba(156, 30, 30, 0.9) 1px 2px 14px 12px inset, rgba(35, 0, 0, 0.9)
+		2px 2px 2px 4px;
+	border: solid 2px #751010;
 }
