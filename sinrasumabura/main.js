@@ -1,11 +1,11 @@
 
 function sound(n) {
+	$('.sound-file' + '.sp-bgm').prop('volume', 0.1);
 	$('.sound-file').get(n).play();
 }
 
 $(document).ready(function() {
 
-	$('.sound-file' + '.sp-bgm').prop('volume', 0.1);
 
 	$('.charBtn').on('click', function(e) {
 		console.log('screen=' + e.screenX + ',' + e.screenY);
