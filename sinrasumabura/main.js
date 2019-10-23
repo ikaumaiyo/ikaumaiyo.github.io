@@ -6,8 +6,8 @@ $(document).ready(function() {
 
 	$('.charBtn').on('click', function() {
 
-		console.log('イベントが実行されました！');
-		console.log($(this).css('background-image'));
+
+		$('#charTarget').css('background-image', $(this).css('background-image'));
 
 
 
