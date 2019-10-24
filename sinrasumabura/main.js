@@ -32,7 +32,7 @@ $(document).ready(function() {
 		$(".cursor").each(function() {
 			$(this).animate({
 				top : e.pageY-30   ,
-				left:e.pageX-30
+				left:e.pageX-110
 			}, 50);
 		});
 

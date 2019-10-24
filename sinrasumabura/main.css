@@ -12,7 +12,6 @@ div#main-contents {
 	max-width: 90%;
 	min-width: 700px;
 }
-
 div#charSelect {
 	display: inline-block;
 	background: linear-gradient(-28deg, #4580da, #eab131);
@@ -34,6 +33,7 @@ div#charSelect {
 	/* margin: 2px; */
 	border: 2px solid #000000;
 	font-size: 17px;
+	font-weight: bold;
 	text-align: left;
 	width: 120px;
 	height: 120px;
@@ -123,6 +123,7 @@ div#charTargetDecoCut span {
 	top: 138px;
 	left: -118px;
 	font-size: 30px;
+	font-weight: bold;
 	text-shadow: black 2px 0px 2px, black -2px 0px 2px, black 0px -2px 2px,
 		black -2px 0px 2px, black 2px 2px 2px, black -2px 2px 2px, black 2px
 		-2px 2px, black -2px -2px 2px, black 1px 2px 2px, black -1px 2px 2px,
