@@ -145,7 +145,7 @@ div.cursor {
 	top: 100px;
 	z-index: 1;
 	top: 100px;
-	z-index: 1;
+	z-index: 10;
 	background-color: #da2121;
 	box-shadow: rgba(255, 141, 141, 0.8) 0px 1px 3px 2px inset,
 		rgba(64, 0, 0, 0.8) 0px 0px 2px 1px inset, rgba(224, 18, 18, 0.8) 0px
