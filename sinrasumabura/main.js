@@ -1,6 +1,6 @@
 
 function sound(n) {
-	$('.sound-file' + '.sp-bgm').prop('volume', 0.5);
+	$('.sound-file' + '.sp-bgm').prop('volume', 0.3);
 	$('.sound-file').get(n).play();
 }
 
@@ -8,7 +8,6 @@ $(document).ready(function() {
 
 
 	$('.charBtn').on('click', function(e) {
-		console.log('screen=' + e.screenX + ',' + e.screenY);
 
 		$(".selected").each(function() {
 			$(this).removeClass("selected");
@@ -29,11 +28,17 @@ $(document).ready(function() {
 			'borderColor' : '#000000'
 		}, 50);
 
+				$('#charTargetImg').effect('shake', {
+			direction : 'left',
+			distance : 3,
+			duration : 50
+		}, 15);
+
 		$(".cursor").each(function() {
 			$(this).animate({
 				top : e.pageY-30   ,
 				left:e.pageX-120
-			}, 450);
+			}, 250);
 		});
 
 

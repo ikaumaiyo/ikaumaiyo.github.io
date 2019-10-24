@@ -148,4 +148,5 @@ div.cursor {
 		rgba(156, 30, 30, 0.9) 1px 2px 14px 12px inset, rgba(35, 0, 0, 0.9)
 		2px 2px 2px 4px;
 	border: solid 2px #751010;
+	pointer-events: none;
 }
