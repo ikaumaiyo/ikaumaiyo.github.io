@@ -33,13 +33,8 @@ $(document).ready(function() {
 			$(this).animate({
 				top : e.pageY-30   ,
 				left:e.pageX-120
-			}, 150);
+			}, 450);
 		});
-
-		 console.log('screen=' + e.screenX + ',' + e.screenY);
-		  console.log('page=' + e.pageX + ',' + e.pageY);
-		  console.log('client=' + e.clientX + ',' + e.clientY);
-		  console.log('offset=' + e.offsetX + ',' + e.offsetY);
 
 
 	});
