@@ -32,8 +32,8 @@ $(document).ready(function() {
 		$(".cursor").each(function() {
 			$(this).animate({
 				top : e.pageY-30   ,
-				left:e.pageX-110
-			}, 50);
+				left:e.pageX-120
+			}, 150);
 		});
 
 		 console.log('screen=' + e.screenX + ',' + e.screenY);
