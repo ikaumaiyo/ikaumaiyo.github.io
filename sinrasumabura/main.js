@@ -1,11 +1,9 @@
-
 function sound(n) {
 	$('.sound-file' + '.sp-bgm').prop('volume', 0.3);
 	$('.sound-file').get(n).play();
 }
 
 $(document).ready(function() {
-
 
 	$('.charBtn').on('click', function(e) {
 
@@ -28,19 +26,18 @@ $(document).ready(function() {
 			'borderColor' : '#000000'
 		}, 50);
 
-				$('#charTargetImg').effect('shake', {
+		$('#charTargetImg').effect('shake', {
 			direction : 'left',
-			distance : 3,
+			distance : 15,
 			duration : 50
-		}, 15);
+		}, 150);
 
 		$(".cursor").each(function() {
 			$(this).animate({
-				top : e.pageY-30   ,
-				left:e.pageX-120
+				top : e.pageY - 30,
+				left : e.pageX - 120
 			}, 250);
 		});
-
 
 	});
 
