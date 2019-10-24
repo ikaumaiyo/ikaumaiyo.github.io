@@ -12,6 +12,7 @@ div#main-contents {
 	max-width: 90%;
 	min-width: 700px;
 }
+
 div#charSelect {
 	display: inline-block;
 	background: linear-gradient(-28deg, #4580da, #eab131);
@@ -76,8 +77,8 @@ div#charBox {
 	border-top: solid 10px #000000;
 	padding: 0px;
 	margin: 0px;
-	  transform-style: preserve-3d;
-  transform: perspective(500px);
+	transform-style: preserve-3d;
+	transform: perspective(500px);
 }
 
 div#charTarget {
@@ -87,8 +88,6 @@ div#charTarget {
 	display: inline-block;
 	background-color: #b6b5cf;
 	vertical-align: bottom;
-
-
 }
 
 div#charTargetImg {
@@ -156,4 +155,3 @@ div.cursor {
 	pointer-events: none;
 	transform: translateZ(100px);
 }
-
