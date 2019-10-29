@@ -1,0 +1,10 @@
+let a = new UnitDatastore();
+a.save('テスト',1);
+
+			let array = [];
+			let _unit = {
+					'name' : 'テスト',
+					'level' : 2,
+				};
+			array.push(_unit);
+localStorage.setItem('unit', JSON.stringify(array));

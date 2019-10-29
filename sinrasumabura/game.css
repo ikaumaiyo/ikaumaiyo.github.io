@@ -1,0 +1,135 @@
+div#game-contents {
+	border: solid 2px #ff0000;
+	display: block;
+	width: 900px;
+	height: 800px;
+	margin: 0 auto;
+	color: black;
+	background-color: #ECECEC;
+	background-image: -webkit-gradient(linear, 0 0, 100% 100%, color-stop(.25, #F9F9F9),
+		color-stop(.25, transparent), color-stop(.5, transparent),
+		color-stop(.5, #F9F9F9), color-stop(.75, #F9F9F9),
+		color-stop(.75, transparent), to(transparent));
+	-webkit-background-size: 7px 7px;
+	background-color: #ECECEC;
+}
+
+/***************/
+div.unitArea {
+	border: solid 2px #ff0000;
+	display: block;
+	position: relative;
+	margin: 10px auto;
+	width: 800px;
+	height: 250px;
+}
+
+div.status {
+	border: solid 2px #ff0000;
+	display: inline-block;
+	position: absolute;
+	margin: 10px;
+	width: 340px;
+	height: 100px;
+}
+
+div.status .name {
+	border: solid 2px #ff0000;
+	display: inline-block;
+	margin: 10px;
+}
+
+div.status .level {
+	border: solid 2px #ff0000;
+	display: inline-block;
+	float: right;
+	margin: 10px;
+}
+
+div.status .hp {
+	border: solid 2px #ff0000;
+	margin: 10px;
+}
+
+div.unitImg {
+	border: solid 2px #ff0000;
+	display: inline-block;
+	position: absolute;
+	margin: 10px;
+	width: 180px;
+	height: 180px;
+}
+
+/***************/
+div.status.boss {
+
+}
+
+div.unitImg.boss {
+	right: 110px;
+}
+
+/***************/
+div.status.player {
+	right: 0px;
+	bottom: 0px;
+}
+
+div.unitImg.player {
+	left: 93px;
+	bottom: -11px;
+	width: 240px;
+	height: 240px;
+}
+
+/***************/
+div.commandArea {
+	border: solid 2px #ff0000;
+	display: block;
+	position: relative;
+	margin: 10px auto;
+	width: 800px;
+	height: 200px;
+}
+
+div.commandArea .fight {
+	border: solid 2px #ff0000;
+	width: 500px;
+	height: 190px;
+}
+
+div.commandArea .fight ul {
+	padding: 0px;
+}
+
+div.commandArea .fight ul li {
+	list-style: none;
+	display: inline-block;
+	border: solid 2px #ff0000;
+	width: 240px;
+	height: 71px;
+}
+/
+*
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*
+/
