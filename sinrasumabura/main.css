@@ -228,11 +228,15 @@ div#startButton {
 }
 
 div#startButton>span {
+	opacity: 1;
 	height: 100px;
 	display: table-cell;
 	vertical-align: middle;
+	font-size: 67px;
 }
 
 div#startButton:hover {
-
+	color:#ff9900;
+	border-top: solid 10px #ff0000;
+	border-bottom: solid 10px #ff0000;
 }
