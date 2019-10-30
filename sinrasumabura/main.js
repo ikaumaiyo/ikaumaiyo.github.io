@@ -123,10 +123,12 @@ $(document).ready(function() {
 		sound($(this).data('unit-num'));
 
 		$('#startButton').show();
-		$('#startButton').css('left', '-100px');
+		$('#startButton').css('left', '-500px');
+		$('#startButton').css('top', '100px');
 		$('#startButton').animate({
-			'left' : '0px'
-		}, 100);
+			'left' : '0px',
+			'top' : '0px'
+		}, 70);
 
 		$(".selected").each(function() {
 			$(this).removeClass("selected");

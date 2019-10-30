@@ -67,7 +67,7 @@ div#charSelect {
 		rgba(0, 0, 0, 0.9) 0px 0px 0px 6px inset;
 }
 
-li.charBtn+.selected {
+li.charBtn.selected {
 	border: 2px solid #da2121;
 	box-shadow: rgba(255, 0, 0, 0.8) 0px 0px 0px 4px inset,
 		rgba(0, 0, 0, 0.9) 0px 0px 0px 6px inset;
