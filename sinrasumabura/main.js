@@ -155,8 +155,10 @@ $(document).ready(function() {
 
 		$(".cursor").each(function() {
 			$(this).animate({
-				top : e.pageY - $(this).parent().offset().top - 50,
-				left : e.pageX - $(this).parent().offset().left- 50
+//				top : e.pageY - $(this).parent().offset().top - 50,
+//				left : e.pageX - $(this).parent().offset().left- 50
+				top : e.pageY - 50,
+				left : e.pageX - 50
 			}, 250);
 		});
 
