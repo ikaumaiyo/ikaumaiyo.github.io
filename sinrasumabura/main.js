@@ -1,9 +1,19 @@
+// global instance
 let ods = new OptionDatastore();
-let uds = new UnitDatastore();
+let usds = new UnitStatusDatastore();
+let bsds = new BossStatusDatastore();
+let game;
 
+
+function contentsToggle() {
+	$('#main-contents').toggle();
+	$('#game-contents').toggle();
+
+	refreshStatus();
+}
 
 function sound(n) {
-	$('.sound-file' + '.sp-bgm').prop('volume', 0.15);
+	$('.sound-file' + '.sp-bgm').prop('volume', 0.5);
 	let _volume = ods.getVolume();
 	if(_volume){
 		$('.sound-file').get(n).play();
@@ -15,20 +25,88 @@ function sound(n) {
 
 function refreshUnit(){
 
-	let _unitList = uds.getUnitList();
+	// ユニット一覧を生成
+
+	let ul = $('<ul></ul>');
+
+	$.each(UNIT_LIST, function(k, v){
+
+		let li = $('<li></li>');
+		li.addClass('charBtn');
+		li.css('background-image', 'url(img/'+v.id+'.png)')
+		li.attr('data-unit-num',k);
+		li.attr('data-unit-id',v.id);
+
+		let a = $('<a></a>');
+		a.html(v.name);
+
+		li.append(a);
+		ul.append(li);
+
+		let audio = $('<audio></audio>');
+		audio.addClass('sound-file');
+		audio.attr('preload','auto');
+
+		let source = $('<source></source>');
+		source.attr('src','sound/'+v.id+'.mp3');
+		source.attr('type','audio/mp3');
+
+		audio.append(source);
+		ul.append(audio);
+
+
+	});
+
+	$('#charSelect').append(ul);
+
+	refreshStatus();
+}
+
+function refreshStatus(){
+
+
+	// ユニットステータスを更新
+	let _unitStatusList = usds.getUnitStatusList();
 
 	$(".charBtn").each(function() {
-		let _name = $(this).find('a').html();
-		let _unit = _unitList.filter(function(o){
-			return o.name == _name;
+
+		let _id = $(this).data('unit-id');
+		let _unitStatus = _unitStatusList.filter(function(o){
+			return o.id == _id;
 		});
-		if(_unit.length > 0){
-			$(this).find('a').html('<font size="3">Lv</font>'+_unit[0].level+'<br>'+_name)
+
+		let _unit = UNIT_LIST.filter(function(o){
+			return o.id == _id;
+		});
+
+		if(_unitStatus.length > 0){
+			$(this).find('a').html('<font size="3">Lv</font>'+_unitStatus[0].level+'<br>'+_unit[0].name)
 		}else{
-			$(this).find('a').html('<font size="3">Lv</font>1<br>'+_name)
+			$(this).find('a').html('<font size="3">Lv</font>1<br>'+_unit[0].name);
 		}
 	});
 
+
+
+	$('#charTargetDecoCut > span').html($('.charBtn.selected>a').html());
+
+}
+
+
+function resetPlayer(){
+	if(confirm('プレイヤーレベルをリセットしますか？')){
+
+		usds.reset();
+		usds = new UnitStatusDatastore();
+		refreshStatus();
+	}
+}
+
+function resetBoss(){
+	if(confirm('ボスレベルをリセットしますか？')){
+		bsds.reset();
+		bsds = new BossStatusDatastore();
+	}
 }
 
 function toggleVolume(){
@@ -41,6 +119,8 @@ $(document).ready(function() {
 
 
 	$('.charBtn').on('click', function(e) {
+
+		sound($(this).data('unit-num'));
 
 		$(".selected").each(function() {
 			$(this).removeClass("selected");
@@ -85,16 +165,6 @@ $(document).ready(function() {
 
 
 
-	$('#startButton').on('click', function(e) {
-		let _unitId = $('#charTargetImg').data('unit-id');
-		console.log(_unitId);
-		if(_unitId == ''){
-			alert('キャラを選択してください。');
-		}
-
-
-	});
-
 	$('.charBtn').hover(function() {
 		selectChar($(this));
 
@@ -102,6 +172,13 @@ $(document).ready(function() {
 		$(".selected").each(function() {
 			selectChar($(this));
 		});
+	});
+
+	$('#startButton').hover(function() {
+		$(this).find('span').css('left', '-200px');
+		$(this).find('span').animate({
+			'left' : '0px'
+		}, 100);
 	});
 
 	function selectChar(__elm__) {
@@ -139,9 +216,6 @@ $(document).ready(function() {
 			'left' : '0px'
 		}, 100);
 
-
-
-
 	});
 
 	$('#bossBox>.prev').on('click', function() {
@@ -162,6 +236,26 @@ $(document).ready(function() {
 			'left' : '0px'
 		}, 100);
 	});
+
+
+
+	$('#startButton').on('click', function(e) {
+		let _unitId = $('#charTargetImg').data('unit-id');
+		if(_unitId == ''){
+			alert(MESSAGE_UNIT_NONE);
+			return;
+		}
+
+		let _bossId = $('#bossTargetImg').data('boss-id');
+
+		contentsToggle();
+
+		game = new Game(_unitId, _bossId);
+		game.run();
+
+	});
+
+
 
 });
 

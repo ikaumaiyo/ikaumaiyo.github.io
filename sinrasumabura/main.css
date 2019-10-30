@@ -160,7 +160,7 @@ div#bossBox {
 	position: relative;
 	display: inline-block;
 	float: right;
-	right: 0px;
+	right: 24px;
 	width: 364px;
 	height: 300px;
 	border: solid 2px #000000;
@@ -229,6 +229,7 @@ div#startButton {
 
 div#startButton>span {
 	opacity: 1;
+	position: relative;
 	height: 100px;
 	display: table-cell;
 	vertical-align: middle;
@@ -236,7 +237,7 @@ div#startButton>span {
 }
 
 div#startButton:hover {
-	color:#ff9900;
+	color: #ff9900;
 	border-top: solid 10px #ff0000;
 	border-bottom: solid 10px #ff0000;
 }

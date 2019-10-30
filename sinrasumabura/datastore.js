@@ -1,10 +1,10 @@
 
-const UNIT = 'unit';
+const UNIT = 'unitStatus';
 
-class UnitDatastore{
+class UnitStatusDatastore{
 
 	constructor(){
-		this.unitList = this.load();
+		this.unitStatusList = this.load();
 	}
 
 	load(){
@@ -12,39 +12,135 @@ class UnitDatastore{
 		return JSON.parse(_unit) || [];
 	}
 
-	getUnitList(){
-		return this.unitList;
+	getUnitStatusList(){
+		return this.unitStatusList;
 	}
 
-	levelUp(name) {
+	levelUp(id) {
 
-		let _targetUnit = this.unitList.filter(function(o){
-			return o.name == name;
+		let _targetUnit = this.unitStatusList.filter(function(o){
+			return o.id == id;
 		});
 
 		if(_targetUnit.length > 0){
 
 			_targetUnit[0].level++;
 
-			let _newUnitList = this.unitList.filter(function(o){
-				return o.name != name;
+			let _newUnitStatusList = this.unitStatusList.filter(function(o){
+				return o.id != id;
 			});
 
-			_newUnitList.push(_targetUnit[0]);
+			_newUnitStatusList.push(_targetUnit[0]);
 
-			this.unitList = _newUnitList;
+			this.unitStatusList = _newUnitStatusList;
 
 		}else{
 
 			_targetUnit = {
-					'name' : name,
+					'id' : id,
 					'level' : 2,
 				};
-			this.unitList.push(_targetUnit);
+			this.unitStatusList.push(_targetUnit);
 
 		}
 
-		localStorage.setItem(UNIT, JSON.stringify(this.unitList));
+		localStorage.setItem(UNIT, JSON.stringify(this.unitStatusList));
+	}
+
+	insert(id) {
+
+		let _targetUnit = this.unitStatusList.filter(function(o){
+			return o.id == id;
+		});
+
+		if(_targetUnit.length == 0){
+
+			_targetUnit = {
+					'id' : id,
+					'level' : 1,
+				};
+			this.unitStatusList.push(_targetUnit);
+
+		}
+
+		localStorage.setItem(UNIT, JSON.stringify(this.unitStatusList));
+	}
+
+	reset(){
+		localStorage.removeItem(UNIT);
+	}
+
+}
+
+const BOSS = 'bossStatus';
+
+class BossStatusDatastore{
+
+	constructor(){
+		this.bossStatusList = this.load();
+	}
+
+	load(){
+		let _unit = localStorage.getItem(BOSS);
+		return JSON.parse(_unit) || [];
+	}
+
+	getBossStatusList(){
+		return this.bossStatusList;
+	}
+
+	levelUp(id) {
+
+		let _targetUnit = this.bossStatusList.filter(function(o){
+			return o.id == id;
+		});
+
+		if(_targetUnit.length > 0){
+
+			_targetUnit[0].level++;
+
+			let _newBossStatusList = this.bossStatusList.filter(function(o){
+				return o.id != id;
+			});
+
+			_newBossStatusList.push(_targetUnit[0]);
+
+			this.bossStatusList = _newBossStatusList;
+
+		}else{
+
+			_targetUnit = {
+					'id' : id,
+					'level' : 2,
+				};
+			this.bossStatusList.push(_targetUnit);
+
+		}
+
+		localStorage.setItem(BOSS, JSON.stringify(this.bossStatusList));
+	}
+
+	insert(id) {
+
+		let _targetUnit = this.bossStatusList.filter(function(o){
+			return o.id == id;
+		});
+
+		if(_targetUnit.length == 0){
+
+			_targetUnit = {
+					'id' : id,
+					'level' : 1,
+				};
+			this.bossStatusList.push(_targetUnit);
+
+		}
+
+		localStorage.setItem(BOSS, JSON.stringify(this.bossStatusList));
+	}
+
+	reset(){
+		localStorage.removeItem(BOSS);
 	}
 
 
