@@ -122,6 +122,12 @@ $(document).ready(function() {
 
 		sound($(this).data('unit-num'));
 
+		$('#startButton').show();
+		$('#startButton').css('left', '-100px');
+		$('#startButton').animate({
+			'left' : '0px'
+		}, 100);
+
 		$(".selected").each(function() {
 			$(this).removeClass("selected");
 		});
@@ -175,10 +181,10 @@ $(document).ready(function() {
 	});
 
 	$('#startButton').hover(function() {
-		$(this).find('span').css('left', '-200px');
-		$(this).find('span').animate({
-			'left' : '0px'
-		}, 100);
+//		$(this).find('span').css('left', '-200px');
+//		$(this).find('span').animate({
+//			'left' : '0px'
+//		}, 100);
 	});
 
 	function selectChar(__elm__) {

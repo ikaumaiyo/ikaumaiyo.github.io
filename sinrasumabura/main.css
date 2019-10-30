@@ -213,6 +213,7 @@ div#bossBox>.next:hover {
 }
 
 div#startButton {
+	display:none;
 	position: relative;
 	opacity: 0.8;
 	width: 100%;
@@ -234,6 +235,7 @@ div#startButton>span {
 	display: table-cell;
 	vertical-align: middle;
 	font-size: 67px;
+	width: 1000px;
 }
 
 div#startButton:hover {
