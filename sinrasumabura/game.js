@@ -148,6 +148,7 @@ class Game{
 		}
 
 
+
 	}
 
 	calcHp(hp,level){

@@ -208,4 +208,5 @@ const ATK_LIST = [ {
 	str : 2
 } ];
 
+
 const MESSAGE_UNIT_NONE = 'キャラを選択してください。';
