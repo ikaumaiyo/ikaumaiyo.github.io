@@ -198,6 +198,14 @@ const ATK_LIST = [ {
 	id : '03',
 	name : '残党',
 	str : 3
+}, {
+	id : '04',
+	name : '女神の汁',
+	str : 2
+} , {
+	id : '05',
+	name : 'ドリフトキング',
+	str : 2
 } ];
 
 const MESSAGE_UNIT_NONE = 'キャラを選択してください。';

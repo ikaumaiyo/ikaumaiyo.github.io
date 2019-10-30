@@ -130,6 +130,22 @@ class Game{
 			_fightElm.find('.c2').html(_c2[0].name);
 			_fightElm.find('.c2').data('atk-id',_c2[0].id);
 		}
+		// ----めがみちゃん
+		if(this.unitId == 'megamichan' && this._unitStatus[0].level > 5){
+			let _c2 = ATK_LIST.filter(function(o){
+				return o.id == '04';
+			});
+			_fightElm.find('.c2').html(_c2[0].name);
+			_fightElm.find('.c2').data('atk-id',_c2[0].id);
+		}
+		// ----うもさん
+		if(this.unitId == 'umosan' && this._unitStatus[0].level > 5){
+			let _c2 = ATK_LIST.filter(function(o){
+				return o.id == '05';
+			});
+			_fightElm.find('.c2').html(_c2[0].name);
+			_fightElm.find('.c2').data('atk-id',_c2[0].id);
+		}
 
 
 	}
