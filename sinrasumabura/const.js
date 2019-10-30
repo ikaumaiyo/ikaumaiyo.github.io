@@ -27,7 +27,7 @@ const BOSS_LIST = [ {
 	id : '99',
 	name : 'KMR',
 	hp : 99999999,
-	atk : 500
+	atk : 3000
 } ];
 
 const UNIT_LIST = [ {
