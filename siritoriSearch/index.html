@@ -40,6 +40,7 @@
 				td.html(img);
 
 				tr.append(td);
+				tr.append($('<td></td>'));
 
 			}else if(o.gs$cell.col == '4'){
 
@@ -81,7 +82,7 @@
 
 				var that = $(this);
 
-				var wordElm = $(this).find('td').get(1);
+				var wordElm = $(this).find('td').get(2);
 				var words = wordElm.innerHTML.split(/\n/);
 
 				$(this).hide();
@@ -89,7 +90,11 @@
 				$.each(words, function(i, v) {
 
 					if (v.indexOf(searchStr) === 0 || v.indexOf(searchStrKana) === 0) {
-						console.log(v);
+						if(searchStr !=''){
+							that.find('td').get(1).innerHTML = v;
+						}else{
+							that.find('td').get(1).innerHTML = '';
+						}
 						that.show();
 					}
 
