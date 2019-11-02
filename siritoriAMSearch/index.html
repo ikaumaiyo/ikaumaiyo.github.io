@@ -5,13 +5,15 @@
 <title></title>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <script type="text/javascript">
+
+
 	const key = '1Sn7h1b6nhOMj9yVliesjoUT2y7RRpHRelJ_86o4OxPM';
-	const workcheetId = '1';
+	const workcheetId = '4';
 	const url = 'https://spreadsheets.google.com/feeds/cells/' + key + '/' + workcheetId + '/public/values?alt=json';
 
-	function load() {
-		var data = localStorage.getItem('data');
-		if (data == null) {
+	function load(){
+		var data = localStorage.getItem('dataAM');
+		if(data == null){
 
 			$.ajax({
 				type : 'GET',
@@ -27,7 +29,7 @@
 				}
 			});
 
-		} else {
+		}else{
 			$('#target').html(data);
 		}
 	}
@@ -38,7 +40,10 @@
 
 		$.each(sheetsEntry, function(i, o) {
 
-			if (o.gs$cell.col == '3') {
+
+			if (o.gs$cell.col == '1') {
+
+				console.table(o.content.$t);
 
 				var td = $('<td></td>');
 				var img = $('<img>');
@@ -55,7 +60,7 @@
 				tr.append(td);
 				tr.append($('<td></td>'));
 
-			} else if (o.gs$cell.col == '4') {
+			} else if (o.gs$cell.col == '2') {
 
 				var words = o.content.$t.split(/\n/);
 
@@ -93,6 +98,7 @@
 
 	$(document).ready(function() {
 
+
 		load();
 
 		$('#search').keyup(function() {
@@ -126,18 +132,15 @@
 
 		$('body').on('click', '.delBtn', function(e) {
 			$(this).parent().remove();
-			localStorage.setItem('data', $('#target').html());
 		});
 		$('body').on('click', '.word', function(e) {
 			$(this).remove();
-			localStorage.setItem('data', $('#target').html());
 		});
 		$('body').on('click', '.howtouse', function(e) {
 			$('p').toggle();
 		});
 		$('body').on('click', '.reset', function(e) {
-			if (confirm('セーブ消す？')) {
-				localStorage.removeItem('data');
+			if(confirm('セーブ消す？')){
 				load();
 			}
 		});
@@ -175,7 +178,7 @@ td.word:hover {
 </style>
 </head>
 <body>
-	エアプwith版（ガバガバ）
+	エアプmedia版（全部揃ってる）
 	<button class="howtouse">使い方 ▼</button>
 	<p>
 
@@ -194,11 +197,10 @@ td.word:hover {
 		<br>
 		ワードを全て消したら次の検索時にアイコンごと消える。（便利だね）
 		<br>
+		<br><button class="reset">リセット</button>
 		<br>
-		<button class="reset">リセット</button>
 		<br>
-		<br>
-		<a href="https://gamewith.jp/pricone-re/article/show/174474" target="_blank">エアプwithのデータ</a>使ってるからあっちが更新されたらこっちにも反映される。
+		<a href="https://appmedia.jp/priconne-redive/4080796" target="_blank">全部揃ってるエアプmediaのデータ</a>使ってるけどデータ抽出間違ってたら変になってるかも。
 		<br>
 		<br>
 	</p>
