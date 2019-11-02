@@ -33,11 +33,18 @@
 
 			if(o.gs$cell.col == '3'){
 
+
 				var td = $('<td></td>');
 				var img = $('<img>');
 				img.attr('src',o.content.$t);
 				img.attr('height','50px');
 				td.html(img);
+
+				var delBtn = $('<td></td>');
+				delBtn.addClass('delBtn');
+				delBtn.html('X');
+				delBtn.css('font-size','50px');
+				tr.append(delBtn);
 
 				tr.append(td);
 				tr.append($('<td></td>'));
@@ -82,7 +89,7 @@
 
 				var that = $(this);
 
-				var wordElm = $(this).find('td').get(2);
+				var wordElm = $(this).find('td').get(3);
 				var words = wordElm.innerHTML.split(/\n/);
 
 				$(this).hide();
@@ -91,9 +98,9 @@
 
 					if (v.indexOf(searchStr) === 0 || v.indexOf(searchStrKana) === 0) {
 						if(searchStr !=''){
-							that.find('td').get(1).innerHTML = v;
+							that.find('td').get(2).innerHTML = v;
 						}else{
-							that.find('td').get(1).innerHTML = '';
+							that.find('td').get(2).innerHTML = '';
 						}
 						that.show();
 					}
@@ -104,16 +111,31 @@
 
 			});
 
-			console.log('======================');
+		});
+
+		$('body').on('click', '.delBtn', function(e) {
+			console.log('click');
+
+			$(this).parent().remove();
+
 		});
 
 	});
 </script>
 </head>
 <body>
-	▼ひらがなかカタカナ入力[前方一致]
+
+	【使い方】<br>
+	１：コンブしてたら「Xボタン」で消す。（ページ更新したら状態破棄される）<br>
+	２：検索ボックスに「あ」とか「イ」とか入れる<br>
+	３：でてくる<br>
+	<br>
+	エアプメディアのデータ使ってるからあっちが更新されたらこっちにも反映される<br>
+	<br>
+	検索
 	<br>
 	<input type="text" value="" id="search" />
+
 	<table>
 		<tbody id='target'>
 		</tbody>
