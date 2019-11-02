@@ -206,6 +206,10 @@ const ATK_LIST = [ {
 	id : '05',
 	name : 'ドリフトキング',
 	str : 2
+} , {
+	id : '06',
+	name : '/除名タノ',
+	str : 0
 } ];
 
 

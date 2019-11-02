@@ -146,6 +146,14 @@ class Game{
 			_fightElm.find('.c2').html(_c2[0].name);
 			_fightElm.find('.c2').data('atk-id',_c2[0].id);
 		}
+		// ----ヤマタノ
+		if(this.unitId == 'yamatano' && this._unitStatus[0].level > 5){
+			let _c2 = ATK_LIST.filter(function(o){
+				return o.id == '06';
+			});
+			_fightElm.find('.c2').html(_c2[0].name);
+			_fightElm.find('.c2').data('atk-id',_c2[0].id);
+		}
 
 
 
@@ -179,28 +187,30 @@ class Game{
 		let _playerHp = this.calcHp(this._unit[0].hp, this._unitStatus[0].level);
 		let _bossHp = this.calcHp(this._boss[0].hp, this._bossStatus[0].level);
 
-
-		//
-		this.nowPlayerHp;
-		this.nowBossHp;
-
 		// プレイヤーアタック
 
 		setTimeout(() => {
-			$('.sound-file' + '.atk01')[0].play();
 
-			$('.unitArea.boss').effect('shake', {
-				direction : 'left',
-				distance : 15,
-				duration : 50
-			}, 150);
 
-			let _playerAtkDamage = this.calcAtk(this._unit[0].atk,this._unitStatus[0].level,_atk[0].str);
-			$('.status.boss>.hpPer>span').html(this.calcDmgResult(this.nowBossHp,_playerAtkDamage)+' / '+_bossHp);
+			if(!this.skill(_atk[0].id)){
 
-			this.nowBossHp = this.calcDmgResult(this.nowBossHp,_playerAtkDamage);
+				$('.sound-file' + '.atk01')[0].play();
 
-			$('.status.boss>.hp>meter').val(this.nowBossHp/_bossHp*100);
+				$('.unitArea.boss').effect('shake', {
+					direction : 'left',
+					distance : 15,
+					duration : 50
+				}, 150);
+
+				let _playerAtkDamage = this.calcAtk(this._unit[0].atk,this._unitStatus[0].level,_atk[0].str);
+				$('.status.boss>.hpPer>span').html(this.calcDmgResult(this.nowBossHp,_playerAtkDamage)+' / '+_bossHp);
+
+				this.nowBossHp = this.calcDmgResult(this.nowBossHp,_playerAtkDamage);
+
+				$('.status.boss>.hp>meter').val(this.nowBossHp/_bossHp*100);
+
+			}
+
 		},
 		10);
 
@@ -208,7 +218,7 @@ class Game{
 		// ボスアタック
 		setTimeout(() => {
 
-			if(this.nowBossHp != 0){
+			if(this.nowBossHp != 0 && this.nowPlayerHp != 0){
 
 				$('.sound-file' + '.atk01')[0].play();
 				$('.unitArea.player').effect('shake', {
@@ -255,6 +265,28 @@ class Game{
 		},
 		1000);
 
+	}
+
+	skill(atkId){
+
+		console.log(atkId);
+
+
+		if(atkId == '06'){
+			$('.sound-file' + '.atk01')[0].play();
+			$('.unitArea.player').effect('shake', {
+				direction : 'left',
+				distance : 15,
+				duration : 50
+			}, 150);
+
+			$('.status.player>.hp>meter').val(0);
+			this.nowPlayerHp = 0;
+			return true;
+
+		}
+
+		return false;
 	}
 
 
