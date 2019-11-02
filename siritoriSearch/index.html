@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title></title>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script type="text/javascript">
+	const key = '1Sn7h1b6nhOMj9yVliesjoUT2y7RRpHRelJ_86o4OxPM';
+	const workcheetId = '1';
+	const url = 'https://spreadsheets.google.com/feeds/cells/' + key + '/' + workcheetId + '/public/values?alt=json';
+	console.log(url);
+
+	$.ajax({
+		type : 'GET',
+		url : url,
+		dataType : 'jsonp',
+		cache : false,
+		success : function(data) {
+			var sheetsEntry = data.feed.entry;
+			renderData(sheetsEntry);
+		},
+		error : function() {
+			console.log('error');
+		}
+	});
+
+	function renderData(sheetsEntry) {
+
+
+		var tr = $('<tr></tr>');
+
+		$.each(sheetsEntry, function(i, o) {
+
+			if(o.gs$cell.col == '3'){
+
+				var td = $('<td></td>');
+				var img = $('<img>');
+				img.attr('src',o.content.$t);
+				img.attr('height','50px');
+				td.html(img);
+
+				tr.append(td);
+
+			}else if(o.gs$cell.col == '4'){
+
+				var td = $('<td></td>');
+				td.html(o.content.$t);
+
+				tr.append(td);
+				$('#target').append(tr);
+				tr = $('<tr></tr>');
+
+			}
+
+		});
+	}
+
+	kanaChange = function(ele) {
+
+		if (ele.match(/^[ぁ-んー　]*$/)) {
+			return ele.replace(/[ぁ-ん]/g, function(s) {
+				return String.fromCharCode(s.charCodeAt(0) + 0x60);
+			});
+		}else{
+			return ele.replace(/[ァ-ン]/g, function(s) {
+				return String.fromCharCode(s.charCodeAt(0) - 0x60);
+			});
+		}
+
+
+
+	};
+
+	$(document).ready(function() {
+
+		$('#search').keyup(function() {
+
+			var searchStr = $('#search').val();
+			var searchStrKana = kanaChange(searchStr);
+			$.each($('#target>tr'), function(i) {
+
+				var that = $(this);
+
+				var wordElm = $(this).find('td').get(1);
+				var words = wordElm.innerHTML.split(/\n/);
+
+				$(this).hide();
+
+				$.each(words, function(i, v) {
+
+					if (v.indexOf(searchStr) === 0 || v.indexOf(searchStrKana) === 0) {
+						console.log(v);
+						that.show();
+					}
+
+				});
+
+
+
+			});
+
+			console.log('======================');
+		});
+
+	});
+</script>
+</head>
+<body>
+	▼ひらがなかカタカナ入力[前方一致]
+	<input type="text" value="" id="search" />
+	<table>
+		<tbody id='target'>
+		</tbody>
+	</table>
+</body>
+</html>
