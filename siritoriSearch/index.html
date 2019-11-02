@@ -9,7 +9,6 @@
 	const workcheetId = '1';
 	const url = 'https://spreadsheets.google.com/feeds/cells/' + key + '/' + workcheetId + '/public/values?alt=json';
 
-
 	$.ajax({
 		type : 'GET',
 		url : url,
@@ -26,35 +25,41 @@
 
 	function renderData(sheetsEntry) {
 
-
 		var tr = $('<tr></tr>');
 
 		$.each(sheetsEntry, function(i, o) {
 
-			if(o.gs$cell.col == '3'){
-
+			if (o.gs$cell.col == '3') {
 
 				var td = $('<td></td>');
 				var img = $('<img>');
-				img.attr('src',o.content.$t);
-				img.attr('height','50px');
+				img.attr('src', o.content.$t);
+				img.attr('height', '50px');
 				td.html(img);
 
 				var delBtn = $('<td></td>');
 				delBtn.addClass('delBtn');
 				delBtn.html('X');
-				delBtn.css('font-size','50px');
+				delBtn.css('font-size', '30px');
 				tr.append(delBtn);
 
 				tr.append(td);
 				tr.append($('<td></td>'));
 
-			}else if(o.gs$cell.col == '4'){
+			} else if (o.gs$cell.col == '4') {
 
-				var td = $('<td></td>');
-				td.html(o.content.$t);
+				var words = o.content.$t.split(/\n/);
 
-				tr.append(td);
+				$.each(words, function(i, v) {
+
+					var td = $('<td></td>');
+					td.addClass('word');
+					td.html(v);
+
+					tr.append(td);
+
+				});
+
 				$('#target').append(tr);
 				tr = $('<tr></tr>');
 
@@ -69,13 +74,11 @@
 			return ele.replace(/[ぁ-ん]/g, function(s) {
 				return String.fromCharCode(s.charCodeAt(0) + 0x60);
 			});
-		}else{
+		} else {
 			return ele.replace(/[ァ-ン]/g, function(s) {
 				return String.fromCharCode(s.charCodeAt(0) - 0x60);
 			});
 		}
-
-
 
 	};
 
@@ -89,25 +92,22 @@
 
 				var that = $(this);
 
-				var wordElm = $(this).find('td').get(3);
-				var words = wordElm.innerHTML.split(/\n/);
+				var wordElm = $(this).find('.word');
 
 				$(this).hide();
 
-				$.each(words, function(i, v) {
+				$.each(wordElm, function(i, o) {
 
-					if (v.indexOf(searchStr) === 0 || v.indexOf(searchStrKana) === 0) {
-						if(searchStr !=''){
-							that.find('td').get(2).innerHTML = v;
-						}else{
+					if (o.innerHTML.indexOf(searchStr) === 0 || o.innerHTML.indexOf(searchStrKana) === 0) {
+						if (searchStr != '') {
+							that.find('td').get(2).innerHTML = o.innerHTML;
+						} else {
 							that.find('td').get(2).innerHTML = '';
 						}
 						that.show();
 					}
 
 				});
-
-
 
 			});
 
@@ -116,20 +116,52 @@
 		$('body').on('click', '.delBtn', function(e) {
 			$(this).parent().remove();
 		});
+		$('body').on('click', '.word', function(e) {
+			$(this).remove();
+		});
+		$('body').on('click', '.howtouse', function(e) {
+			$('p').toggle();
+		});
 
 	});
 </script>
+<style>
+body {
+	user-select: none;
+}
+p{
+	display:none;
+}
+
+td {
+	padding: 0px;
+	border-bottom: solid 1px #dddddd;
+}
+
+td:nth-of-type(3) {
+	padding-right: 10px;
+	padding-left: 20px;
+	font-weight: bold;
+	color: #0000c1;
+}
+
+td:nth-of-type(4) {
+
+}
+
+td.word:hover {
+	background-color: #dddddd;
+}
+</style>
 </head>
 <body>
+	<button class="howtouse">使い方 ▼</button>
+	<p>
 
-	【使い方】<br>
-	１：コンブしてたら「Xボタン」で消す。（ページ更新したら状態破棄される）<br>
-	２：検索ボックスに「あ」とか「イ」とか入れる<br>
-	３：でてくる<br>
+		消した状態はセーブとかされないので注意 <br> １：コンブしてたら「Xボタン」で消す。 <br> ２：出現済ワードはそれクリックして消す。 <br> ３：検索ボックスに「あ」とか「イ」とか入れる。 <br> ４：でてくる <br> <br>検索した後にもワード消せる。 <br>ワードを全て消したら次の検索時にアイコンごと消える。（便利だね） <br> <br> エアプwithのデータ使ってるからあっちが更新されたらこっちにも反映される。
+	</p>
 	<br>
-	エアプwithのデータ使ってるからあっちが更新されたらこっちにも反映される<br>
-	<br>
-	検索
+	<br> 検索
 	<br>
 	<input type="text" value="" id="search" />
 
