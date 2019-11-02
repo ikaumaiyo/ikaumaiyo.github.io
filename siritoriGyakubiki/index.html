@@ -274,6 +274,7 @@
 		$('body').on('click', '.searchWord', function(e) {
 
 			generate($(this).find('.word').html());
+			location.href = "#"
 		});
 
 	});
@@ -308,15 +309,25 @@ td.word:hover {
 }
 
 div#searchResult {
-	background-color: #dddddd;
+	background-color: #eeeeee;
 	min-width: 100px;
 	min-height: 100px;
 }
 
+ul {
+	border-bottom: 1px solid #cccccc;
+	padding: 7px 5px 9px 30px;
+	margin: 0px;
+}
+
+ul:hover {
+	background-color: #d9dcec;
+}
+
 li {
-    display: inline;
-    margin-left: 10px;
-    line-height: 62px;
+	display: inline;
+	margin-left: 10px;
+	line-height: 62px;
 }
 
 li>div:nth-of-type(1) {
@@ -329,30 +340,42 @@ li>div:nth-of-type(1) {
 }
 
 li>div:nth-of-type(1):before {
-    content: "▶";
-    position: relative;
-    left: -28px;
+	content: "▶";
+	position: relative;
+	left: -28px;
+	color: #cccccc;
 }
 
 li>div:nth-of-type(2) {
 	display: inline-block;
 	position: relative;
-	top: 27px;
+	padding: 0px;
+	margin: 0px;
+	color: #555555;
+	font-size: 12px;
+	top: 28px;
 	left: -50px;
+	top: 28px;
 }
 </style>
 </head>
 <body>
 	しりとり逆引き検索
 	<button class="howtouse">使い方 ▼</button>
-	<p></p>
+	<p>
+		１：検索したいワードをクリックする。
+		<br>
+		２：上にでる。
+
+
+	</p>
+
 	<br>
-	<br>
+	<div id="searchResult"></div>
 	検索
 	<br>
 	<input type="text" value="" id="search" />
 
-	<div id="searchResult"></div>
 
 	<table>
 		<tbody id='wordList'>
