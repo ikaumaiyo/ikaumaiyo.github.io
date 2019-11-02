@@ -13,8 +13,12 @@
 
 	function load(){
 		var data = localStorage.getItem('dataAM');
+		console.log(data == null);
 		if(data == null){
 
+			$('#target').html('');
+
+			console.log('reset');
 			$.ajax({
 				type : 'GET',
 				url : url,
@@ -43,8 +47,6 @@
 
 			if (o.gs$cell.col == '1') {
 
-				console.table(o.content.$t);
-
 				var td = $('<td></td>');
 				var img = $('<img>');
 				img.attr('src', o.content.$t);
@@ -62,7 +64,7 @@
 
 			} else if (o.gs$cell.col == '2') {
 
-				var words = o.content.$t.split(/\n/);
+				var words = o.content.$t.trim().split(/\n/);
 
 				$.each(words, function(i, v) {
 
@@ -132,15 +134,18 @@
 
 		$('body').on('click', '.delBtn', function(e) {
 			$(this).parent().remove();
+			localStorage.setItem('dataAM', $('#target').html());
 		});
 		$('body').on('click', '.word', function(e) {
 			$(this).remove();
+			localStorage.setItem('dataAM', $('#target').html());
 		});
 		$('body').on('click', '.howtouse', function(e) {
 			$('p').toggle();
 		});
 		$('body').on('click', '.reset', function(e) {
 			if(confirm('セーブ消す？')){
+				localStorage.removeItem('dataAM');
 				load();
 			}
 		});

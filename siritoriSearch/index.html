@@ -13,6 +13,8 @@
 		var data = localStorage.getItem('data');
 		if (data == null) {
 
+			$('#target').html('');
+
 			$.ajax({
 				type : 'GET',
 				url : url,
