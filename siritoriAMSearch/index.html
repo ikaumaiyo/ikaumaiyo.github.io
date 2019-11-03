@@ -14,7 +14,7 @@
 	function load(){
 		var data = localStorage.getItem('dataAM');
 		var dataSearchWord = localStorage.getItem('dataSearchWord');
-		if(data == null){
+		if(data == null || data == 'undefined'){
 
 			$('#target').html('');
 
@@ -180,9 +180,6 @@ td:nth-of-type(3) {
 	color: #0000c1;
 }
 
-td:nth-of-type(4) {
-
-}
 
 td.word:hover {
 	background-color: #dddddd;
