@@ -136,8 +136,9 @@
 			$(this).parent().remove();
 			localStorage.setItem('dataAM', $('#target').html());
 		});
-		$('body').on('click', '.word', function(e) {
-			$(this).remove();
+		$('body').on('click', '.word, .delWord', function(e) {
+			$(this).toggleClass('delWord');
+			$(this).toggleClass('word');
 			localStorage.setItem('dataAM', $('#target').html());
 		});
 		$('body').on('click', '.howtouse', function(e) {
@@ -179,6 +180,10 @@ td:nth-of-type(4) {
 
 td.word:hover {
 	background-color: #dddddd;
+}
+
+td.delWord {
+	color:#aaaaaa;
 }
 </style>
 </head>
