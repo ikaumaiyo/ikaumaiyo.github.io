@@ -105,6 +105,7 @@
 		// ワードビルド
 		if (targetWord.length > 0) {
 			var searchResult = buildWord(targetWord, _words);
+			searchResult = cutResult(searchResult);
 		} else {
 			alert('検索ワードが見つかりませんでした。りまおまで連絡ください。');
 		}
@@ -178,8 +179,6 @@
 			bulidResult.push(targetWord[0]);
 
 		}
-		console.table('saerchResult');
-		console.table(searchResult);
 
 		return searchResult;
 
@@ -209,6 +208,31 @@
 			$('#searchResult').append(ul);
 			ul = $('<ul></ul>');
 		});
+
+	}
+
+	function cutResult(searchResult) {
+
+		var n = $('#cutResult').val();
+		if (n != '') {
+
+			$.each(searchResult, function(i, v) {
+				var cutNum = v.length - n;
+
+				v.splice(0,cutNum);
+			});
+/* 			searchResult = searchResult.filter(function (x, i, self) {
+
+				console.table(x);
+				console.table(i);
+				console.table(self);
+				console.table('END');
+			    return self.indexOf(x).toString() === i.toString();
+			}); */
+		}
+
+		return searchResult;
+
 
 	}
 
@@ -311,7 +335,6 @@ td.word:hover {
 div#searchResult {
 	background-color: #eeeeee;
 	min-width: 100px;
-	min-height: 100px;
 }
 
 ul {
@@ -363,19 +386,23 @@ li>div:nth-of-type(2) {
 	しりとり逆引き検索
 	<button class="howtouse">使い方 ▼</button>
 	<p>
-		１：検索したいワードをクリックする。
-		<br>
-		２：上にでる。
-
+		１：検索したいワードをクリックする。 <br> ２：上にでる。
 
 	</p>
+	<br>逆引き数を
+	<select id="cutResult">
+		<option value=""></option>
+		<option value="2">2</option>
+		<option value="3">3</option>
+		<option value="4">4</option>
+		<option value="5">5</option>
+	</select> 個まで減らす
 
 	<br>
 	<div id="searchResult"></div>
 	検索
 	<br>
 	<input type="text" value="" id="search" />
-
 
 	<table>
 		<tbody id='wordList'>
