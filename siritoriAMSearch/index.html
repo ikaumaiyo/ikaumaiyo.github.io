@@ -105,7 +105,6 @@
 		load();
 
 		$('#search').keyup(function() {
-			localStorage.setItem('dataSearchWord', $('#search').val());
 
 			var searchStr = $('#search').val();
 			var searchStrKana = kanaChange(searchStr);
@@ -131,6 +130,8 @@
 				});
 
 			});
+			localStorage.setItem('dataSearchWord', $('#search').val());
+			localStorage.setItem('dataAM', $('#target').html());
 
 		});
 
