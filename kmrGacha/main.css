@@ -1,0 +1,44 @@
+#gcha {
+
+}
+
+#gchaRun {
+	background-color: #4c87ff;
+	border-radius: 10px;
+	width: 500px;
+	height: 100px;
+	text-align: center;
+	font-size: 2rem;
+	line-height: 6rem;
+	user-select: none;
+}
+
+#gchaStop {
+	display: none;
+	background-color: #4c87ff;
+	border-radius: 10px;
+	width: 500px;
+	height: 100px;
+	text-align: center;
+	font-size: 2rem;
+	line-height: 6rem;
+	user-select: none;
+}
+
+#gchaRun:hover {
+	cursor: pointer;
+}
+
+.kmr {
+	display: none;
+	font-size: 3rem;
+}
+
+.kmrimg {
+	background-image: url(img/01.jpg);
+	background-position: left top;
+	background-repeat: no-repeat;
+	background-size: contain;
+	height: 500px;
+	width: 500px;
+}

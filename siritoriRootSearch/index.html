@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title></title>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script type="text/javascript">
+	const key = '1Sn7h1b6nhOMj9yVliesjoUT2y7RRpHRelJ_86o4OxPM';
+	const workcheetId = '4';
+	const url = 'https://spreadsheets.google.com/feeds/cells/' + key + '/' + workcheetId + '/public/values?alt=json';
+
+	var sheetsEntry;
+	var words = [];
+
+	function load() {
+
+		$('#target').html('');
+
+		$.ajax({
+			type : 'GET',
+			url : url,
+			dataType : 'jsonp',
+			cache : false,
+			success : function(data) {
+				sheetsEntry = data.feed.entry;
+				convertJsonToWordArray();
+				renderWordList();
+			},
+			error : function() {
+				console.log('error');
+			}
+		});
+
+	}
+
+	function convertJsonToWordArray() {
+
+		var imgUrl = '';
+		var _words = [];
+
+		$.each(sheetsEntry, function(i, o) {
+
+			var _word;
+
+			if (o.gs$cell.col == '1') {
+				imgUrl = o.content.$t;
+
+			}
+			if (o.gs$cell.col == '2') {
+
+				var words = o.content.$t.trim().split(/\n/);
+
+				$.each(words, function(i, v) {
+
+					_word = {
+						'imgUrl' : imgUrl,
+						'word' : v
+					};
+					_words.push(_word);
+
+				});
+			}
+
+		});
+
+		words = _words;
+	}
+
+	function renderWordList() {
+
+		$.each(words, function(i, o) {
+
+			var tr = $('<tr></tr>');
+			tr.addClass('searchWord');
+
+			var img = $('<img>');
+			img.attr('src', o.imgUrl);
+			img.attr('height', '50px');
+
+			var imgTd = $('<td></td>');
+			imgTd.addClass('iconImg');
+			imgTd.html(img);
+
+			var wordTd = $('<td></td>');
+			wordTd.addClass('word');
+			wordTd.html(o.word);
+
+			tr.append(imgTd);
+			tr.append(wordTd);
+
+			$('#wordList').append(tr);
+
+		});
+
+	}
+
+	function generate(searchWord) {
+
+		_words = words;
+
+		var targetWord = _words.filter(function(o) {
+			return o.word == searchWord;
+		});
+
+		// ワードビルド
+		if (targetWord.length > 0) {
+			var searchResult = buildWord(targetWord, _words);
+			searchResult = cutResult(searchResult);
+		} else {
+			alert('検索ワードが見つかりませんでした。りまおまで連絡ください。');
+		}
+
+		// レンダ
+		renderSearchResult(searchResult);
+
+	}
+
+	function buildWord(targetWord, _words) {
+
+		var that = this;
+
+		var searchResult = []; // ビルド結果一覧
+		var bulidResult = []; // ビルド結果
+		bulidResult.push(targetWord[0]);
+
+		// 検索ワードの最初の文字
+		var _start = targetWord[0].word.slice(0, 1);
+
+		// 前に位置するワードを抽出
+		var _nextMainWords = _words.filter(function(o) {
+			var _v = o.word.slice(-1);
+			if (_v == 'ー') {
+				_v = o.word.substr(-2, 1);
+			}
+			_v = youonChange(_v);
+			return _v == _start || kanaChange(_v) == _start;
+		});
+
+		for (var i = 0; _nextMainWords.length > i; i++) {
+
+			bulidResult.push(_nextMainWords[i]);
+			_start = _nextMainWords[i].word.slice(0, 1);
+
+			// ビルド処理
+			while (true) {
+
+				// 前に位置するワードを抽出
+				var _nextWords = _words.filter(function(o) {
+					var _v = o.word.slice(-1);
+					if (_v == 'ー') {
+						_v = o.word.substr(-2, 1);
+					}
+					_v = youonChange(_v);
+					return _v == _start || kanaChange(_v) == _start;
+				});
+
+				// 候補があれば連結する
+				if (_nextWords.length > 0) {
+
+					// 無限ループ制限
+					if (bulidResult.indexOf(_nextWords[0]) >= 0) {
+						break;
+					}
+
+					bulidResult.push(_nextWords[0]);
+
+					// 検索ワード更新
+					_start = _nextWords[0].word.slice(0, 1);
+
+				} else {
+					// 候補が無くなったら終了
+					break;
+				}
+
+			}
+
+			searchResult.push(bulidResult.reverse());
+			var bulidResult = [];
+			bulidResult.push(targetWord[0]);
+
+		}
+
+		return searchResult;
+
+	}
+
+	function renderSearchResult(searchResult) {
+
+		$('#searchResult').html('');
+
+		var ul = $('<ul></ul>');
+		var li = $('<li></li>');
+
+		$.each(searchResult, function(i, o) {
+			$.each(o, function(ii, oo) {
+
+				var _div1 = $('<div></div>');
+				_div1.css('background-image', 'url(' + oo.imgUrl + ')');
+				li.append(_div1);
+
+				var _div2 = $('<div></div>');
+				_div2.html(oo.word);
+				li.append(_div2);
+
+				ul.append(li);
+				li = $('<li></li>');
+			});
+			$('#searchResult').append(ul);
+			ul = $('<ul></ul>');
+		});
+
+	}
+
+	function cutResult(searchResult) {
+
+		var n = $('#cutResult').val();
+		if (n != '') {
+
+			$.each(searchResult, function(i, v) {
+				var cutNum = v.length - n;
+
+				v.splice(0,cutNum);
+			});
+/* 			searchResult = searchResult.filter(function (x, i, self) {
+
+				console.table(x);
+				console.table(i);
+				console.table(self);
+				console.table('END');
+			    return self.indexOf(x).toString() === i.toString();
+			}); */
+		}
+
+		return searchResult;
+
+
+	}
+
+	kanaChange = function(ele) {
+		if (ele.match(/^[ぁ-んー　]*$/)) {
+			return ele.replace(/[ぁ-ん]/g, function(s) {
+				return String.fromCharCode(s.charCodeAt(0) + 0x60);
+			});
+		} else {
+			return ele.replace(/[ァ-ン]/g, function(s) {
+				return String.fromCharCode(s.charCodeAt(0) - 0x60);
+			});
+		}
+	};
+
+	function youonChange(str) {
+		var smalls = 'ぁぃぅぇぉっゃゅょゎァィゥェォヵㇰヶㇱㇲッㇳㇴㇵㇶㇷㇷ゚ㇸㇹㇺャュョㇻㇼㇽㇾㇿヮ';
+		var bigs = 'あいうえおつやゆよわアイウエオカクケシスツトヌハヒフプヘホムヤユヨラリルレロワ';
+
+		var loc = smalls.indexOf(str);
+		if (loc > -1) {
+			return bigs[loc];
+		} else {
+			return str;
+		}
+	}
+
+	$(document).ready(function() {
+
+		load();
+
+		$('#search').keyup(function() {
+
+			var searchStr = $('#search').val();
+			var searchStrKana = kanaChange(searchStr);
+			$.each($('#wordList>tr'), function(i) {
+
+				var that = $(this);
+				var wordElm = $(this).find('.word');
+
+				$(this).hide();
+
+				$.each(wordElm, function(i, o) {
+
+					if (o.innerHTML.indexOf(searchStr) === 0 || o.innerHTML.indexOf(searchStrKana) === 0) {
+						that.show();
+					}
+
+				});
+
+			});
+
+		});
+
+		$('body').on('click', '.delBtn', function(e) {
+			$(this).parent().remove();
+			localStorage.setItem('dataAM', $('#target').html());
+		});
+		$('body').on('click', '.howtouse', function(e) {
+			$('p').toggle();
+		});
+
+		$('body').on('click', '.searchWord', function(e) {
+
+			generate($(this).find('.word').html());
+			location.href = "#"
+		});
+
+	});
+</script>
+<style>
+body {
+	user-select: none;
+}
+
+p {
+	display: none;
+}
+
+tr{
+
+}
+
+td {
+	padding: 0px;
+	border-bottom: solid 1px #dddddd;
+}
+
+td:nth-of-type(3) {
+	padding-right: 10px;
+	padding-left: 20px;
+	font-weight: bold;
+	color: #0000c1;
+}
+
+td:nth-of-type(4) {
+
+}
+
+td.word:hover {
+	background-color: #dddddd;
+}
+
+div#searchResult {
+	background-color: #eeeeee;
+	min-width: 100px;
+}
+
+ul {
+	border-bottom: 1px solid #cccccc;
+	padding: 7px 5px 9px 30px;
+	margin: 0px;
+}
+
+ul:hover {
+	background-color: #d9dcec;
+}
+
+li {
+	display: inline;
+	margin-left: 10px;
+	line-height: 62px;
+}
+
+li>div:nth-of-type(1) {
+	height: 50px;
+	width: 50px;
+	display: inline-block;
+	background-image: url('');
+	background-repeat: no-repeat;
+	background-size: contain;
+}
+
+li>div:nth-of-type(1):before {
+	content: "▶";
+	position: relative;
+	left: -28px;
+	color: #cccccc;
+}
+
+li>div:nth-of-type(2) {
+	display: inline-block;
+	position: relative;
+	padding: 0px;
+	margin: 0px;
+	color: #555555;
+	font-size: 12px;
+	top: 28px;
+	left: -50px;
+	top: 28px;
+}
+</style>
+</head>
+<body>
+	しりとり逆引き検索
+	<button class="howtouse">使い方 ▼</button>
+	<p>
+		１：検索したいワードをクリックする。 <br> ２：上にでる。
+
+	</p>
+	<br>逆引き数を
+	<select id="cutResult">
+		<option value=""></option>
+		<option value="2">2</option>
+		<option value="3">3</option>
+		<option value="4">4</option>
+		<option value="5">5</option>
+	</select> 個まで減らす
+
+	<br>
+	<div id="searchResult"></div>
+	検索
+	<br>
+	<input type="text" value="" id="searchS" maxlength="1" />
+	<input type="text" value="" id="searchE" maxlength="1" />
+
+	<table>
+		<tbody id='wordList'>
+		</tbody>
+	</table>
+
+</body>
+</html>
