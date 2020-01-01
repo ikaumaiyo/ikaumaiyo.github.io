@@ -7,8 +7,8 @@
     top:0;
     background:#000;
     filter:alpha(opacity=60);
-    -moz-opacity:0.50;
-    opacity:0.50;
+    -moz-opacity:0.60;
+    opacity:0.60;
     z-index:1;
 }
 

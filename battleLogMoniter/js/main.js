@@ -2,7 +2,7 @@ const url = 'https://script.google.com/macros/s/AKfycbxDTLf2pULQ5hX0lCSwWy_YKF75
 let report = [];
 let analysis;
 
-/** スプシから凸ログを取得（googleキャッシュクリアしてるから重い） **/
+/** スプシから凸ログを取得（googleキャッシュクリアしてるから重い） * */
 let load = function() {
 
 	showLoading();
@@ -15,19 +15,19 @@ let load = function() {
 		cache : false,
 		success : function(json) {
 
-			try{
-			report = json
-			console.table(report[0]);
-			analysis = new Analysis(report);
-			analysis.render();
-			// var len = report.length;
-			// var html = '';
-			// for(var i=0; i < len; i++){
-			// html += report[i].タイムスタンプ + ' ' + report[i].日数 + '<br>';
-			// }
-			// document.getElementById('whole').innerHTML = html;
-			hideLoading();
-			}catch(e){
+			try {
+				report = json
+				console.table(report[0]);
+				analysis = new Analysis(report, getPriconeDate());
+				analysis.render();
+				// var len = report.length;
+				// var html = '';
+				// for(var i=0; i < len; i++){
+				// html += report[i].タイムスタンプ + ' ' + report[i].日数 + '<br>';
+				// }
+				// document.getElementById('whole').innerHTML = html;
+				hideLoading();
+			} catch (e) {
 				showErrorMsg(e);
 				hideLoading();
 			}
@@ -41,24 +41,46 @@ let load = function() {
 
 }// load()
 
-/** ローディングアニメのやつ **/
-let showLoading = function(){
+/** ローディングアニメのやつ * */
+let showLoading = function() {
 	$('.loading').show();
 }
-let hideLoading = function(){
+let hideLoading = function() {
 	$('.loading').hide();
 }
 
-
-/** エラーのやつ **/
-let showErrorMsg = function(e){
+/** エラーのやつ * */
+let showErrorMsg = function(e) {
 	$('.error').html(e);
 	$('.error').show();
 }
 
-/** onloadでリスナーも全部登録 **/
+/** 現在日付取得 * */
+let getNowYYYYMMDD = function() {
+	let now = new Date();
+	let yyyymmdd = now.getFullYear() + '-' + ("0" + (now.getMonth() + 1)).slice(-2) + '-' + ("0" + now.getDate()).slice(-2);
+	return yyyymmdd;
+}
+
+/** 現在プリコネ日を取得 * */
+let getPriconeDate = function() {
+	let _d = new Date();
+	if ($('#targetDate').val() != "") {
+		// デバッグ用の日付取得
+		_d = new Date($('#targetDate').val());
+	}
+	let d = new Date(_d.getFullYear(), _d.getMonth(), _d.getDate(), _d.getHours() - 5, _d.getMinutes(), _d.getSeconds());
+	let pd = new Date(d.getFullYear(), d.getMonth(), d.getDate(), 5, 0, 0);
+	return pd;
+}
+
+/** onloadでリスナーも全部登録 * */
 $(document).ready(function() {
 
+	// デバッグ用
+	 $('#targetDate').val('2019-12-25');
+
+	// 凸データ反映
 	load();
 
 	$('body').on('click', '.reload', function(e) {
@@ -70,9 +92,5 @@ $(document).ready(function() {
 	$('body').on('click', '.openJson', function(e) {
 		window.open(url, '_blank');
 	});
-
-
-
-
 
 });
