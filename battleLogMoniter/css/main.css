@@ -1,19 +1,46 @@
-html, body{
-	margin:0;
-	padding:0;
-	background-color : #ffffff;
+html, body {
+	margin: 0;
+	padding: 0;
+	background-color: #ffffff;
 }
 
 header {
-    position: -webkit-sticky;
-    position: sticky;
-    top: 0px; /*ここで止める位置を調整する*/
-	background-color : #343434;
+	position: -webkit-sticky;
+	position: sticky;
+	top: 0px; /*ここで止める位置を調整する*/
+	background-color: #343434;
 	height: 2rem;
 }
 
-.button{
+.error {
+	display: none;
+	color: #ff0000;
+	background-color: #ffebeb;
+}
+
+header>.button {
 	height: 2rem;
 	float: left;
-	background-color : #aaaaaa;
+	background-color: #aaaaaa;
+	padding: 0rem 1rem;
+	margin-left: 1rem;
+	-ms-user-select: none;
+	-moz-user-select: -moz-none;
+	-khtml-user-select: none;
+	-webkit-user-select: none;
+	user-select: none;
+	border: none;
+}
+
+header>input{
+	height: 2rem;
+	float: left;
+	background-color: #aaaaaa;
+	padding: 0rem 1rem;
+	margin-left: 1rem;
+}
+
+header>.button:hover {
+	background-color: #dddddd;
+	cursor: pointer;
 }
