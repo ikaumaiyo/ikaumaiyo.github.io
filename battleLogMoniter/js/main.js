@@ -64,6 +64,9 @@ let getNowYYYYMMDD = function() {
 
 /** 現在プリコネ日を取得 * */
 let getPriconeDate = function() {
+
+	alert($('#targetDate').val());
+
 	let _d = new Date();
 	if ($('#targetDate').val() != "") {
 		// デバッグ用の日付取得
