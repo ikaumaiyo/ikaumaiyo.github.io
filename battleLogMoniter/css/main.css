@@ -1,0 +1,19 @@
+html, body{
+	margin:0;
+	padding:0;
+	background-color : #ffffff;
+}
+
+header {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0px; /*ここで止める位置を調整する*/
+	background-color : #343434;
+	height: 2rem;
+}
+
+.button{
+	height: 2rem;
+	float: left;
+	background-color : #aaaaaa;
+}
