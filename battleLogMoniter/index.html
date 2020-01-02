@@ -5,33 +5,76 @@
 <title>凸MONITER</title>
 <link rel="stylesheet" type="text/css" href="css/main.css">
 <link rel="stylesheet" type="text/css" href="css/loading.css">
+<link rel="stylesheet" type="text/css" href="css/setting.css">
+<link rel="stylesheet" type="text/css" href="css/analysis.css">
 <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.min.js"></script>
 <script src="js/main.js"></script>
+<script src="js/datastore.js"></script>
 <script src="js/analysis.js"></script>
 
 </head>
 <body>
-	<!-- ヘッダー -->
+	<!-- ヘッダ -->
 	<header>
+		<div class="button">var1.0</div>
 		<div class="reload button">再読み込み</div>
 		<div class="openSpreadSheet button">スプシ</div>
 		<div class="openJson button">json</div>
+		<div class="openSetting button">設定</div>
 		<input type="date" id="targetDate"></input>
 	</header>
 
-	<!-- エラーメッセージ -->
-	<div class="error">errorMsg</div>
-
-	<!-- ローディングアニメーション -->
-	<div class="loading">
-		<div class="spinner type1">
-			<span>('ω')</span>
+	<!-- コンテンツ -->
+	<div id="main-contents">
+		<!-- エラーメッセージ -->
+		<div class="error">errorMsg</div>
+		<!-- ローディングアニメーション -->
+		<div class="loading">
+			<div class="spinner type1">
+				<span>('ω')</span>
+			</div>
 		</div>
+		<!-- 設定画面 -->
+		<div id="modal">
+			<div id="modal_content">
+				<button class="btn_close button">閉じる</button>
+				<br>
+				<br>
+			</div>
+		</div>
+
+		<!-- 分析結果 -->
+		<div id="analysis">
+
+			<!-- プリコネ日 -->
+			<div id="render-targetDate">
+				<span></span>
+			</div>
+			<!-- 凸数 -->
+			<div id="render-battleSuccessful" class="analysis-render-box">
+				<span class="tete">今日の凸</span> <span class="totuNum"></span>
+				<div class="perProgress">
+					<div class="successful"></div>
+				</div>
+				<span class="perNum"></span>
+			</div>
+			<!-- 凸チャート -->
+			<div id="render-battleChart" class="analysis-render-box">
+				<canvas class="chart"></canvas>
+			</div>
+			<!-- ボスの状態-->
+			<div id="render-bossState" class="analysis-render-box">
+				<div class="emptyBox"></div>
+				<div class="boss b1">ボス１</div>
+				<div class="boss b2">ボス２</div>
+				<div class="boss b3">ボス３</div>
+				<div class="boss b4">ボス４</div>
+				<div class="boss b5">ボス５</div>
+			</div>
+
+		</div>
+
 	</div>
-
-	var1.0
-	<!-- 分析結果 -->
-	<div id="analysis"></div>
-
 </body>
 </html>

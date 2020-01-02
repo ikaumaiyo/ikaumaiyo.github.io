@@ -1,0 +1,86 @@
+.analysis-render-box {
+	margin: 1rem 1rem;
+	padding: 1rem 1rem;
+	border: solid 1px #dddddd;
+	border-radius: 5px;
+	background-color: white;
+	float: left;
+	text-align: center;
+}
+
+/* プリコネ日 */
+#render-targetDate {
+	color: #ffffff;
+	background-color: #2196F3;
+}
+
+#render-targetDate>span {
+	margin: 0rem 1rem;
+}
+
+/* 凸完了数を表示 */
+#render-battleSuccessful {
+	width: 300px;
+	height: 160px;
+}
+
+#render-battleSuccessful>.totuNum {
+	display: inline-block;
+	width: 300px;
+	font-size: 3rem;
+	color: #2196F3;
+}
+
+#render-battleSuccessful>.totuNum>.text {
+	font-size: 2rem;
+	color: black;
+}
+
+#render-battleSuccessful>.perProgress {
+	width: 100%;
+	height: 5px;
+	background-color: #cfeaff;
+}
+
+#render-battleSuccessful>.perProgress>.successful {
+	width: 50%;
+	height: 5px;
+	background-color: #2196F3;
+}
+
+#render-battleSuccessful>.perNum {
+	display: inline-block;
+	margin-top: 1rem;
+	width: 300px;
+	font-size: 1rem;
+	color: #444444;
+}
+
+/* 凸チャートを表示 */
+#render-battleChart {
+	width: 600px;
+	/* 	height: 400px; */
+}
+
+#render-battleChart>.chart {
+
+}
+
+/* ボスの状態を表示 */
+#render-bossState {
+	width: 310px;
+}
+
+#render-bossState>.emptyBox {
+	width: 50px;
+	height: 50px;
+	float: left;
+}
+
+#render-bossState>.boss {
+	width: 50px;
+	height: 50px;
+	border: solid 1px #dddddd;
+	border-radius: 5px;
+	float: left;
+}

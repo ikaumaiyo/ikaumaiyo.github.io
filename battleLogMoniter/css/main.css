@@ -1,8 +1,11 @@
 html, body {
 	margin: 0;
 	padding: 0;
-	background-color: #eaeaea;
+	background-color: #fafafa;
 	-webkit-appearance: none;
+	min-width: 800px;
+}
+div#main-contents{
 }
 
 header {
@@ -24,7 +27,7 @@ header>.button {
 	float: left;
 	background-color: #aaaaaa;
 	padding: 0rem 1rem;
-	margin-left: 1rem;
+	margin-left: 0.5rem;
 	-ms-user-select: none;
 	-moz-user-select: -moz-none;
 	-khtml-user-select: none;
@@ -37,7 +40,7 @@ header>input{
 	float: left;
 	background-color: #aaaaaa;
 	padding: 0rem 1rem;
-	margin-left: 1rem;
+	margin-left: 0.5rem;
 	border: none;
 }
 
