@@ -1,5 +1,6 @@
 const url = 'https://script.google.com/macros/s/AKfycbxDTLf2pULQ5hX0lCSwWy_YKF75FdSbao7IW--SPao6FIK3vAo/exec';
 let report = [];
+let member = [];
 let optionDatastore;
 let analysis;
 
@@ -44,6 +45,25 @@ $(document).ready(function() {
 			$('#modal').hide();
 		}
 	});
+	/** チェックボックス系 **/
+	// 3凸排除
+	$('body').on('click', '#chk-hideFin', function() {
+		if($(this).prop('checked')){
+			$('#render-kisiState').find('.finished').hide();
+		}else{
+			$('#render-kisiState').find('.finished').show();
+		}
+	});
+	// 魔法排除
+	$('body').on('click', '#chk-magicUsed', function() {
+		if($(this).prop('checked')){
+			$('#render-kisiState').find('.magicUsed').hide();
+		}else{
+			$('#render-kisiState').find('.magicUsed').show();
+		}
+	});
+
+
 
 });
 
@@ -56,31 +76,65 @@ let load = function() {
 	if (analysis) {
 		analysis.destroy();
 	}
-	// 全レポート取得
-	$.ajax({
-		type : 'GET',
-		url : url,
-		dataType : 'jsonp',
-		jsonpCallback : 'jsondata',
-		cache : false,
-		success : function(json) {
-			try {
-				report = json
-				analysis = new Analysis(report, getPriconeDate());
-				if(!analysis.render()){
-					showErrorMsg('凸データがありません。');
-				}
-				hideLoading();
-			} catch (e) {
-				showErrorMsg(e);
-				hideLoading();
+
+	var ajax_list = [];
+	ajax_list.push(
+		$.ajax({
+			type : 'GET',
+			url : url,
+			dataType : 'jsonp',
+			jsonpCallback : 'jsondata',
+			cache : false
+		}).done(function(json){
+			report = json
+			if(report.length == 0){
+				showErrorMsg('凸データ０件（エラー）');
 			}
-		},
-		error : function(e) {
+		}).fail(function(e){
 			showErrorMsg(e);
-			hideLoading();
+			console.error(e);
+		})
+	);
+
+
+	ajax_list.push(
+		$.ajax({
+			type : 'GET',
+			url : url+'?query=member',
+			dataType : 'jsonp',
+			jsonpCallback : 'jsondataMember',
+			cache : false
+		}).done(function(json){
+			member = json
+			if(member.length == 0){
+				showErrorMsg('メンバーデータ０件（エラー）');
+			}
+		}).fail(function(e){
+			showErrorMsg(e);
+			console.error(e);
+		})
+	);
+
+
+	$.when.apply($, ajax_list).done(function(){
+		analysis = new Analysis(report, member, getPriconeDate());
+		try{
+			if(!analysis.render()){
+				showErrorMsg('データレンダリング中に何らかのエラー');
+			}
+		}catch(e){
+			console.error(e);
+			showErrorMsg(e);
 		}
+		hideLoading();
+	}).fail(function(e){
+		console.error(e);
+		showErrorMsg('ajax通信に失敗');
+		hideLoading();
 	});
+
+
+
 
 }// load()
 

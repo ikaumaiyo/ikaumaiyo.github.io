@@ -138,6 +138,42 @@
 #render-kisiState {
 
 }
+#render-kisiState .chkOption{
+	text-align: left;
+	font-size: 0.8rem;
+}
+
+
+#render-kisiState>table tr td:nth-child(n + 4) {
+	border-right: solid 1px #00000021;
+}
+
+#render-kisiState>table tr td:nth-child(3) {
+	color: white;
+}
+#render-kisiState>table tr td:nth-child(4) {
+	text-align: center;
+}
+
+#render-kisiState>table tr td:nth-child(5) {
+	color: white;
+}
+
+#render-kisiState>table tr td:nth-child(6) {
+	color: white;
+}
+
+#render-kisiState>table tr td:nth-child(7) {
+	color: white;
+}
+
+#render-kisiState>table tr td:nth-child(8) {
+	color: white;
+}
+
+#render-kisiState>table tr td:nth-child(9) {
+	color: white;
+}
 
 #render-kisiState>table .stateBox {
 	float: left;
@@ -145,5 +181,36 @@
 	width: 1rem;
 	height: 1rem;
 	background-color: orange;
+}
+
+#render-kisiState>table .stateBox.center {
+	margin-left: 6px;
+}
+
+#render-kisiState>table .stateBox.half {
+	float: left;
+	margin-right: 1px;
+	width: 0.5rem;
+	height: 1rem;
+	background-color: #ffda95;
+}
+
+
+/* 岸君の凸傾向を表示 */
+
+#render-kisiTrend {
+
+}
+
+#render-kisiTrend>table .stateBox {
+	float: left;
+	margin-right: 1px;
 	width: 1rem;
+	height: 1rem;
+	background-color: blue;
+}
+#render-kisiTrend>table tr td:nth-child(n + 2) {
+	border-right: solid 1px #00000021;
+	color: white;
+	font-size: 0rem;
 }

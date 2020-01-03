@@ -5,7 +5,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="apple-mobile-web-app-title" content="凸MONITER">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=0.8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=0.5">
 <link rel="apple-touch-icon" href="img/icon.jpg">
 <link rel="shortcut icon" href="img/favicon.ico">
 <title>凸MONITER</title>
@@ -79,10 +79,6 @@
 				</div>
 				<span class="perNum"></span>
 			</div>
-			<!-- 凸チャート -->
-			<div id="render-battleChart" class="analysis-render-box draggable">
-				<canvas class="chart"></canvas>
-			</div>
 			<!-- ボスの状態-->
 			<div id="render-bossState" class="analysis-render-box draggable">
 				<div class="title">
@@ -103,53 +99,56 @@
 				<div class="title">
 					<span class="tete">凸状況</span>
 				</div>
-				<table class="tablesorter">
+				<div class="chkOption">
+					<input type="checkbox" id="chk-hideFin" value="1">
+					<label for="chk-hideFin">3凸を排除</label>
+					<input type="checkbox" id="chk-magicUsed" value="1">
+					<label for="chk-magicUsed">魔法凸を排除</label>
+				</div>
+				<table id="kisiStateTable" class="tablesorter">
 					<thead>
 						<tr>
 							<th>名前</th>
 							<th>凸数</th>
-							<th>凸数</th>
-							<th>魔法凸</th>
-							<th>Label</th>
-							<th>Release</th>
+							<th>凸メーター</th>
+							<th>魔法凸済</th>
+							<th>１</th>
+							<th>２</th>
+							<th>３</th>
+							<th>４</th>
+							<th>５</th>
 						</tr>
 					</thead>
 					<tr>
-						<td>1
-							<div class="stateBox"></div>
-						</td>
-						<td>✔</td>
-						<td>Indonesia</td>
-						<td>Moonjune Records</td>
-						<td>2009/06</td>
-						<td>★★★★★★★★</td>
-					</tr>
-					<tr>
-						<td>2
-							<div class="stateBox"></div>
-							<div class="stateBox"></div>
-						</td>
-						<td>CoS</td>
-						<td>Belgium</td>
-						<td>Plus Records</td>
-						<td>1974/08</td>
-						<td>★★★★</td>
-					</tr>
-					<tr>
-						<td>organizer</td>
-						<td>KIYO＊SEN</td>
-						<td>Japan</td>
-						<td>ELEC RECORDS</td>
-						<td>2018/07</td>
-						<td>★★★</td>
 					</tr>
 				</table>
-
-
-
-
 			</div>
 
+			<!-- 岸君の凸傾向 -->
+			<div id="render-kisiTrend" class="analysis-render-box draggable">
+				<div class="title">
+					<span class="tete">凸傾向</span>
+				</div>
+				<table id="kisiTrendTable" class="tablesorter">
+					<thead>
+						<tr>
+							<th>名前</th>
+							<th>１</th>
+							<th>２</th>
+							<th>３</th>
+							<th>４</th>
+							<th>５</th>
+						</tr>
+					</thead>
+					<tr>
+					</tr>
+				</table>
+			</div>
+
+			<!-- 凸チャート -->
+			<div id="render-battleChart" class="analysis-render-box draggable">
+				<canvas class="chart"></canvas>
+			</div>
 		</div>
 		<!-- 分析結果 -->
 		<!-- <button style="height:2000px">sde</button> -->

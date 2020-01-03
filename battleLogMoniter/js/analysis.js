@@ -1,11 +1,15 @@
 class Analysis{
 
-	constructor(report, priconeDate){
+	constructor(report, member, priconeDate){
 
 		/** 全凸レポート * */
 		this.report = report;
+		/** メンバー * */
+		this.member = member;
 		/** プリコネ日 * */
 		this.priconeDate = priconeDate;
+		console.log('report>'+this.report.length);
+		console.log('member>'+this.member.length);
 
 		// プリコネ日(START)をミリ秒に変換
 		let startPriconeDate_Milli = Date.parse(this.priconeDate);
@@ -57,6 +61,14 @@ class Analysis{
 		$('#render-battleSuccessful').find('.perNum').html('( 消化率: '+0+'％ )');
 		// ボス状態
 		$('#render-bossState').find('.render').remove();
+		// 岸君の凸
+		$('#render-kisiState').find('.render').remove();
+		if($('#chk-hideFin').prop('checked')){
+			$('#chk-hideFin').click();
+		}
+		if($('#chk-magicUsed').prop('checked')){
+			$('#chk-magicUsed').click();
+		}
 
 		/** 昨日と今日のデータがあれば分析開始 **/
 		if(!(this.todayReport.length == 0 && this.yesterdayReport.length == 0)){
@@ -68,7 +80,8 @@ class Analysis{
 			this.renderBattleState();
 			// 岸君の凸状態を表示
 			this.renderKisiState();
-
+			// 岸君の凸傾向を表示
+			this.renderKisiTrend();
 
 
 			return true;
@@ -278,6 +291,112 @@ class Analysis{
 
 	/** 岸君の凸状況 **/
 	renderKisiState(){
+
+		if(this.member.length == 0){
+			return false;
+		}
+
+		// 岸君テーブル
+		let kisiStateTable = $('#render-kisiState').find('#kisiStateTable');
+
+		let that = this;
+
+		$.each(this.member, function(index, val){
+
+			let tr = $('<tr></tr>').attr('class','render');
+
+			$('<td></td>').html(val.プリコネーム).appendTo(tr);
+			$('<td></td>').html(val.凸数).appendTo(tr);
+			let totuMater = $('<td></td>').html(val.凸数);
+			if(val.凸数 >= 3){
+				tr.addClass('finished');
+			}
+			for(var i=0;i<val.凸数-0.5;i++){
+				$('<div></div>').attr('class','stateBox').appendTo(totuMater);
+			}
+			if(val.凸数 - Math.floor(val.凸数) > 0){
+				$('<div></div>').attr('class','stateBox half').appendTo(totuMater);
+			}
+			totuMater.appendTo(tr);
+			if(val.魔法凸数 > 0){
+				$('<td></td>').html('✔').appendTo(tr);
+				tr.addClass('magicUsed');
+			}else{
+				$('<td></td>').appendTo(tr);
+			}
+			let kisiTotuReport = that.todayReport.filter(function(_item, _index){
+				if(_item.プリコネーム == val.プリコネーム
+						&& _item.ダメージ > 2000000){
+					return true;
+				}
+			});
+			for(var i = 1; i < 6; i++){
+				let _ktr = kisiTotuReport.filter(function(o){
+					return o.ボス == i;
+				});
+				if(_ktr.length > 0){
+					let stateTd = $('<td></td>').html(1);
+					let stateDiv = $('<div></div>').attr('class','stateBox center');
+					stateDiv.appendTo(stateTd);
+					stateTd.appendTo(tr);
+				}else{
+					$('<td></td>').html(0).appendTo(tr);
+				}
+			}
+
+			tr.appendTo(kisiStateTable);
+
+		});
+
+		$(".tablesorter").trigger("update");
+
+	}
+
+	/** 岸君の凸傾向 **/
+	renderKisiTrend(){
+
+		if(this.member.length == 0){
+			return false;
+		}
+
+		// 岸君テーブル
+		let kisiTrendTable = $('#render-kisiTrend').find('#kisiTrendTable');
+
+		let that = this;
+
+		$.each(this.member, function(index, val){
+
+			let tr = $('<tr></tr>').attr('class','render');
+
+			$('<td></td>').html(val.プリコネーム).appendTo(tr);
+
+			let kisiTotuReport = that.report.filter(function(_item, _index){
+				if(_item.プリコネーム == val.プリコネーム
+						&& _item.ダメージ > 2000000){
+					return true;
+				}
+			});
+			for(var i = 1; i < 6; i++){
+				let _ktr = kisiTotuReport.filter(function(o){
+					return o.ボス == i;
+				});
+				if(_ktr.length > 0){
+					let stateTd = $('<td></td>').html(_ktr.length/10);
+					let stateDiv = $('<div></div>').attr('class','stateBox center').css('opacity',_ktr.length/10);
+					stateDiv.appendTo(stateTd);
+					stateTd.appendTo(tr);
+				}else{
+					$('<td></td>').html(0).appendTo(tr);
+				}
+			}
+
+
+			console.log('tr>'+tr);
+			tr.appendTo(kisiTrendTable);
+
+		});
+
+		$(".tablesorter").trigger("update");
 
 	}
 
