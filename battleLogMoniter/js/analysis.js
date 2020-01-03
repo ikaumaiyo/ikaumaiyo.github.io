@@ -81,7 +81,7 @@ class Analysis{
 			// 岸君の凸状態を表示
 			this.renderKisiState();
 			// 岸君の凸傾向を表示
-			this.renderKisiTrend();
+			// this.renderKisiTrend();
 
 
 			return true;
@@ -343,6 +343,25 @@ class Analysis{
 					$('<td></td>').html(0).appendTo(tr);
 				}
 			}
+			let kisiTotuAllReport = that.report.filter(function(_item, _index){
+				if(_item.プリコネーム == val.プリコネーム
+						&& _item.ダメージ > 2000000){
+					return true;
+				}
+			});
+			for(var i = 1; i < 6; i++){
+				let _ktr = kisiTotuAllReport.filter(function(o){
+					return o.ボス == i;
+				});
+				if(_ktr.length > 0){
+					let stateTd = $('<td></td>').html(_ktr.length/10);
+					let stateDiv = $('<div></div>').attr('class','stateBox center trend').css('opacity',_ktr.length/10);
+					stateDiv.appendTo(stateTd);
+					stateTd.appendTo(tr);
+				}else{
+					$('<td></td>').html(0).appendTo(tr);
+				}
+			}
 
 			tr.appendTo(kisiStateTable);
 
@@ -352,7 +371,7 @@ class Analysis{
 
 	}
 
-	/** 岸君の凸傾向 **/
+	/** 岸君の凸傾向【廃止（凸状況に統合）】 **/
 	renderKisiTrend(){
 
 		if(this.member.length == 0){

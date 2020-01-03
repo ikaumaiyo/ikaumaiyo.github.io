@@ -170,6 +170,10 @@
 #render-kisiState>table tr td:nth-child(8) {
 	color: white;
 }
+#render-kisiState>table tr td:nth-child(n + 10) {
+	color: white;
+	font-size: 0rem;
+}
 
 #render-kisiState>table tr td:nth-child(9) {
 	color: white;
@@ -183,6 +187,9 @@
 	background-color: orange;
 }
 
+#render-kisiState>table .stateBox.trend {
+	background-color: blue;
+}
 #render-kisiState>table .stateBox.center {
 	margin-left: 6px;
 }
