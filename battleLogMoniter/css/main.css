@@ -4,6 +4,7 @@ html, body {
 	background-color: #fafafa;
 	-webkit-appearance: none;
 	min-width: 800px;
+	font-family: "HiraKakuProN-W3", sans-serif;
 }
 div#main-contents{
 }
