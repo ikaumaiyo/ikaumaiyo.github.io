@@ -9,16 +9,9 @@ $(document).ready(function() {
 	// デバッグ用
 	$('#targetDate').val('2019-12-26');
 
-	  $('.draggable').draggable({
-		    stack: '.draggable'
-		  });
-	  $('.tablesorter').tablesorter();
-
-	// ボス画像をレンダ
-	renderBossImg();
-
-	// エラーメッセージ削除
-	hideErrorMsg();
+	activationPlugins();    // activationPlugins
+	renderBossImg();      // ボス画像をレンダ
+	hideErrorMsg();         // エラーメッセージ削除
 
 	// 設定読み込み
 	optionDatastore = new OptionDatastore();
@@ -54,7 +47,7 @@ $(document).ready(function() {
 
 });
 
-/** スプシから凸ログを取得（googleキャッシュクリアしてるからここだけ重い） * */
+/** スプシから凸ログを取得（googleキャッシュクリアしてるから重い） * */
 let load = function() {
 
 	// ローディングアニメ開始
@@ -91,6 +84,16 @@ let load = function() {
 
 }// load()
 
+/** プラグイン系の活性化 * */
+let activationPlugins = function(){
+	// ドラッグするやつ
+	  $('.draggable').draggable({
+		    stack: '.draggable'
+		  });
+	  // テーブルソートするやつ
+	  $('.tablesorter').tablesorter();
+}
+
 /** ローディングアニメのやつ * */
 let showLoading = function() {
 	$('.loading').show();
@@ -126,7 +129,7 @@ let getPriconeDate = function() {
 	let pd = new Date(d.getFullYear(), d.getMonth(), d.getDate(), 5, 0, 0);
 	return pd;
 }
-/** ボス画像をレンダ **/
+/** ボス画像をレンダ * */
 let renderBossImg = function(){
 	$('.boss.b1').css('background-image','url('+$('#bossImg01').val()+')');
 	$('.boss.b2').css('background-image','url('+$('#bossImg02').val()+')');
@@ -135,7 +138,7 @@ let renderBossImg = function(){
 	$('.boss.b5').css('background-image','url('+$('#bossImg05').val()+')');
 }
 
-/** 設定画面生成 **/
+/** 設定画面生成 * */
 let renderSettingMenu = function(optionList){
 	$.each(optionList, (i,v) => {
 		$('<span></span>').html(i).appendTo('#modal_content');

@@ -144,7 +144,6 @@ class Analysis{
 	/** ボス状態を表示 * */
 	renderBattleState(){
 
-
 		// 今日のダメージ
 		let todayDmg = this.todayReport.reduce((prev, item) => prev + item.ダメージ ,0);
 		// 今日の周回数
