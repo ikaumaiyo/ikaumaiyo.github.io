@@ -9,7 +9,7 @@
     filter:alpha(opacity=60);
     -moz-opacity:0.60;
     opacity:0.60;
-    z-index:1;
+	z-index: 9001;
 }
 
 /* ローディングアニメーション */

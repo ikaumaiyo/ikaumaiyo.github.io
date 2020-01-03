@@ -104,7 +104,7 @@ class Analysis{
 		// プログレスバーをセット
 		$('#render-battleSuccessful>.perProgress>.successful').css('width' ,totuNum/90*100+'%');
 		// 消化率をセット
-		$('#render-battleSuccessful').find('.perNum').html('( 消化率: '+totuNum/90*100+'％ )');
+		$('#render-battleSuccessful').find('.perNum').html('( 消化率: '+Math.round(totuNum/90*100)+'％ )');
 
 	}
 

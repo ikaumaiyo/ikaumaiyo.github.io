@@ -9,6 +9,10 @@ $(document).ready(function() {
 	// デバッグ用
 	$('#targetDate').val('2019-12-26');
 
+	  $('.draggable').draggable({
+		    stack: '.draggable'
+		  });
+
 	// ボス画像をレンダ
 	renderBossImg();
 

@@ -8,6 +8,7 @@
 <link rel="stylesheet" type="text/css" href="css/setting.css">
 <link rel="stylesheet" type="text/css" href="css/analysis.css">
 <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.min.js"></script>
 <script src="js/main.js"></script>
 <script src="js/datastore.js"></script>
@@ -58,7 +59,7 @@
 				<span></span>
 			</div>
 			<!-- 凸数 -->
-			<div id="render-battleSuccessful" class="analysis-render-box">
+			<div id="render-battleSuccessful" class="analysis-render-box draggable">
 				<span class="tete">今日の凸</span> <span class="totuNum"></span>
 				<div class="perProgress">
 					<div class="successful"></div>
@@ -66,11 +67,11 @@
 				<span class="perNum"></span>
 			</div>
 			<!-- 凸チャート -->
-			<div id="render-battleChart" class="analysis-render-box">
+			<div id="render-battleChart" class="analysis-render-box draggable">
 				<canvas class="chart"></canvas>
 			</div>
 			<!-- ボスの状態-->
-			<div id="render-bossState" class="analysis-render-box">
+			<div id="render-bossState" class="analysis-render-box draggable">
 				<div class="title">
 					<span class="tete">ボス進捗</span>
 				</div>
@@ -85,7 +86,7 @@
 			</div>
 
 		</div><!-- 分析結果 -->
-
+<!-- <button style="height:2000px">sde</button> -->
 	</div><!-- コンテンツ -->
 </body>
 </html>

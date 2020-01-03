@@ -14,6 +14,7 @@ header {
 	top: 0px; /*ここで止める位置を調整する*/
 	background-color: #343434;
 	height: 2rem;
+	z-index: 9000;
 }
 
 .error {
