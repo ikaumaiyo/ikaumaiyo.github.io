@@ -7,7 +7,13 @@ let analysis;
 $(document).ready(function() {
 
 	// デバッグ用
-	$('#targetDate').val('2019-12-25');
+	$('#targetDate').val('2019-12-26');
+
+	// ボス画像をレンダ
+	renderBossImg();
+
+	// エラーメッセージ削除
+	hideErrorMsg();
 
 	// 設定読み込み
 	optionDatastore = new OptionDatastore();
@@ -19,6 +25,7 @@ $(document).ready(function() {
 	// ボタン系のイベントリスナ登録
 	// 再読み込み
 	$('body').on('click', '.reload', function(e) {
+		hideErrorMsg();
 		load();
 	});
 	// スプシ
@@ -61,9 +68,10 @@ let load = function() {
 		success : function(json) {
 			try {
 				report = json
-				console.table(report[0]);
 				analysis = new Analysis(report, getPriconeDate());
-				analysis.render();
+				if(!analysis.render()){
+					showErrorMsg('凸データがありません。');
+				}
 				hideLoading();
 			} catch (e) {
 				showErrorMsg(e);
@@ -71,8 +79,6 @@ let load = function() {
 			}
 		},
 		error : function(e) {
-			console.error('error');
-			console.error(e);
 			showErrorMsg(e);
 			hideLoading();
 		}
@@ -93,6 +99,9 @@ let showErrorMsg = function(e) {
 	$('.error').html(e);
 	$('.error').show();
 }
+let hideErrorMsg = function(e) {
+	$('.error').hide();
+}
 
 /** 現在日付取得 * */
 let getNowYYYYMMDD = function() {
@@ -111,6 +120,14 @@ let getPriconeDate = function() {
 	let d = new Date(_d.getFullYear(), _d.getMonth(), _d.getDate(), _d.getHours() - 5, _d.getMinutes(), _d.getSeconds());
 	let pd = new Date(d.getFullYear(), d.getMonth(), d.getDate(), 5, 0, 0);
 	return pd;
+}
+/** ボス画像をレンダ **/
+let renderBossImg = function(){
+	$('.boss.b1').css('background-image','url('+$('#bossImg01').val()+')');
+	$('.boss.b2').css('background-image','url('+$('#bossImg02').val()+')');
+	$('.boss.b3').css('background-image','url('+$('#bossImg03').val()+')');
+	$('.boss.b4').css('background-image','url('+$('#bossImg04').val()+')');
+	$('.boss.b5').css('background-image','url('+$('#bossImg05').val()+')');
 }
 
 /** 設定画面生成 **/

@@ -50,13 +50,13 @@ class OptionDatastore{
 		return this.optionList;
 	}
 	getW1Sum(){
-		this.optionList.boss_hp_w1_01 + this.optionList.boss_hp_w1_02 + this.optionList.boss_hp_w1_03 + this.optionList.boss_hp_w1_04 + this.optionList.boss_hp_w1_05;
+		return this.optionList.boss_hp_w1_01 + this.optionList.boss_hp_w1_02 + this.optionList.boss_hp_w1_03 + this.optionList.boss_hp_w1_04 + this.optionList.boss_hp_w1_05;
 	}
 	getW2Sum(){
-		this.optionList.boss_hp_w2_01 + this.optionList.boss_hp_w2_02 + this.optionList.boss_hp_w2_03 + this.optionList.boss_hp_w2_04 + this.optionList.boss_hp_w2_05;
+		return this.optionList.boss_hp_w2_01 + this.optionList.boss_hp_w2_02 + this.optionList.boss_hp_w2_03 + this.optionList.boss_hp_w2_04 + this.optionList.boss_hp_w2_05;
 	}
 	getW3Sum(){
-		this.optionList.boss_hp_w3_01 + this.optionList.boss_hp_w3_02 + this.optionList.boss_hp_w3_03 + this.optionList.boss_hp_w3_04 + this.optionList.boss_hp_w3_05;
+		return this.optionList.boss_hp_w3_01 + this.optionList.boss_hp_w3_02 + this.optionList.boss_hp_w3_03 + this.optionList.boss_hp_w3_04 + this.optionList.boss_hp_w3_05;
 	}
 
 

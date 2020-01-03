@@ -15,6 +15,13 @@
 
 </head>
 <body>
+
+	<!-- ボス画像を盗む -->
+	<input type="hidden" id="bossImg01" value="https://gamewith.akamaized.net/article_tools/pricone-re/gacha/177_enemy.png" />
+	<input type="hidden" id="bossImg02" value="https://gamewith.akamaized.net/article_tools/pricone-re/gacha/153_enemy.png" />
+	<input type="hidden" id="bossImg03" value="https://gamewith.akamaized.net/article_tools/pricone-re/gacha/95_enemy.png" />
+	<input type="hidden" id="bossImg04" value="https://gamewith.akamaized.net/article_tools/pricone-re/gacha/191_enemy.png" />
+	<input type="hidden" id="bossImg05" value="https://gamewith.akamaized.net/article_tools/pricone-re/gacha/178_enemy.png" />
 	<!-- ヘッダ -->
 	<header>
 		<div class="button">var1.0</div>
@@ -39,8 +46,7 @@
 		<div id="modal">
 			<div id="modal_content">
 				<button class="btn_close button">閉じる</button>
-				<br>
-				<br>
+				<br> <br>
 			</div>
 		</div>
 
@@ -65,16 +71,21 @@
 			</div>
 			<!-- ボスの状態-->
 			<div id="render-bossState" class="analysis-render-box">
-				<div class="emptyBox"></div>
-				<div class="boss b1">ボス１</div>
-				<div class="boss b2">ボス２</div>
-				<div class="boss b3">ボス３</div>
-				<div class="boss b4">ボス４</div>
-				<div class="boss b5">ボス５</div>
+				<div class="title">
+					<span class="tete">ボス進捗</span>
+				</div>
+				<div class="bossStateWrapLine">
+					<div class="emptyBox">warp</div>
+					<div class="boss b1"></div>
+					<div class="boss b2"></div>
+					<div class="boss b3"></div>
+					<div class="boss b4"></div>
+					<div class="boss b5"></div>
+				</div>
 			</div>
 
-		</div>
+		</div><!-- 分析結果 -->
 
-	</div>
+	</div><!-- コンテンツ -->
 </body>
 </html>

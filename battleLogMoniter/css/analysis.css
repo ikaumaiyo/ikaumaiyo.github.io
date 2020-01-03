@@ -68,19 +68,50 @@
 
 /* ボスの状態を表示 */
 #render-bossState {
-	width: 310px;
+	width: 320px;
 }
 
-#render-bossState>.emptyBox {
+#render-bossState>.title {
+	margin-bottom: 1rem;
+}
+
+#render-bossState>.bossStateWrapLine {
+	display: inline-block;
+}
+
+#render-bossState>.bossStateWrapLine>.emptyBox {
 	width: 50px;
-	height: 50px;
+	height: 15px;
+	border: solid 1px #ffffff;
 	float: left;
+	font-size: 0.7rem;
 }
 
-#render-bossState>.boss {
+#render-bossState>.bossStateWrapLine>.boss {
 	width: 50px;
 	height: 50px;
 	border: solid 1px #dddddd;
 	border-radius: 5px;
 	float: left;
+/* 	background-image: url(https://gamewith.akamaized.net/article_tools/pricone-re/gacha/177_enemy.png); */
+    background-size: contain;
+}
+
+#render-bossState>.bossStateWrapLine>.nowState {
+	width: 50px;
+	height: 15px;
+	border: solid 1px #ffffff;
+	float: left;
+	background-color: #2296f2;
+	font-size: 0.5rem;
+	border-radius: 5px;
+}
+#render-bossState>.bossStateWrapLine>.outlook {
+	width: 50px;
+	height: 15px;
+	border: solid 1px #ffffff;
+	float: left;
+	background-color: orange;
+	font-size: 0.5rem;
+	border-radius: 5px;
 }
