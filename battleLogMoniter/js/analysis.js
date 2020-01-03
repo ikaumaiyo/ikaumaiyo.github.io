@@ -66,6 +66,10 @@ class Analysis{
 			this.renderBattleChart();
 			// ボス状態を表示
 			this.renderBattleState();
+			// 岸君の凸状態を表示
+			this.renderKisiState();
+
+
 
 			return true;
 		}else{
@@ -173,7 +177,7 @@ class Analysis{
 				break;
 			}
 			let bossStateWrapLine = $('<div></div>').attr('class','bossStateWrapLine render');
-			$('<div></div>').attr('class','emptyBox render').html(startWrap).appendTo(bossStateWrapLine); // wrapボックスをレンダ
+			$('<div></div>').attr('class','emptyBox render').html(startWrap).appendTo(bossStateWrapLine); // レンダ用のwrapボックス
 
 			for (  var i = 1;  i < 6;  i++  ) {
 
@@ -231,8 +235,6 @@ class Analysis{
 			startWrap = startWrap + 1; // ループのスタート周をカウントアップ
 
 		}
-
-
 	}
 	/** ボス状態を表示 - 着地予測の終端を計算 * */
 	renderBattleState_calc_outlookBossCount(yestWrap,startBoss){
@@ -273,6 +275,11 @@ class Analysis{
 			}
 		}
 		return (Math.floor(yestWrap)*5) + outlookDecimalCount; // ボス撃破数予測
+	}
+
+	/** 岸君の凸状況 **/
+	renderKisiState(){
+
 	}
 
 }

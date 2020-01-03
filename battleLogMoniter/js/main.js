@@ -12,6 +12,7 @@ $(document).ready(function() {
 	  $('.draggable').draggable({
 		    stack: '.draggable'
 		  });
+	  $('.tablesorter').tablesorter();
 
 	// ボス画像をレンダ
 	renderBossImg();
