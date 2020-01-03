@@ -6,44 +6,79 @@ html, body {
 	min-width: 800px;
 	font-family: "HiraKakuProN-W3", sans-serif;
 }
-div#main-contents{
+
+div#main-contents {
+
 }
 
-header {
-	position: -webkit-sticky;
-	position: sticky;
-	top: 0px; /*ここで止める位置を調整する*/
-	background-color: #343434;
-	height: 2rem;
-	z-index: 9000;
+@media screen and (max-width:667px) {
+	/*画面幅が666pxまでの時*/
+	header {
+		position: -webkit-sticky;
+		position: sticky;
+		top: 0px; /*ここで止める位置を調整する*/
+		background-color: #343434;
+		height: 3rem;
+		z-index: 9000;
+	}
+	header>.button {
+		height: 3rem;
+		float: left;
+		background-color: #aaaaaa;
+		padding: 0rem 1rem;
+		margin-left: 0.5rem;
+		-ms-user-select: none;
+		-moz-user-select: -moz-none;
+		-khtml-user-select: none;
+		-webkit-user-select: none;
+		user-select: none;
+	}
+	header>input {
+		height: 3rem;
+		float: left;
+		background-color: #aaaaaa;
+		padding: 0rem 1rem;
+		margin-left: 0.5rem;
+		border: none;
+	}
+}
+
+@media screen and (min-width:667px) {
+	/*画面幅が781px以上の時*/
+	header {
+		position: -webkit-sticky;
+		position: sticky;
+		top: 0px; /*ここで止める位置を調整する*/
+		background-color: #343434;
+		height: 2rem;
+		z-index: 9000;
+	}
+	header>.button {
+		height: 2rem;
+		float: left;
+		background-color: #aaaaaa;
+		padding: 0rem 1rem;
+		margin-left: 0.5rem;
+		-ms-user-select: none;
+		-moz-user-select: -moz-none;
+		-khtml-user-select: none;
+		-webkit-user-select: none;
+		user-select: none;
+	}
+	header>input {
+		height: 2rem;
+		float: left;
+		background-color: #aaaaaa;
+		padding: 0rem 1rem;
+		margin-left: 0.5rem;
+		border: none;
+	}
 }
 
 .error {
 	display: none;
 	color: #ff0000;
 	background-color: #ffebeb;
-}
-
-header>.button {
-	height: 2rem;
-	float: left;
-	background-color: #aaaaaa;
-	padding: 0rem 1rem;
-	margin-left: 0.5rem;
-	-ms-user-select: none;
-	-moz-user-select: -moz-none;
-	-khtml-user-select: none;
-	-webkit-user-select: none;
-	user-select: none;
-}
-
-header>input{
-	height: 2rem;
-	float: left;
-	background-color: #aaaaaa;
-	padding: 0rem 1rem;
-	margin-left: 0.5rem;
-	border: none;
 }
 
 header>.button:hover {
