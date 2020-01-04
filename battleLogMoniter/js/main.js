@@ -151,9 +151,10 @@ let load = function() {
 /** プラグイン系の活性化 * */
 let activationPlugins = function(){
 	// ドラッグするやつ
-	 $('.draggable').draggable({
-	 stack: '.draggable'
-	 });
+//	 $('.draggable').draggable({
+//	 stack: '.draggable'
+//	 });
+	 $( ".draggable" ).draggable({ containment: "#analysis", scroll: false },{stack: '.draggable'});
 	  // テーブルソートするやつ
 	  $('.tablesorter').tablesorter();
 }
