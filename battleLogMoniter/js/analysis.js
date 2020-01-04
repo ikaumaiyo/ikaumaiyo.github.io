@@ -227,10 +227,10 @@ class Analysis{
 		// wave
 		$('#render-bossState').find('.nowBossState').find('.hpPerBox').find('.wave').html('wave'+nowBossWave);
 		// hp
-		let nowBossHpStateStr = (optionList['boss_hp_w'+nowBossWave+'_0'+nowBoss] - nowBossDmg).toLocaleString();
+		let nowBossHpStateStr = (optionList['boss_hp_w'+nowBossWave+'_0'+nowBoss] - nowBossDmg);
 		let nowBossHpStatePerStr = Math.round((optionList['boss_hp_w'+nowBossWave+'_0'+nowBoss] - nowBossDmg)/optionList['boss_hp_w'+nowBossWave+'_0'+nowBoss]*100) + '%';
 		nowBossHpStateStr = nowBossHpStateStr + ' / ';
-		nowBossHpStateStr = nowBossHpStateStr + optionList['boss_hp_w'+nowBossWave+'_0'+nowBoss].toLocaleString();
+		nowBossHpStateStr = nowBossHpStateStr + optionList['boss_hp_w'+nowBossWave+'_0'+nowBoss];
 		nowBossHpStateStr = nowBossHpStateStr + ' ('+ nowBossHpStatePerStr + ')';
 		$('#render-bossState').find('.nowBossState').find('.hpPerBox').find('.hp').html(nowBossHpStateStr);
 
