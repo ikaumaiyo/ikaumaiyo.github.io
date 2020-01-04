@@ -154,7 +154,17 @@ let activationPlugins = function(){
 //	 $('.draggable').draggable({
 //	 stack: '.draggable'
 //	 });
-	 $( ".draggable" ).draggable({ containment: "#analysis", scroll: false },{stack: '.draggable'});
+
+    var ua = navigator.userAgent;
+    if (ua.indexOf('iPhone') > 0 || ua.indexOf('Android') > 0 && ua.indexOf('Mobile') > 0) {
+        // スマートフォン用コード
+    } else if (ua.indexOf('iPad') > 0 || ua.indexOf('Android') > 0) {
+        // タブレット用コード
+    } else {
+    	$( ".draggable" ).draggable({ containment: "#analysis", scroll: false },{stack: '.draggable'});
+    }
+
+
 	  // テーブルソートするやつ
 	  $('.tablesorter').tablesorter();
 }
