@@ -39,6 +39,15 @@ $(document).ready(function() {
 	$('body').on('click', '.openSetting', function(e) {
 		$('#modal').show();
 	});
+	$('body').on('click', '.btn_close', function(e) {
+		optionDatastore.saveOption();
+		$('#modal').hide();
+	});
+	$('body').on('click', '.btn_reset', function(e) {
+		optionDatastore.resetOption();
+		$('#modal').hide();
+		showErrorMsg('ブラウザの更新ボタンでページを更新してください。');
+	});
 	$('#modal').on('click', function(event) {
 		if (!($(event.target).closest($('#modal_content')).length) || ($(event.target).closest($(".btn_close")).length)) {
 			optionDatastore.saveOption();
