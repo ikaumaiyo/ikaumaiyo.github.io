@@ -419,7 +419,14 @@ class Analysis{
 					return o.ボス == i;
 				});
 				if(_ktr.length > 0){
-					let stateTd = $('<td></td>').html(1);
+					let totuNum = _ktr.reduce(function(_prev, _item) {
+						if(_item.LA == 1 || _item.LA残 == 1 ){
+							return _prev + 0.5;
+						}else{
+							return _prev + 1;
+						}
+					},0);
+					let stateTd = $('<td></td>').html(totuNum);
 					let stateDiv = $('<div></div>');
 					$.each(_ktr, function(_i, _v){
 						if(_v.LA == 1){
