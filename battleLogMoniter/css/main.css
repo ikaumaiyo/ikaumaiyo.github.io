@@ -6,7 +6,8 @@ html, body {
 	min-width: 800px;
 	font-family: "HiraKakuProN-W3", sans-serif;
 }
-div#main-contents{
+
+div#main-contents {
 	display: inline-block;
 }
 
@@ -39,7 +40,7 @@ header>.button {
 	user-select: none;
 }
 
-header>input{
+header>input {
 	height: 2rem;
 	float: left;
 	background-color: #aaaaaa;
@@ -52,3 +53,4 @@ header>.button:hover {
 	background-color: #dddddd;
 	cursor: pointer;
 }
+

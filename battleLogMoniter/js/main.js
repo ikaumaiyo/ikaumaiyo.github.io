@@ -45,7 +45,7 @@ $(document).ready(function() {
 			$('#modal').hide();
 		}
 	});
-	/** チェックボックス系 **/
+	/** チェックボックス系 * */
 	// 3凸排除
 	$('body').on('click', '#chk-hideFin', function() {
 		if($(this).prop('checked')){
@@ -62,6 +62,7 @@ $(document).ready(function() {
 			$('#render-kisiState').find('.magicUsed').show();
 		}
 	});
+
 
 
 
@@ -119,12 +120,12 @@ let load = function() {
 	$.when.apply($, ajax_list).done(function(){
 		analysis = new Analysis(report, member, getPriconeDate());
 		try{
-			if(!analysis.render()){
-				showErrorMsg('データレンダリング中に何らかのエラー');
-			}
+			showErrorMsg(analysis.render());
+			hideLoading();
 		}catch(e){
 			console.error(e);
 			showErrorMsg(e);
+			hideLoading();
 		}
 		hideLoading();
 	}).fail(function(e){
@@ -141,9 +142,9 @@ let load = function() {
 /** プラグイン系の活性化 * */
 let activationPlugins = function(){
 	// ドラッグするやつ
-	  $('.draggable').draggable({
-		    stack: '.draggable'
-		  });
+	 $('.draggable').draggable({
+	 stack: '.draggable'
+	 });
 	  // テーブルソートするやつ
 	  $('.tablesorter').tablesorter();
 }
@@ -158,10 +159,12 @@ let hideLoading = function() {
 
 /** エラーのやつ * */
 let showErrorMsg = function(e) {
-	$('.error').html(e);
-	$('.error').show();
+	let span = $('<span></span>').html(e);
+	span.appendTo($('.error'));
+	$('.error').css('display','grid');
 }
 let hideErrorMsg = function(e) {
+	$('.error').html('');
 	$('.error').hide();
 }
 

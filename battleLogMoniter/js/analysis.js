@@ -2,6 +2,8 @@ class Analysis{
 
 	constructor(report, member, priconeDate){
 
+		let that = this;
+
 		/** 全凸レポート * */
 		this.report = report;
 		/** メンバー * */
@@ -12,27 +14,27 @@ class Analysis{
 		console.log('member>'+this.member.length);
 
 		// プリコネ日(START)をミリ秒に変換
-		let startPriconeDate_Milli = Date.parse(this.priconeDate);
+		this.startPriconeDate_Milli = Date.parse(this.priconeDate);
 		// プリコネ日(END)をミリ秒に変換
-		let endPriconeDate = new Date(this.priconeDate.getFullYear(), this.priconeDate.getMonth(), this.priconeDate.getDate()+1,
+		this.endPriconeDate = new Date(this.priconeDate.getFullYear(), this.priconeDate.getMonth(), this.priconeDate.getDate()+1,
 				this.priconeDate.getHours(), this.priconeDate.getMinutes(), this.priconeDate.getSeconds());
-		let endPriconeDate_Milli = Date.parse(endPriconeDate);
+		this.endPriconeDate_Milli = Date.parse(this.endPriconeDate);
 		// プリコネ日(START_YESTERDAY)をミリ秒に変換
-		let startYestPriconeDate = new Date(this.priconeDate.getFullYear(), this.priconeDate.getMonth(), this.priconeDate.getDate()-1,
+		this.startYestPriconeDate = new Date(this.priconeDate.getFullYear(), this.priconeDate.getMonth(), this.priconeDate.getDate()-1,
 				this.priconeDate.getHours(), this.priconeDate.getMinutes(), this.priconeDate.getSeconds());
-		let startYestPriconeDate_Milli = Date.parse(startYestPriconeDate);
+		this.startYestPriconeDate_Milli = Date.parse(this.startYestPriconeDate);
 
 		/** 今日分の凸レポート * */
 		this.todayReport = this.report.filter(function(item, index){
-			if(Date.parse(item.タイムスタンプ) >= startPriconeDate_Milli
-					&& Date.parse(item.タイムスタンプ) < endPriconeDate_Milli) {
+			if(Date.parse(item.タイムスタンプ) >= that.startPriconeDate_Milli
+					&& Date.parse(item.タイムスタンプ) < that.endPriconeDate_Milli) {
 				return true;
 			}
 		});
 		/** 前日分の凸レポート * */
 		this.yesterdayReport = this.report.filter(function(item, index){
-			if(Date.parse(item.タイムスタンプ) >= startYestPriconeDate_Milli
-					&& Date.parse(item.タイムスタンプ) < startPriconeDate_Milli) {
+			if(Date.parse(item.タイムスタンプ) >= that.startYestPriconeDate_Milli
+					&& Date.parse(item.タイムスタンプ) < that.startPriconeDate_Milli) {
 				return true;
 			}
 		});
@@ -54,7 +56,7 @@ class Analysis{
 		// プリコネ日を表示
 		this.renderTargetDate();
 
-		/** 初期化 **/
+		/** 初期化 * */
 		// 凸数
 		$('#render-battleSuccessful').find('.totuNum').html('');
 		$('#render-battleSuccessful>.perProgress>.successful').css('width' ,0+'%');
@@ -70,23 +72,24 @@ class Analysis{
 			$('#chk-magicUsed').click();
 		}
 
-		/** 昨日と今日のデータがあれば分析開始 **/
+		/** 昨日と今日のデータがあれば分析開始 * */
 		if(!(this.todayReport.length == 0 && this.yesterdayReport.length == 0)){
-			// 凸完了数を表示
-			this.renderBattleSuccessful();
-			// 凸チャートを表示
-			this.renderBattleChart();
-			// ボス状態を表示
-			this.renderBattleState();
-			// 岸君の凸状態を表示
-			this.renderKisiState();
-			// 岸君の凸傾向を表示
-			// this.renderKisiTrend();
-
-
-			return true;
+			try{
+				// 凸完了数を表示
+				this.renderBattleSuccessful();
+				// 凸チャートを表示
+				this.renderBattleChart();
+				// ボス状態を表示
+				this.renderBattleState();
+				// 岸君の凸状態を表示
+				this.renderKisiState();
+				// 岸君の凸傾向を表示
+				// this.renderKisiTrend();
+			}catch(e){
+				return e;
+			}
 		}else{
-			return false;
+			return 'データがありません';
 		}
 	}
 
@@ -156,6 +159,10 @@ class Analysis{
 
 	/** ボス状態を表示 * */
 	renderBattleState(){
+		let that = this;
+
+		// オプション読み込み
+		let optionList = optionDatastore.getOptionList();
 
 		// 今日のダメージ
 		let todayDmg = this.todayReport.reduce((prev, item) => prev + item.ダメージ ,0);
@@ -176,7 +183,59 @@ class Analysis{
 			startWrap = this.todayReport[0].周回;
 			nowBoss = this.todayReport[this.todayReport.length-1].ボス;
 			nowWrap = this.todayReport[this.todayReport.length-1].周回;
+		}else{
+			// その日のデータが無い場合はスタートを前日最終地点に設定
+			startBoss = this.yesterdayReport[this.yesterdayReport.length-1].ボス;
+			startWrap = this.yesterdayReport[this.yesterdayReport.length-1].周回;
+			nowBoss = this.yesterdayReport[this.yesterdayReport.length-1].ボス;
+			nowWrap = this.yesterdayReport[this.yesterdayReport.length-1].周回;
 		}
+
+		// 現ボスの状態
+		let nowBossReport = this.report.filter(function(_item, _index){
+			if(_item.周回 == nowWrap && _item.ボス == nowBoss
+					&& Date.parse(_item.タイムスタンプ) < that.endPriconeDate) {
+				return true;
+			}
+		});
+		// 現ボスが食らったダメージ
+		let nowBossDmg = nowBossReport.reduce((prev, item) => prev + item.ダメージ ,0);
+		// 現wave
+		let nowBossWave = 0;
+		if(nowWrap >= optionList.w3_start_wrap){
+			nowBossWave = 3;
+		}else if(nowWrap >= optionList.w2_start_wrap){
+			nowBossWave = 2;
+		}else if(nowWrap >= optionList.w1_start_wrap){
+			nowBossWave = 1;
+		}
+
+		// ボス撃破後だった場合は次のボスを現在地に設定
+		if(nowBossDmg >= optionList['boss_hp_w'+nowBossWave+'_0'+nowBoss] ){
+			nowBoss = nowBoss + 1;
+			nowBossDmg = 0;
+			if(nowBoss == 6){
+				nowBoss = 1;
+				nowWrap = nowWrap + 1;
+			}
+		}
+
+
+		// 現在のボスを表示する
+		// ボス画像
+		$('#render-bossState').find('.nowBossState').find('.boss').css('background-image','url('+$('#bossImg0'+nowBoss).val()+')');
+		// wave
+		$('#render-bossState').find('.nowBossState').find('.hpPerBox').find('.wave').html('wave'+nowBossWave);
+		// hp
+		let nowBossHpStateStr = (optionList['boss_hp_w'+nowBossWave+'_0'+nowBoss] - nowBossDmg).toLocaleString();
+		nowBossHpStateStr = nowBossHpStateStr + ' / ';
+		nowBossHpStateStr = nowBossHpStateStr + optionList['boss_hp_w'+nowBossWave+'_0'+nowBoss].toLocaleString();
+		nowBossHpStateStr = nowBossHpStateStr + ' ('+ Math.round((optionList['boss_hp_w'+nowBossWave+'_0'+nowBoss] - nowBossDmg)/optionList['boss_hp_w'+nowBossWave+'_0'+nowBoss]*100) + '%)';
+		$('#render-bossState').find('.nowBossState').find('.hpPerBox').find('.hp').html(nowBossHpStateStr);
+
+		// プログレスバー
+
+
 
 		// 着地予測の終端を計算
 		let outlookBossCount = this.renderBattleState_calc_outlookBossCount(yestWrap,startBoss);
@@ -215,13 +274,7 @@ class Analysis{
 				outlookBossCount = outlookBossCount - 1;
 
 				// 着地予測に割り込まれなかった場合のみ現在ボスのレンダ
-				if(nowWrap == 0 && outlookFlg == 0){
-					// その日のデータが無い場合
-					$('<div></div>').attr('class','emptyBox render').appendTo(bossStateWrapLine);
-					if(firstFlg == 1 && i < this.yesterdayReport[this.yesterdayReport.length-1].ボス){
-						outlookBossCount = outlookBossCount + 1;
-					}
-				}else if(outlookFlg == 0){
+				if(outlookFlg == 0){
 					// その日のデータが有る場合
 					if(firstFlg == 1){ // 初回ループ
 						if(i < startBoss){
@@ -246,7 +299,11 @@ class Analysis{
 			firstFlg = 0;
 			startWrap = startWrap + 1; // ループのスタート周をカウントアップ
 
-		}
+		} // while
+
+
+
+
 	}
 	/** ボス状態を表示 - 着地予測の終端を計算 * */
 	renderBattleState_calc_outlookBossCount(yestWrap,startBoss){
@@ -289,7 +346,7 @@ class Analysis{
 		return (Math.floor(yestWrap)*5) + outlookDecimalCount; // ボス撃破数予測
 	}
 
-	/** 岸君の凸状況 **/
+	/** 岸君の凸状況 * */
 	renderKisiState(){
 
 		if(this.member.length == 0){
@@ -303,46 +360,79 @@ class Analysis{
 
 		$.each(this.member, function(index, val){
 
+
+			// 岸君凸テーブル
+			let kisiTotuReport = that.todayReport.filter(function(_item, _index){
+				if(_item.プリコネーム == val.プリコネーム){
+					return true;
+				}
+			});
+
+			// 一行
 			let tr = $('<tr></tr>').attr('class','render');
 
+			// 名前
 			$('<td></td>').html(val.プリコネーム).appendTo(tr);
-			$('<td></td>').html(val.凸数).appendTo(tr);
-			let totuMater = $('<td></td>').html(val.凸数);
-			if(val.凸数 >= 3){
+			// 凸数
+			let totuNum = kisiTotuReport.reduce(function(_prev, _item) {
+				if(_item.LA == 1 || _item.LA残 == 1 ){
+					return _prev + 0.5;
+				}else{
+					return _prev + 1;
+				}
+			},0);
+			$('<td></td>').html(totuNum).appendTo(tr);
+			if(totuNum >= 3){
 				tr.addClass('finished');
 			}
-			for(var i=0;i<val.凸数-0.5;i++){
+			// 凸メーター
+			let totuMater = $('<td></td>').html(totuNum);
+			for(var i=0;i<totuNum-0.5;i++){
 				$('<div></div>').attr('class','stateBox').appendTo(totuMater);
 			}
-			if(val.凸数 - Math.floor(val.凸数) > 0){
+			if(totuNum - Math.floor(totuNum) > 0){
 				$('<div></div>').attr('class','stateBox half').appendTo(totuMater);
 			}
 			totuMater.appendTo(tr);
-			if(val.魔法凸数 > 0){
+			// 魔法凸済
+			let totuMagicNum = kisiTotuReport.reduce(function(_prev, _item) {
+				if(_item.魔法 == 1){
+					return _prev + 1;
+				}else{
+					return _prev;
+				}
+			},0);
+
+			if(totuMagicNum > 0){
 				$('<td></td>').html('✔').appendTo(tr);
 				tr.addClass('magicUsed');
 			}else{
 				$('<td></td>').appendTo(tr);
 			}
-			let kisiTotuReport = that.todayReport.filter(function(_item, _index){
-				if(_item.プリコネーム == val.プリコネーム
-						&& _item.ダメージ > 2000000){
-					return true;
-				}
-			});
+
+			// 実凸
 			for(var i = 1; i < 6; i++){
 				let _ktr = kisiTotuReport.filter(function(o){
 					return o.ボス == i;
 				});
 				if(_ktr.length > 0){
 					let stateTd = $('<td></td>').html(1);
-					let stateDiv = $('<div></div>').attr('class','stateBox center');
-					stateDiv.appendTo(stateTd);
+					let stateDiv = $('<div></div>');
+					$.each(_ktr, function(_i, _v){
+						if(_v.LA == 1){
+							$('<div></div>').attr('class','stateBox half first').appendTo(stateTd);
+						}else if(_v.LA残 == 1){
+							$('<div></div>').attr('class','stateBox half second').appendTo(stateTd);
+						}else{
+							$('<div></div>').attr('class','stateBox').appendTo(stateTd);
+						}
+					});
 					stateTd.appendTo(tr);
 				}else{
 					$('<td></td>').html(0).appendTo(tr);
 				}
 			}
+			// 凸傾向
 			let kisiTotuAllReport = that.report.filter(function(_item, _index){
 				if(_item.プリコネーム == val.プリコネーム
 						&& _item.ダメージ > 2000000){
@@ -363,6 +453,7 @@ class Analysis{
 				}
 			}
 
+			// 一行レンダ
 			tr.appendTo(kisiStateTable);
 
 		});
@@ -371,7 +462,7 @@ class Analysis{
 
 	}
 
-	/** 岸君の凸傾向【廃止（凸状況に統合）】 **/
+	/** 岸君の凸傾向【廃止（凸状況に統合）】 * */
 	renderKisiTrend(){
 
 		if(this.member.length == 0){

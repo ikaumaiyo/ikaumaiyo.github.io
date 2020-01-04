@@ -26,6 +26,9 @@ class OptionDatastore{
 					boss_hp_w3_03 : 12000000,
 					boss_hp_w3_04 : 14000000,
 					boss_hp_w3_05 : 17000000,
+					w1_start_wrap : 1,
+					w2_start_wrap : 4,
+					w3_start_wrap : 11,
 				};
 			localStorage.setItem(OPTION, JSON.stringify(_optionList));
 		}

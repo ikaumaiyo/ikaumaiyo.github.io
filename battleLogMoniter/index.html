@@ -16,14 +16,10 @@
 <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
-
-
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.min.js"></script>
 <script src="js/main.js"></script>
 <script src="js/datastore.js"></script>
 <script src="js/analysis.js"></script>
-
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.2/js/jquery.tablesorter.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.2/css/theme.default.min.css">
 
@@ -38,7 +34,7 @@
 	<input type="hidden" id="bossImg05" value="https://gamewith.akamaized.net/article_tools/pricone-re/gacha/178_enemy.png" />
 	<!-- ヘッダ -->
 	<header>
-		<div class="button">var1.2</div>
+		<div class="button">var1.3</div>
 		<div class="reload button">再読み込み</div>
 		<div class="openSpreadSheet button">スプシ</div>
 		<div class="openJson button">json</div>
@@ -49,7 +45,7 @@
 	<!-- コンテンツ -->
 	<div id="main-contents">
 		<!-- エラーメッセージ -->
-		<div class="error">errorMsg</div>
+		<div class="error"></div>
 		<!-- ローディングアニメーション -->
 		<div class="loading">
 			<div class="spinner type1">
@@ -64,6 +60,7 @@
 			</div>
 		</div>
 
+
 		<!-- 分析結果 -->
 		<div id="analysis">
 
@@ -71,29 +68,48 @@
 			<div id="render-targetDate">
 				<span></span>
 			</div>
-			<!-- 凸数 -->
-			<div id="render-battleSuccessful" class="analysis-render-box draggable">
-				<span class="tete">今日の凸</span> <span class="totuNum"></span>
-				<div class="perProgress">
-					<div class="successful"></div>
-				</div>
-				<span class="perNum"></span>
-			</div>
-			<!-- ボスの状態-->
-			<div id="render-bossState" class="analysis-render-box draggable">
-				<div class="title">
-					<span class="tete">ボス進捗</span>
-				</div>
-				<div class="bossStateWrapLine">
-					<div class="emptyBox title">warp</div>
-					<div class="boss b1"></div>
-					<div class="boss b2"></div>
-					<div class="boss b3"></div>
-					<div class="boss b4"></div>
-					<div class="boss b5"></div>
-				</div>
-			</div>
 
+			<div style="float: left; display: grid;">
+				<!-- 凸数 -->
+				<div id="render-battleSuccessful" class="analysis-render-box draggable">
+					<div class="title">
+						<span class="tete">今日の凸</span>
+					</div>
+					<span class="totuNum"></span>
+					<div class="perProgress">
+						<div class="successful"></div>
+					</div>
+					<span class="perNum"></span>
+				</div>
+				<!-- ボスの状態-->
+				<div id="render-bossState" class="analysis-render-box draggable">
+					<div class="title">
+						<span class="tete">ボス進捗</span>
+					</div>
+					<div class="nowBossState">
+						<div class="boss"></div>
+						<div class="hpPerBox">
+							<span class="wave"></span> <span class="hp"></span>
+							<div class="perProgress">
+								<div class="successful"></div>
+							</div>
+						</div>
+					</div>
+					<div class="bossStateWrapLine">
+						<div class="emptyBox title">warp</div>
+						<div class="boss b1"></div>
+						<div class="boss b2"></div>
+						<div class="boss b3"></div>
+						<div class="boss b4"></div>
+						<div class="boss b5"></div>
+					</div>
+				</div>
+
+				<!-- 凸チャート -->
+				<div id="render-battleChart" class="analysis-render-box draggable">
+					<canvas class="chart"></canvas>
+				</div>
+			</div>
 			<!-- 岸君の凸状況 -->
 			<div id="render-kisiState" class="analysis-render-box draggable">
 				<div class="title">
@@ -105,13 +121,13 @@
 					<input type="checkbox" id="chk-magicUsed" value="1">
 					<label for="chk-magicUsed">魔法凸を排除</label>
 				</div>
-				<table id="kisiStateTable" class="tablesorter">
+				<table id="kisiStateTable" class="tablesorter focus-highlight">
 					<thead>
 						<tr>
 							<th>名前</th>
 							<th>凸数</th>
 							<th>凸メーター</th>
-							<th>魔法凸済</th>
+							<th>魔凸済</th>
 							<th>１</th>
 							<th>２</th>
 							<th>３</th>
@@ -129,7 +145,180 @@
 				</table>
 			</div>
 
-<!-- 			<!-- 岸君の凸傾向 --><!--
+
+			<!-- 凸ジェネレーター -->
+			<div id="render-totuGenerator" class="analysis-render-box draggable">
+				<div class="title">
+					<span class="tete">凸ジェネレーター </span><span class="genBtn">生成</span>
+				</div>
+				<table id="totuGeneratorTable">
+					<thead>
+						<tr>
+							<th>wrap</th>
+							<th>１</th>
+							<th>２</th>
+							<th>３</th>
+							<th>４</th>
+							<th>５</th>
+						</tr>
+					</thead>
+					<tr>
+						<td>A111111</td>
+						<td>B111111</td>
+						<td>C111111</td>
+						<td>D111111</td>
+						<td>E111111</td>
+						<td>F111111</td>
+					</tr>
+					<tr>
+						<td>A111111</td>
+						<td>B111111</td>
+						<td>C111111</td>
+						<td>D111111</td>
+						<td>E111111</td>
+						<td>F111111</td>
+					</tr>
+					<tr>
+						<td>A111111</td>
+						<td>B111111</td>
+						<td>C111111</td>
+						<td>D111111</td>
+						<td>E111111</td>
+						<td>F111111</td>
+					</tr>
+					<tr>
+						<td>A111111</td>
+						<td>B111111</td>
+						<td>C111111</td>
+						<td>D111111</td>
+						<td>E111111</td>
+						<td>F111111</td>
+					</tr>
+					<tr>
+						<td>A111111</td>
+						<td>B111111</td>
+						<td>C111111</td>
+						<td>D111111</td>
+						<td>E111111</td>
+						<td>F111111</td>
+					</tr>
+					<tr>
+						<td>A111111</td>
+						<td>B111111</td>
+						<td>C111111</td>
+						<td>D111111</td>
+						<td>E111111</td>
+						<td>F111111</td>
+					</tr>
+					<tr>
+						<td>A111111</td>
+						<td>B111111</td>
+						<td>C111111</td>
+						<td>D111111</td>
+						<td>E111111</td>
+						<td>F111111</td>
+					</tr>
+					<tr>
+						<td>A111111</td>
+						<td>B111111</td>
+						<td>C111111</td>
+						<td>D111111</td>
+						<td>E111111</td>
+						<td>F111111</td>
+					</tr>
+					<tr>
+						<td>A111111</td>
+						<td>B111111</td>
+						<td>C111111</td>
+						<td>D111111</td>
+						<td>E111111</td>
+						<td>F111111</td>
+					</tr>
+					<tr>
+						<td>A111111</td>
+						<td>B111111</td>
+						<td>C111111</td>
+						<td>D111111</td>
+						<td>E111111</td>
+						<td>F111111</td>
+					</tr>
+					<tr>
+						<td>A111111</td>
+						<td>B111111</td>
+						<td>C111111</td>
+						<td>D111111</td>
+						<td>E111111</td>
+						<td>F111111</td>
+					</tr>
+					<tr>
+						<td>A111111</td>
+						<td>B111111</td>
+						<td>C111111</td>
+						<td>D111111</td>
+						<td>E111111</td>
+						<td>F111111</td>
+					</tr>
+					<tr>
+						<td>A111111</td>
+						<td>B111111</td>
+						<td>C111111</td>
+						<td>D111111</td>
+						<td>E111111</td>
+						<td>F111111</td>
+					</tr>
+					<tr>
+						<td>A111111</td>
+						<td>B111111</td>
+						<td>C111111</td>
+						<td>D111111</td>
+						<td>E111111</td>
+						<td>F111111</td>
+					</tr>
+					<tr>
+						<td>A111111</td>
+						<td>B111111</td>
+						<td>C111111</td>
+						<td>D111111</td>
+						<td>E111111</td>
+						<td>F111111</td>
+					</tr>
+					<tr>
+						<td>A111111</td>
+						<td>B111111</td>
+						<td>C111111</td>
+						<td>D111111</td>
+						<td>E111111</td>
+						<td>F111111</td>
+					</tr>
+					<tr>
+						<td>A111111</td>
+						<td>B111111</td>
+						<td>C111111</td>
+						<td>D111111</td>
+						<td>E111111</td>
+						<td>F111111</td>
+					</tr>
+					<tr>
+						<td>A111111</td>
+						<td>B111111</td>
+						<td>C111111</td>
+						<td>D111111</td>
+						<td>E111111</td>
+						<td>F111111</td>
+					</tr>
+					<tr>
+						<td>A111111</td>
+						<td>B111111</td>
+						<td>C111111</td>
+						<td>D111111</td>
+						<td>E111111</td>
+						<td>F111111</td>
+					</tr>
+				</table>
+			</div>
+
+			<!-- 			<!-- 岸君の凸傾向 -->
+			<!--
 			<div id="render-kisiTrend" class="analysis-render-box draggable">
 				<div class="title">
 					<span class="tete">凸傾向</span>
@@ -150,10 +339,6 @@
 				</table>
 			</div> -->
 
-			<!-- 凸チャート -->
-			<div id="render-battleChart" class="analysis-render-box draggable">
-				<canvas class="chart"></canvas>
-			</div>
 		</div>
 		<!-- 分析結果 -->
 		<!-- <button style="height:2000px">sde</button> -->

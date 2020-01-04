@@ -1,3 +1,8 @@
+#analysis {
+	display: inline-block;
+	width: 100vw;
+}
+
 .analysis-render-box {
 	margin: 1rem 1rem;
 	padding: 1rem 1rem;
@@ -21,8 +26,7 @@
 
 /* 凸完了数を表示 */
 #render-battleSuccessful {
-	width: 300px;
-	height: 160px;
+	width: 320px;
 }
 
 #render-battleSuccessful>.totuNum {
@@ -59,7 +63,7 @@
 
 /* 凸チャートを表示 */
 #render-battleChart {
-	width: 520px;
+	width: 320px;
 	/* 	height: 400px; */
 }
 
@@ -74,6 +78,60 @@
 
 #render-bossState>.title {
 	margin-bottom: 1rem;
+}
+
+#render-bossState .nowBossState {
+	height: 72px;
+	border-bottom: solid 1px #dedede;
+	margin-bottom: 1rem;
+}
+
+#render-bossState .nowBossState .boss {
+	width: 50px;
+	height: 50px;
+	border: solid 1px #dddddd;
+	border-radius: 5px;
+	display: inline-block;
+	float: left;
+	/* 	background-image: url(https://gamewith.akamaized.net/article_tools/pricone-re/gacha/177_enemy.png); */
+	background-size: contain;
+	margin: 0rem 1rem;
+}
+
+#render-bossState .nowBossState .hpPerBox {
+	display: inline-block;
+	float: left;
+	width: 200px;
+	text-align: right;
+	padding-top: 2px;
+}
+
+#render-bossState .nowBossState .hpPerBox .wave {
+	float: left;
+	font-size: 0.8rem;
+	font-style: oblique;
+	color: #2296f2;
+	width: 100%;
+	text-align: left;
+}
+
+#render-bossState .nowBossState .hpPerBox .hp {
+	float: right;
+	font-size: 0.8rem;
+	color: #525252;
+}
+
+#render-bossState .nowBossState .hpPerBox .perProgress {
+	width: 100%;
+	height: 5px;
+	background-color: #d0ead1;
+	float: left;
+}
+
+#render-bossState .nowBossState .hpPerBox .perProgress>.successful {
+	width: 50%;
+	height: 5px;
+	background-color: #4CAF50;
 }
 
 #render-bossState>.bossStateWrapLine {
@@ -138,11 +196,15 @@
 #render-kisiState {
 
 }
-#render-kisiState .chkOption{
+
+#render-kisiState .chkOption {
 	text-align: left;
 	font-size: 0.8rem;
 }
 
+#render-kisiState>table tr:hover{
+	background-color: orange;
+}
 
 #render-kisiState>table tr td:nth-child(n + 4) {
 	border-right: solid 1px #00000021;
@@ -151,8 +213,10 @@
 #render-kisiState>table tr td:nth-child(3) {
 	color: white;
 }
+
 #render-kisiState>table tr td:nth-child(4) {
 	text-align: center;
+	border-right: solid 2px #00000021;
 }
 
 #render-kisiState>table tr td:nth-child(5) {
@@ -170,14 +234,16 @@
 #render-kisiState>table tr td:nth-child(8) {
 	color: white;
 }
+
+#render-kisiState>table tr td:nth-child(9) {
+	color: white;
+	border-right: solid 2px #00000021;
+}
 #render-kisiState>table tr td:nth-child(n + 10) {
 	color: white;
 	font-size: 0rem;
 }
 
-#render-kisiState>table tr td:nth-child(9) {
-	color: white;
-}
 
 #render-kisiState>table .stateBox {
 	float: left;
@@ -190,21 +256,23 @@
 #render-kisiState>table .stateBox.trend {
 	background-color: blue;
 }
-#render-kisiState>table .stateBox.center {
-	margin-left: 6px;
-}
+
 
 #render-kisiState>table .stateBox.half {
 	float: left;
 	margin-right: 1px;
 	width: 0.5rem;
 	height: 1rem;
-	background-color: #ffda95;
+	background-color: orange;
+}
+#render-kisiState>table .stateBox.half.first {
+	border-radius: 10px 0px 0px 10px;
+}
+#render-kisiState>table .stateBox.half.second {
+	border-radius: 0px 10px 10px 0px;
 }
 
-
 /* 岸君の凸傾向を表示 */
-
 #render-kisiTrend {
 
 }
@@ -216,8 +284,43 @@
 	height: 1rem;
 	background-color: blue;
 }
+
 #render-kisiTrend>table tr td:nth-child(n + 2) {
 	border-right: solid 1px #00000021;
 	color: white;
 	font-size: 0rem;
+}
+
+/* 凸ジェネレーター */
+#render-totuGenerator {
+
+}
+
+#render-totuGenerator .genBtn {
+	background-color: #2296f2;
+	padding: 0.2rem 1rem;
+	margin-left: 0.5rem;
+	color: #fafafa;
+	-ms-user-select: none;
+	-moz-user-select: -moz-none;
+	-khtml-user-select: none;
+	-webkit-user-select: none;
+	user-select: none;
+	border-radius: 3px;
+	font-size: 0.7rem;
+}
+
+#render-totuGenerator .genBtn:hover {
+	cursor: pointer;
+	background-color: #6fb9f7;
+}
+
+#render-totuGenerator #totuGeneratorTable {
+	font-size: 0.8rem;
+	margin-top: 1rem;
+}
+
+#render-totuGenerator #totuGeneratorTable tr td:nth-child(n + 2) {
+	background-color: #ffebc6;
+	border-right: solid 1px white;
 }
