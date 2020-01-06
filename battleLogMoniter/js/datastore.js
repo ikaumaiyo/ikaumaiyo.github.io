@@ -38,7 +38,6 @@ class OptionDatastore{
 	resetOption(){
 		localStorage.removeItem(OPTION);
 		this.load();
-		this.saveOption();
 	}
 
 	saveOption(){
