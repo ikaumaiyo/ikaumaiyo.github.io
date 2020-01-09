@@ -47,6 +47,7 @@ class OptionDatastore{
 			that.optionList.i = $('#'+i).val();
 		});
 		localStorage.setItem(OPTION, JSON.stringify(this.optionList));
+		this.load();
 	}
 
 	getOptionList(){
