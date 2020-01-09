@@ -25,7 +25,7 @@ $(document).ready(function() {
 	// 再読み込み
 	$('body').on('click', '.reload', function(e) {
 		hideErrorMsg();
-		load();
+		load(optionDatastore.getOptionList());
 	});
 	// スプシ
 	$('body').on('click', '.openSpreadSheet', function(e) {
