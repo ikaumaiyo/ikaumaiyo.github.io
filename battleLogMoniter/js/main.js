@@ -19,7 +19,7 @@ $(document).ready(function() {
 	renderSettingMenu(optionDatastore.getOptionList());
 
 	// 凸データ反映
-	load();
+	load(optionDatastore.getOptionList());
 
 	// ボタン系のイベントリスナ登録
 	// 再読み込み
@@ -78,7 +78,7 @@ $(document).ready(function() {
 });
 
 /** スプシから凸ログを取得（googleキャッシュクリアしてるから重い） * */
-let load = function() {
+let load = function(optionList) {
 
 	// ローディングアニメ開始
 	showLoading();
@@ -91,9 +91,9 @@ let load = function() {
 	ajax_list.push(
 		$.ajax({
 			type : 'GET',
-			url : url,
+			url : url+'?env='+optionList.exec_env_param+'&id=report',
 			dataType : 'jsonp',
-			jsonpCallback : 'jsondata',
+			jsonpCallback : 'jsondata_report',
 			cache : false
 		}).done(function(json){
 			report = json
@@ -110,9 +110,9 @@ let load = function() {
 	ajax_list.push(
 		$.ajax({
 			type : 'GET',
-			url : url+'?query=member',
+			url : url+'?env='+optionList.exec_env_param+'&id=member',
 			dataType : 'jsonp',
-			jsonpCallback : 'jsondataMember',
+			jsonpCallback : 'jsondata_member',
 			cache : false
 		}).done(function(json){
 			member = json

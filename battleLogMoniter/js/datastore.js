@@ -11,6 +11,7 @@ class OptionDatastore{
 
 		if(_optionList == null){
 			_optionList = {
+					exec_env_param : 0,
 					boss_hp_w1_01 : 6000000,
 					boss_hp_w1_02 : 8000000,
 					boss_hp_w1_03 : 10000000,
