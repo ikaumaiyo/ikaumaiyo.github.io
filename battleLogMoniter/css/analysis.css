@@ -1,6 +1,7 @@
 #analysis {
 	display: inline-block;
 	width: 100vw;
+	min-width: 1200px;
 }
 
 .analysis-render-box {
