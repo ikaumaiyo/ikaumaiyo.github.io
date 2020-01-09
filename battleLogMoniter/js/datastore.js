@@ -36,12 +36,12 @@ class OptionDatastore{
 		return _optionList;
 	}
 
-	resetOption(){
+	reset(){
 		localStorage.removeItem(OPTION);
 		this.load();
 	}
 
-	saveOption(){
+	save(){
 		let that = this;
 		$.each(this.optionList, (i,v) => {
 			that.optionList.i = $('#'+i).val();

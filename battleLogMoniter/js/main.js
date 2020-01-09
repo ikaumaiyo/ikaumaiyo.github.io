@@ -40,18 +40,20 @@ $(document).ready(function() {
 		$('#modal').show();
 	});
 	$('body').on('click', '.btn_close', function(e) {
-		optionDatastore.saveOption();
+		saveOption(optionDatastore.getOptionList());
 		$('#modal').hide();
+		showErrorMsg('ブラウザの更新ボタンでページを更新してください。');
 	});
 	$('body').on('click', '.btn_reset', function(e) {
-		optionDatastore.resetOption();
+		optionDatastore.reset();
 		$('#modal').hide();
 		showErrorMsg('ブラウザの更新ボタンでページを更新してください。');
 	});
 	$('#modal').on('click', function(event) {
 		if (!($(event.target).closest($('#modal_content')).length) || ($(event.target).closest($(".btn_close")).length)) {
-			optionDatastore.saveOption();
+			saveOption(optionDatastore.getOptionList());
 			$('#modal').hide();
+			showErrorMsg('ブラウザの更新ボタンでページを更新してください。');
 		}
 	});
 	/** チェックボックス系 * */
@@ -221,9 +223,18 @@ let renderSettingMenu = function(optionList){
 		$('<span></span>').html(i).appendTo('#modal_content');
 		$('<input>').attr({
 			  type: 'text',
-			  id: i,
+			  id: 'option_'+i,
 			  value: v
 			}).appendTo('#modal_content');
 		$('<br>').appendTo('#modal_content');
 	});
+}
+
+// オプションを保存
+let saveOption = function(optionList){
+	$.each(optionList, (i,v) => {
+		optionList[i] = $('#option_'+i).val();
+	});
+	optionDatastore.optionList = optionList;
+	optionDatastore.save();
 }
