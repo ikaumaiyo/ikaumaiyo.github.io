@@ -1,7 +1,7 @@
 const OPTION = 'tm_option';
 const optionList_adam = {
-		uid : 'user',
-		pwd : 'user',
+		uid : '',
+		pwd : '',
 		exec_env_param : 0,
 		boss_hp_w1_01 : 6000000,
 		boss_hp_w1_02 : 8000000,
