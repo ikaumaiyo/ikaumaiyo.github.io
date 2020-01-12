@@ -9,20 +9,21 @@
 <link rel="apple-touch-icon" href="img/icon.jpg">
 <link rel="shortcut icon" href="img/favicon.ico">
 <title>凸MONITER</title>
-<link rel="stylesheet" type="text/css" href="css/main.css">
-<link rel="stylesheet" type="text/css" href="css/loading.css">
-<link rel="stylesheet" type="text/css" href="css/setting.css">
-<link rel="stylesheet" type="text/css" href="css/analysis.css">
 <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script> -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.2/js/jquery.tablesorter.min.js"></script>
+<link rel="stylesheet" href="css/theme.default.css">
 <script src="js/main.js"></script>
 <script src="js/datastore.js"></script>
 <script src="js/analysis.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.2/js/jquery.tablesorter.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.2/css/theme.default.min.css">
 
+<link rel="stylesheet" type="text/css" href="css/main.css">
+<link rel="stylesheet" type="text/css" href="css/loading.css">
+<link rel="stylesheet" type="text/css" href="css/setting.css">
+<link rel="stylesheet" type="text/css" href="css/modal.css">
+<link rel="stylesheet" type="text/css" href="css/analysis.css">
 </head>
 <body>
 
@@ -34,7 +35,7 @@
 	<input type="hidden" id="bossImg05" value="https://gamewith.akamaized.net/article_tools/pricone-re/gacha/178_enemy.png" />
 	<!-- ヘッダ -->
 	<header>
-		<div class="button">var1.4</div>
+		<div class="version button"><span>var1.4</span></div>
 		<div class="reload button">再読み込み</div>
 		<div class="openSpreadSheet button">スプシ</div>
 		<div class="openJson button">json</div>
@@ -45,7 +46,7 @@
 	<!-- コンテンツ -->
 	<div id="main-contents">
 		<!-- エラーメッセージ -->
-		<div class="error"></div>
+		<div class="error contents"></div>
 		<!-- ローディングアニメーション -->
 		<div class="loading">
 			<div class="spinner type1">
@@ -53,26 +54,37 @@
 			</div>
 		</div>
 		<!-- 設定画面 -->
-		<div id="modal">
-			<div id="modal_content">
-				<button class="btn_close button">閉じる</button>
-				<button class="btn_reset button">リセット</button>
-				<br> <br>
+		<div id="modal-option">
+			<div id="modal-option_content">
+				<span class="error"></span>
+				<button class="option-btn_close button">閉じる</button>
+				<button class="option-btn_reset button">リセット</button>
+				<br> <br> <span>uidとpwd以外全て入力しないと設定画面から出られません。</span>
+				<br> <span>わからなくなったらリセットしてください。</span>
+				<br> <br> <span>exec_env_param→ 本番:1, 開発0</span>
+				<hr>
 			</div>
 		</div>
+		<!-- modal -->
+		<div id="modal">
+			<div id="modal_content">
+				<div id="modal_detail"></div>
+				<button class="btn_close button">閉じる</button>
+			</div>
+		</div>
+		<p style="display:none;">testtest</p>
 
 
 		<!-- 分析結果 -->
 		<div id="analysis">
 
-			<!-- プリコネ日 -->
-			<div id="render-targetDate">
-				<span></span>
-			</div>
-
 			<div style="float: left; display: grid;">
 				<!-- 凸数 -->
 				<div id="render-battleSuccessful" class="analysis-render-box draggable">
+
+					<p class="priconeDate">
+						<span></span>
+					</p>
 					<div class="title">
 						<span class="tete">今日の凸</span>
 					</div>
@@ -114,7 +126,7 @@
 			<!-- 岸君の凸状況 -->
 			<div id="render-kisiState" class="analysis-render-box draggable">
 				<div class="title">
-					<span class="tete">凸状況 (黄色は進捗, 紫は凸傾向)</span>
+					<span class="tete">凸状況 </span>&nbsp&nbsp<span class="stateBox">物理凸</span><span class="stateBox magic">魔法凸</span><span class="stateBox center trend" style="opacity: 0.8;">凸傾向</span>
 				</div>
 				<div class="chkOption">
 					<input type="checkbox" id="chk-hideFin" value="1">

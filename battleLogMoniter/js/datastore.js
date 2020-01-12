@@ -1,4 +1,27 @@
 const OPTION = 'tm_option';
+const optionList_adam = {
+		uid : 'user',
+		pwd : 'user',
+		exec_env_param : 0,
+		boss_hp_w1_01 : 6000000,
+		boss_hp_w1_02 : 8000000,
+		boss_hp_w1_03 : 10000000,
+		boss_hp_w1_04 : 12000000,
+		boss_hp_w1_05 : 15000000,
+		boss_hp_w2_01 : 6000000,
+		boss_hp_w2_02 : 8000000,
+		boss_hp_w2_03 : 10000000,
+		boss_hp_w2_04 : 12000000,
+		boss_hp_w2_05 : 15000000,
+		boss_hp_w3_01 : 7000000,
+		boss_hp_w3_02 : 9000000,
+		boss_hp_w3_03 : 12000000,
+		boss_hp_w3_04 : 14000000,
+		boss_hp_w3_05 : 17000000,
+		w1_start_wrap : 1,
+		w2_start_wrap : 4,
+		w3_start_wrap : 11,
+}
 
 class OptionDatastore{
 
@@ -10,35 +33,23 @@ class OptionDatastore{
 		let _optionList = JSON.parse(localStorage.getItem(OPTION));
 
 		if(_optionList == null){
-			_optionList = {
-					exec_env_param : 0,
-					boss_hp_w1_01 : 6000000,
-					boss_hp_w1_02 : 8000000,
-					boss_hp_w1_03 : 10000000,
-					boss_hp_w1_04 : 12000000,
-					boss_hp_w1_05 : 15000000,
-					boss_hp_w2_01 : 6000000,
-					boss_hp_w2_02 : 8000000,
-					boss_hp_w2_03 : 10000000,
-					boss_hp_w2_04 : 12000000,
-					boss_hp_w2_05 : 15000000,
-					boss_hp_w3_01 : 7000000,
-					boss_hp_w3_02 : 9000000,
-					boss_hp_w3_03 : 12000000,
-					boss_hp_w3_04 : 14000000,
-					boss_hp_w3_05 : 17000000,
-					w1_start_wrap : 1,
-					w2_start_wrap : 4,
-					w3_start_wrap : 11,
-				};
+			// オプションが無かったら初期設定登録
+			_optionList = optionList_adam;
+			localStorage.setItem(OPTION, JSON.stringify(_optionList));
+		}else{
+			$.each(_optionList, (i,v) => {
+				optionList_adam[i] = v;
+			});
+			_optionList = optionList_adam;
 			localStorage.setItem(OPTION, JSON.stringify(_optionList));
 		}
+
 		return _optionList;
 	}
 
 	reset(){
 		localStorage.removeItem(OPTION);
-		this.load();
+		location.reload();
 	}
 
 	save(){
@@ -48,6 +59,7 @@ class OptionDatastore{
 		});
 		localStorage.setItem(OPTION, JSON.stringify(this.optionList));
 		this.load();
+		location.reload();
 	}
 
 	getOptionList(){

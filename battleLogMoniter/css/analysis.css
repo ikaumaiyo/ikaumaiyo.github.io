@@ -18,7 +18,7 @@
 /* プリコネ日 */
 #render-targetDate {
 	color: #ffffff;
-	background-color: #2196F3;
+	background-color: #009688;
 }
 
 #render-targetDate>span {
@@ -28,6 +28,22 @@
 /* 凸完了数を表示 */
 #render-battleSuccessful {
 	width: 320px;
+}
+
+#render-battleSuccessful p.priconeDate {
+	margin: 0px;
+	margin-right: -32px;
+	margin-bottom: 0.5rem;
+	text-align: left;
+	position: relative;
+	top: -5px;
+	left: -16px;
+}
+
+#render-battleSuccessful p.priconeDate span {
+	font-size: 0.8rem;
+	padding: 2px 0.5rem;
+	border-bottom: solid 1px #f1f1f1;
 }
 
 #render-battleSuccessful>.totuNum {
@@ -111,6 +127,7 @@
 	float: left;
 	font-size: 0.8rem;
 	font-style: oblique;
+	font-weight: bold;
 	color: #2296f2;
 	width: 100%;
 	text-align: left;
@@ -198,14 +215,53 @@
 
 }
 
+#render-kisiState .title .stateBox {
+	display: inline-block;
+	float: initial;
+	width: initial;
+	height: initial;
+	padding: 0px 0.5rem;
+	color: white;
+	font-size: 0.8rem;
+	color: white;
+	font-size: 0.8rem;
+	text-shadow: 0px 0px 1px #0000009c;
+}
+
 #render-kisiState .chkOption {
 	text-align: left;
 	font-size: 0.8rem;
 }
 
-#render-kisiState>table tr:hover{
-	background-color: orange;
+#render-kisiState .totuDetail {
+	display: none;
 }
+
+#render-kisiState .totuTimeKeiko {
+	display: none;
+}
+
+.totuTimeKeiko-flex {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+	font-size: 0.7rem;
+}
+
+.totuTimeKeiko-flex>* {
+	width: 8%;
+	background-color: blue;
+	text-align: center;
+	color: #fff;
+}
+.totuTimeKeiko-flex.time>* {
+	width: 8%;
+	background-color: #fff;
+	text-align: center;
+	border: 1px solid #aaaaaa;
+	color: #222;
+}
+
 
 #render-kisiState>table tr td:nth-child(n + 4) {
 	border-right: solid 1px #00000021;
@@ -213,6 +269,7 @@
 
 #render-kisiState>table tr td:nth-child(3) {
 	color: white;
+	font-size: 0px;
 }
 
 #render-kisiState>table tr td:nth-child(4) {
@@ -222,31 +279,36 @@
 
 #render-kisiState>table tr td:nth-child(5) {
 	color: white;
+	font-size: 0px;
 }
 
 #render-kisiState>table tr td:nth-child(6) {
 	color: white;
+	font-size: 0px;
 }
 
 #render-kisiState>table tr td:nth-child(7) {
 	color: white;
+	font-size: 0px;
 }
 
 #render-kisiState>table tr td:nth-child(8) {
 	color: white;
+	font-size: 0px;
 }
 
 #render-kisiState>table tr td:nth-child(9) {
 	color: white;
+	font-size: 0px;
 	border-right: solid 2px #00000021;
 }
+
 #render-kisiState>table tr td:nth-child(n + 10) {
 	color: white;
 	font-size: 0rem;
 }
 
-
-#render-kisiState>table .stateBox {
+#render-kisiState .stateBox {
 	float: left;
 	margin-right: 1px;
 	width: 1rem;
@@ -254,22 +316,26 @@
 	background-color: orange;
 }
 
-#render-kisiState>table .stateBox.trend {
+#render-kisiState .stateBox.magic {
+	background-color: #b869ce;
+}
+
+#render-kisiState .stateBox.trend {
 	background-color: blue;
 }
 
-
-#render-kisiState>table .stateBox.half {
+#render-kisiState .stateBox.half {
 	float: left;
 	margin-right: 1px;
 	width: 0.5rem;
 	height: 1rem;
-	background-color: orange;
 }
-#render-kisiState>table .stateBox.half.first {
+
+#render-kisiState .stateBox.half.first {
 	border-radius: 10px 0px 0px 10px;
 }
-#render-kisiState>table .stateBox.half.second {
+
+#render-kisiState .stateBox.half.second {
 	border-radius: 0px 10px 10px 0px;
 }
 

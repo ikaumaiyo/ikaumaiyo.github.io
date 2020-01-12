@@ -53,14 +53,11 @@ class Analysis{
 	/** レンダコントローラ * */
 	render(){
 
-		// プリコネ日を表示
-		this.renderTargetDate();
-
 		/** 初期化 * */
 		// 凸数
 		$('#render-battleSuccessful').find('.totuNum').html('');
 		$('#render-battleSuccessful>.perProgress>.successful').css('width' ,0+'%');
-		$('#render-battleSuccessful').find('.perNum').html('( 消化率: '+0+'％ )');
+		$('#render-battleSuccessful').find('.perNum').html('消化率 : '+0+'％');
 		// ボス状態
 		$('#render-bossState').find('.render').remove();
 		// 岸君の凸
@@ -93,15 +90,12 @@ class Analysis{
 		}
 	}
 
-	/** プリコネ日を表示 * */
-	renderTargetDate(){
-		let priconeViewDate = 'プリコネ日：'+this.priconeDate.getFullYear() + '-' + ("0" + (this.priconeDate.getMonth() + 1)).slice(-2) + '-' + ("0" + this.priconeDate.getDate()).slice(-2);
-		// プリコネ日をセット
-		$('#render-targetDate').find('span').html(priconeViewDate);
-	}
-
 	/** 凸完了数を表示 * */
 	renderBattleSuccessful(){
+
+		// プリコネ日をセット
+		let priconeViewDate = 'プリコネ日：'+this.priconeDate.getFullYear() + '-' + ("0" + (this.priconeDate.getMonth() + 1)).slice(-2) + '-' + ("0" + this.priconeDate.getDate()).slice(-2);
+		$('#render-battleSuccessful').find('p').find('span').html(priconeViewDate);
 
 		// 凸数を取得
 		let totuNum = 0;
@@ -169,7 +163,13 @@ class Analysis{
 		// 今日の周回数
 		let todayWrap = todayDmg / optionDatastore.getW3Sum();
 		// 昨日のダメージ
-		let yesterdayDmg = this.yesterdayReport.reduce((prev, item) => prev + item.ダメージ ,0);
+		let yesterdayDmg = this.yesterdayReport.reduce(function(prev, item){
+			if(item.周回 >= optionList.w3_start_wrap){
+				return prev + item.ダメージ;
+			}else{
+				return prev + item.ダメージ*0.9; // 周回予測に使うため1,2週目分はダメージ低く見積もる（係数はフィーリング）
+			}
+		} ,0);
 		// 昨日の周回数
 		let yestWrap = yesterdayDmg / optionDatastore.getW3Sum();
 
@@ -201,7 +201,7 @@ class Analysis{
 		// 現ボスが食らったダメージ
 		let nowBossDmg = nowBossReport.reduce((prev, item) => prev + item.ダメージ ,0);
 		// 現wave
-		let nowBossWave = 0;
+		let nowBossWave = 1;
 		if(nowWrap >= optionList.w3_start_wrap){
 			nowBossWave = 3;
 		}else if(nowWrap >= optionList.w2_start_wrap){
@@ -212,11 +212,18 @@ class Analysis{
 
 		// ボス撃破後だった場合は次のボスを現在地に設定
 		if(nowBossDmg >= optionList['boss_hp_w'+nowBossWave+'_0'+nowBoss] ){
+			if(startBoss == nowBoss){
+				startBoss = startBoss + 1;
+			}
 			nowBoss = nowBoss + 1;
 			nowBossDmg = 0;
 			if(nowBoss == 6){
 				nowBoss = 1;
 				nowWrap = nowWrap + 1;
+			}
+			if(startBoss == 6){
+				startBoss = 1;
+				startWrap = startWrap + 1;
 			}
 		}
 
@@ -346,6 +353,10 @@ class Analysis{
 				outlookStartPoint = 1; // 1ボスに戻す
 			}
 		}
+
+		console.log('ボス撃破数予測>'+((Math.floor(yestWrap)*5) + outlookDecimalCount));
+
+
 		return (Math.floor(yestWrap)*5) + outlookDecimalCount; // ボス撃破数予測
 	}
 
@@ -358,13 +369,10 @@ class Analysis{
 
 		// 岸君テーブル
 		let kisiStateTable = $('#render-kisiState').find('#kisiStateTable');
-
 		let that = this;
-
 		$.each(this.member, function(index, val){
 
-
-			// 岸君凸テーブル
+			// 岸君凸配列
 			let kisiTotuReport = that.todayReport.filter(function(_item, _index){
 				if(_item.プリコネーム == val.プリコネーム){
 					return true;
@@ -390,13 +398,31 @@ class Analysis{
 			}
 			// 凸メーター
 			let totuMater = $('<td></td>').html(totuNum);
-			for(var i=0;i<totuNum-0.5;i++){
-				$('<div></div>').attr('class','stateBox').appendTo(totuMater);
-			}
-			if(totuNum - Math.floor(totuNum) > 0){
-				$('<div></div>').attr('class','stateBox half').appendTo(totuMater);
-			}
+// for(var i=0;i<totuNum-0.5;i++){
+// $('<div></div>').attr('class','stateBox').appendTo(totuMater);
+// }
+// if(totuNum - Math.floor(totuNum) > 0){
+// $('<div></div>').attr('class','stateBox half').appendTo(totuMater);
+// }
+//
+			$.each(kisiTotuReport, function(_i, _v){
+				let div = $('<div></div>');
+				div.addClass('stateBox');
+				if(_v.LA == 1){
+					div.addClass('half');
+					div.addClass('first');
+				}else if(_v.LA残 == 1){
+					div.addClass('half');
+					div.addClass('second');
+				}
+				if(_v.魔法 == 1){
+					div.addClass('magic');
+				}
+				div.appendTo(totuMater);
+			});
+
 			totuMater.appendTo(tr);
+
 			// 魔法凸済
 			let totuMagicNum = kisiTotuReport.reduce(function(_prev, _item) {
 				if(_item.魔法 == 1){
@@ -429,13 +455,19 @@ class Analysis{
 					let stateTd = $('<td></td>').html(totuNum);
 					let stateDiv = $('<div></div>');
 					$.each(_ktr, function(_i, _v){
+						let div = $('<div></div>');
+						div.addClass('stateBox');
 						if(_v.LA == 1){
-							$('<div></div>').attr('class','stateBox half first').appendTo(stateTd);
+							div.addClass('half');
+							div.addClass('first');
 						}else if(_v.LA残 == 1){
-							$('<div></div>').attr('class','stateBox half second').appendTo(stateTd);
-						}else{
-							$('<div></div>').attr('class','stateBox').appendTo(stateTd);
+							div.addClass('half');
+							div.addClass('second');
 						}
+						if(_v.魔法 == 1){
+							div.addClass('magic');
+						}
+						div.appendTo(stateTd);
 					});
 					stateTd.appendTo(tr);
 				}else{
@@ -443,25 +475,94 @@ class Analysis{
 				}
 			}
 			// 凸傾向
-			let kisiTotuAllReport = that.report.filter(function(_item, _index){
+			let kisiTotuOver20MReport = that.report.filter(function(_item, _index){
 				if(_item.プリコネーム == val.プリコネーム
 						&& _item.ダメージ > 2000000){
 					return true;
 				}
 			});
 			for(var i = 1; i < 6; i++){
-				let _ktr = kisiTotuAllReport.filter(function(o){
+				let _ktr = kisiTotuOver20MReport.filter(function(o){
 					return o.ボス == i;
 				});
 				if(_ktr.length > 0){
 					let stateTd = $('<td></td>').html(_ktr.length/10);
-					let stateDiv = $('<div></div>').attr('class','stateBox center trend').css('opacity',_ktr.length/10);
+					let stateDiv = $('<div></div>').attr('class','stateBox center trend').css('opacity',_ktr.length/8);
 					stateDiv.appendTo(stateTd);
 					stateTd.appendTo(tr);
 				}else{
 					$('<td></td>').html(0).appendTo(tr);
 				}
 			}
+
+			// 凸詳細を挿入
+			let totuDetail = $('<p></p>');
+			totuDetail.addClass('totuDetail');
+
+			let totuDetailSpan = $('<span></span>');
+			totuDetailSpan.html(val.プリコネーム + ' (' +totuNum + '凸)');
+			totuDetailSpan.appendTo(totuDetail);
+
+			let totuDetailTable = $('<table></table>');
+			totuDetailTable.addClass('simple-table');
+			let totuDetailTr = $('<tr></tr>');
+			$('<th></th>').html('日付').appendTo(totuDetailTr);
+			$('<th></th>').html('周回').appendTo(totuDetailTr);
+			$('<th></th>').html('ボス').appendTo(totuDetailTr);
+			$('<th></th>').html('ダメージ').appendTo(totuDetailTr);
+			$('<th></th>').html('魔法').appendTo(totuDetailTr);
+			$('<th></th>').html('LA').appendTo(totuDetailTr);
+			$('<th></th>').html('LA残').appendTo(totuDetailTr);
+			totuDetailTr.appendTo(totuDetailTable);
+			$.each(kisiTotuReport, function(_i, _v){
+				let _tr = $('<tr></tr>');
+				let dateTime = new Date(_v.タイムスタンプ);
+				let dateStr = dateTime.toLocaleDateString() +' '+dateTime.toLocaleTimeString('ja-JP');
+				$('<td></td>').html(dateStr).appendTo(_tr);
+				$('<td></td>').html(_v.周回).appendTo(_tr);
+				$('<td></td>').html(_v.ボス).appendTo(_tr);
+				$('<td></td>').html(_v.ダメージ).appendTo(_tr);
+				$('<td></td>').html(_v.魔法).appendTo(_tr);
+				$('<td></td>').html(_v.LA).appendTo(_tr);
+				$('<td></td>').html(_v.LA残).appendTo(_tr);
+				_tr.appendTo(totuDetailTable);
+			});
+			totuDetailTable.appendTo(totuDetail);
+			totuDetail.appendTo(tr);
+
+
+			// 岸君ごとの凸傾向を挿入
+			let totuTotuAllDayContainer = $('<p></p>').addClass('totuTimeKeiko');
+			let kisiTotuAllDay_keikoContainer = $('<div></div>').addClass('totuTimeKeiko-flex');
+			let kisiTotuAllDay_timeContainer = $('<div></div>').addClass('totuTimeKeiko-flex').addClass('time');
+
+			let timeArray = [5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,0,1,2,3,4];
+			let battleCountArray = [];
+
+			let kisiTotuAllDayReport = that.report.filter(function(_item, _index){
+				if(_item.プリコネーム == val.プリコネーム){
+					return true;
+				}
+			});
+
+			let totuTimeSpan = $('<span></span>');
+			totuTimeSpan.html('凸時間の傾向(全日)');
+			totuTimeSpan.appendTo(totuTotuAllDayContainer);
+
+			// 時間ごとに凸数をカウント
+			$.each(timeArray, (i,searchHour) => {
+				let _countBattles = kisiTotuAllDayReport.filter((item, index) => {
+					let targetHour = new Date(item.タイムスタンプ).getHours();
+					if(targetHour == searchHour) return true;
+				});
+				$('<div></div>').html(_countBattles.length).css('background-color','rgba(0, 0, 255, '+_countBattles.length/5+')').appendTo(kisiTotuAllDay_keikoContainer);
+				$('<div></div>').html(searchHour).appendTo(kisiTotuAllDay_timeContainer);
+			});
+
+			kisiTotuAllDay_keikoContainer.appendTo(totuTotuAllDayContainer);
+			kisiTotuAllDay_timeContainer.appendTo(totuTotuAllDayContainer);
+
+			totuTotuAllDayContainer.appendTo(tr);
 
 			// 一行レンダ
 			tr.appendTo(kisiStateTable);
