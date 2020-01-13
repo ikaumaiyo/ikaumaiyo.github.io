@@ -28,19 +28,20 @@ header {
 }
 
 .help {
-	width: 0.5rem;
-	height: 0.5rem;
-	border: solid 1px #dddddd;
-	position: relative;
-	float: right;
-	border-radius: 10px;
-	padding: 4px;
-	box-shadow: rgba(0, 0, 0, 0.17) 0px 1px 3px;
-	font-size: 0.8rem;
-	color: #3f51b5c7;
-	line-height: 7px;
-	cursor: pointer;
-	user-select: none;
+    width: 1.5rem;
+    height: 1.5rem;
+    border: solid 1px #dddddd;
+    position: relative;
+    float: right;
+    border-radius: 20px;
+    padding: 4px;
+    box-shadow: rgba(0, 0, 0, 0.17) 0px 1px 3px;
+    font-size: 1rem;
+    color: #3f51b5c7;
+    line-height: 22px;
+    cursor: pointer;
+    user-select: none;
+    top: -4px;
 }
 
 .helpMsg {
