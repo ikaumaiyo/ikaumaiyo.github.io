@@ -38,6 +38,7 @@
 	position: relative;
 	top: -5px;
 	left: -16px;
+	width: max-content;
 }
 
 #render-battleSuccessful p.priconeDate span {
@@ -215,6 +216,56 @@
 
 }
 
+#render-kisiState .kisiTotuMemo input {
+	outline: 0;
+	width: calc(100% - 0px);
+	height: 24px;
+	font-size: 0.7rem;
+	margin: 0px;
+	padding: 0px;
+	display: block;
+	border-radius: 2px;
+	border: none;
+	/* box-shadow: rgba(0, 0, 0, 0.17) 0px 1px 2px inset; */
+	color: #3a1e6b;
+	font-weight: bold;
+}
+
+#render-kisiState .kisiTotuMemo input:focus {
+	box-sizing: border-box;
+	position: absolute;
+	z-index: 9999;
+	box-shadow: rgba(0, 0, 0, 0.17) 0px 1px 3px 2px, rgb(34, 150, 242) 0px
+		0px 0px 1px, rgb(34, 150, 242) 0px 0px 0px 1px inset;
+	border-radius: 0px;
+	width: 500px;
+}
+
+#render-kisiState .kisiTotuMemo .tooltip {
+	display: none;
+	color: #fdfdfd;
+	background-color: #4a4a4a;
+	border-radius: 2px;
+	position: absolute;
+	font-size: 0.7rem;
+	bottom: 3px;
+	left: 151px;
+	width: max-content;
+	max-width: 200px;
+	padding: 3px;
+	z-index: 1;
+	min-height: 0.7rem;
+}
+
+#render-kisiState .kisiTotuMemo:hover>.tooltip {
+	display: block;
+}
+
+#render-kisiState .kisiTotuMemo .tooltip span {
+	z-index: 1;
+	word-break: break-all;
+}
+
 #render-kisiState .title .stateBox {
 	display: inline-block;
 	float: initial;
@@ -254,6 +305,7 @@
 	text-align: center;
 	color: #fff;
 }
+
 .totuTimeKeiko-flex.time>* {
 	width: 8%;
 	background-color: #fff;
@@ -261,7 +313,6 @@
 	border: 1px solid #aaaaaa;
 	color: #222;
 }
-
 
 #render-kisiState>table tr td:nth-child(n + 4) {
 	border-right: solid 1px #00000021;

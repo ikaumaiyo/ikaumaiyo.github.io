@@ -16,7 +16,8 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.2/js/jquery.tablesorter.min.js"></script>
 <link rel="stylesheet" href="css/theme.default.css">
 <script src="js/main.js"></script>
-<script src="js/datastore.js"></script>
+<script src="js/option.datastore.js"></script>
+<script src="js/memo.datastore.js"></script>
 <script src="js/analysis.js"></script>
 
 <link rel="stylesheet" type="text/css" href="css/main.css">
@@ -35,7 +36,9 @@
 	<input type="hidden" id="bossImg05" value="https://gamewith.akamaized.net/article_tools/pricone-re/gacha/178_enemy.png" />
 	<!-- ヘッダ -->
 	<header>
-		<div class="version button"><span>var1.5</span></div>
+		<div class="version button">
+			<span>var1.6</span>
+		</div>
 		<div class="reload button">再読み込み</div>
 		<div class="openSpreadSheet button">スプシ</div>
 		<div class="openJson button">json</div>
@@ -59,9 +62,12 @@
 				<span class="error"></span>
 				<button class="option-btn_close button">閉じる</button>
 				<button class="option-btn_reset button">リセット</button>
-				<br> <br> <span>uidとpwd以外全て入力しないと設定画面から出られません。</span>
-				<br> <span>わからなくなったらリセットしてください。</span>
-				<br> <br> <span>exec_env_param→ 本番:1, 開発0</span>
+				<br> <br>
+				<span>uidとpwd以外全て入力しないと設定画面から出られません。</span>
+				<br>
+				<span>わからなくなったらリセットしてください。</span>
+				<br> <br>
+				<span>exec_env_param→ 本番:1, 開発0</span>
 				<hr>
 			</div>
 		</div>
@@ -72,7 +78,7 @@
 				<button class="btn_close button">閉じる</button>
 			</div>
 		</div>
-		<p style="display:none;">testtest</p>
+		<p style="display: none;">testtest</p>
 
 
 		<!-- 分析結果 -->
@@ -81,7 +87,12 @@
 			<div style="float: left; display: grid;">
 				<!-- 凸数 -->
 				<div id="render-battleSuccessful" class="analysis-render-box draggable">
-
+					<div class="help">?</div>
+					<div class="helpMsg">
+						<ul>
+							<li>プリコネ日は「X日5時～X+1日5時」をX日として表示してる</li>
+						</ul>
+					</div>
 					<p class="priconeDate">
 						<span></span>
 					</p>
@@ -96,13 +107,21 @@
 				</div>
 				<!-- ボスの状態-->
 				<div id="render-bossState" class="analysis-render-box draggable">
+					<div class="help">?</div>
+					<div class="helpMsg">
+						<ul>
+							<li>着地予測は現在地が追い越すと消える</li>
+							<li>着地予測は1～3ボス分ブレがあるから信用しないで</li>
+						</ul>
+					</div>
 					<div class="title">
 						<span class="tete">ボス進捗</span>
 					</div>
 					<div class="nowBossState">
 						<div class="boss"></div>
 						<div class="hpPerBox">
-							<span class="wave"></span> <span class="hp"></span>
+							<span class="wave"></span>
+							<span class="hp"></span>
 							<div class="perProgress">
 								<div class="successful"></div>
 							</div>
@@ -125,8 +144,20 @@
 			</div>
 			<!-- 岸君の凸状況 -->
 			<div id="render-kisiState" class="analysis-render-box draggable">
+				<div class="help">?</div>
+				<div class="helpMsg">
+					<ul>
+						<li>四角は持越し無しの凸、半円(左)はLA、半円(右)はLA残</li>
+						<li>行を押下すると詳細が開く</li>
+						<li>メモは日付毎に保存される（今日入力した分は他の日には表示されない）</li>
+					</ul>
+				</div>
 				<div class="title">
-					<span class="tete">凸状況 </span>&nbsp&nbsp<span class="stateBox">物理凸</span><span class="stateBox magic">魔法凸</span><span class="stateBox center trend" style="opacity: 0.8;">凸傾向</span>
+					<span class="tete">凸状況 </span>
+					&nbsp&nbsp
+					<span class="stateBox">物理凸</span>
+					<span class="stateBox magic">魔法凸</span>
+					<span class="stateBox center trend" style="opacity: 0.8;">凸傾向</span>
 				</div>
 				<div class="chkOption">
 					<input type="checkbox" id="chk-hideFin" value="1">
@@ -151,6 +182,7 @@
 							<th>３</th>
 							<th>４</th>
 							<th>５</th>
+							<th>メモ</th>
 						</tr>
 					</thead>
 					<tr>
@@ -162,7 +194,8 @@
 			<!-- 凸ジェネレーター -->
 			<div id="render-totuGenerator" class="analysis-render-box draggable">
 				<div class="title">
-					<span class="tete">凸ジェネレーター </span><span class="genBtn">生成</span>
+					<span class="tete">凸ジェネレーター </span>
+					<span class="genBtn">生成</span>
 				</div>
 				<table id="totuGeneratorTable">
 					<thead>

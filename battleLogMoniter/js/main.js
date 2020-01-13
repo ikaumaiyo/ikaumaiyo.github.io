@@ -2,6 +2,7 @@ const url = 'https://script.google.com/macros/s/AKfycbxDTLf2pULQ5hX0lCSwWy_YKF75
 let report = [];
 let member = [];
 let optionDatastore;
+let memoDatastore;
 let analysis;
 
 /** onloadでリスナーも全部登録 * */
@@ -43,15 +44,7 @@ $(document).ready(function() {
 		_titleSpan.html('リリースノート');
 
 		_titleSpan.appendTo(container);
-		$('<span></span>').html('【認証機能追加】設定をリセットしてください。uidとpwdはリーダに聞いてください').appendTo(container);
-		$('<span></span>').html('【凸状況表で魔法凸も区別できるように変更】').appendTo(container);
-		$('<span></span>').html('【凸状況表の名前クリックで詳細情報表示できるように変更】').appendTo(container);
-		$('<span></span>').html('【詳細情報表示に各岸君の凸時間傾向を表示】').appendTo(container);
-		$('<span></span>').html('【ヘッダデザイン変更】').appendTo(container);
-		$('<span></span>').html('【プリコネ日は今日の凸ボックスに統合】').appendTo(container);
-		$('<span></span>').html('【日付変更時に即再読み込みするように変更】').appendTo(container);
-		$('<span></span>').html('【ボスの着地予測計算時に1,2段階目分のソースを仕様する際は、係数を掛けるように修正】').appendTo(container);
-		$('<span></span>').html('【プリコネ日で時刻をみていなかったバグを修正】').appendTo(container);
+		$('<span></span>').html('ヘルプボタン押したら機能見れるようにした').appendTo(container);
 
 		$('#modal').show();
 	});
@@ -91,7 +84,7 @@ $(document).ready(function() {
 		$('#modal-option').hide();
 		showLoading();
 	});
-	$('#modal-option').on('click', function(event) {
+	$('#modal-option').on('mousedown', function(event) {
 		if(!validateOption(optionDatastore.getOptionList())){
 			return false;
 		}
@@ -101,9 +94,23 @@ $(document).ready(function() {
 			showLoading();
 		}
 	});
+	// ヘルプモーダルのイベントリスナ
+	$('body').on('mousedown', '.help', function(e) {
 
-	// 凸詳細のイベントリスナ
-	$('body').on('click', '#render-kisiState tr.render', function() {
+		let helpTitleSpan = $('<span></span>');
+		helpTitleSpan.addClass('title');
+		helpTitleSpan.html('help');
+
+		console.log($(this).parent().find('.helpMsg:hidden'));
+		let helpMsg = $(this).parent().find('.helpMsg:hidden').html();
+		$('#modal_detail').html('');
+		$('#modal_detail').append(helpTitleSpan);
+		$('#modal_detail').append(helpMsg);
+		$('#modal').show();
+	});
+
+	// 凸詳細モーダルのイベントリスナ
+	$('body').on('mousedown', '#render-kisiState tr.render', function(e) {
 
 		let totuTimeTitleSpan = $('<span></span>');
 		totuTimeTitleSpan.addClass('title');
@@ -116,6 +123,28 @@ $(document).ready(function() {
 		$('#modal_detail').append(totuDetail);
 		$('#modal_detail').append(totuTimeKeiko);
 		$('#modal').show();
+	});
+	// 凸詳細無効化するやつ
+	$('body').on('mousedown', '.kisiTotuMemo', function(e) {
+		e.stopPropagation();
+		$(this).find('input').focus();
+		let _renge = $(this).find('input').val().length;
+		$(this).find('input').get(0).setSelectionRange(_renge, _renge);
+	});
+	// メモ保存
+	$('body').on('focusout', '.kisiTotuMemo>input', function(e) {
+
+		let tooltip = $(this).parent().find('span:hidden');
+		tooltip.html($(this).val());
+
+		let _memoList = [];
+		let _memoInputList = $(this);
+
+		let _name = $(this).attr('name');
+		let _value = $(this).val();
+
+		memoDatastore.save(_name, _value);
+		e.stopPropagation();
 	});
 
 	// モーダル閉じる
@@ -148,6 +177,8 @@ $(document).ready(function() {
 
 /** スプシから凸ログを取得 * */
 let load = function(optionList) {
+
+	memoDatastore = new MemoDatastore(getPriconeDate());
 
 	// ローディングアニメ開始
 	showLoading();

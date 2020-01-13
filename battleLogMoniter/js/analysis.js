@@ -474,6 +474,7 @@ class Analysis{
 					$('<td></td>').html(0).appendTo(tr);
 				}
 			}
+
 			// 凸傾向
 			let kisiTotuOver20MReport = that.report.filter(function(_item, _index){
 				if(_item.プリコネーム == val.プリコネーム
@@ -494,6 +495,30 @@ class Analysis{
 					$('<td></td>').html(0).appendTo(tr);
 				}
 			}
+
+			// 岸君メモ
+			let kisiTotuMemoTd = $('<td></td>').addClass('kisiTotuMemo');
+			kisiTotuMemoTd.css('padding','0px');
+			kisiTotuMemoTd.css('position','relative');
+			let kisiTotuMemo = $('<input>').attr({
+				  type: 'text',
+				  id: 'input_'+val.プリコネーム,
+				  name: val.プリコネーム,
+				  value: memoDatastore.getMemo(val.プリコネーム)
+				});
+			kisiTotuMemo.appendTo(kisiTotuMemoTd);
+
+			let kisiTotuMemoTooltip = $('<div></div>');
+			kisiTotuMemoTooltip.addClass('tooltip');
+			let kisiTotuMemoTooltip_span = $('<span></span>');
+			kisiTotuMemoTooltip_span.html(memoDatastore.getMemo(val.プリコネーム));
+			kisiTotuMemoTooltip_span.appendTo(kisiTotuMemoTooltip);
+			kisiTotuMemoTooltip.appendTo(kisiTotuMemoTd);
+
+			kisiTotuMemoTd.appendTo(tr);
+
+
+			// 以下凸詳細モーダル用のデータ
 
 			// 凸詳細を挿入
 			let totuDetail = $('<p></p>');
@@ -529,7 +554,6 @@ class Analysis{
 			});
 			totuDetailTable.appendTo(totuDetail);
 			totuDetail.appendTo(tr);
-
 
 			// 岸君ごとの凸傾向を挿入
 			let totuTotuAllDayContainer = $('<p></p>').addClass('totuTimeKeiko');
@@ -582,7 +606,6 @@ class Analysis{
 
 		// 岸君テーブル
 		let kisiTrendTable = $('#render-kisiTrend').find('#kisiTrendTable');
-
 		let that = this;
 
 		$.each(this.member, function(index, val){
@@ -610,9 +633,6 @@ class Analysis{
 					$('<td></td>').html(0).appendTo(tr);
 				}
 			}
-
-
-			console.log('tr>'+tr);
 			tr.appendTo(kisiTrendTable);
 
 		});
