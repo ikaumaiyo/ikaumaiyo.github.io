@@ -133,24 +133,28 @@ $(document).ready(function() {
 	});
 	// メモ保存
 	$('body').on('focusout', '.kisiTotuMemo>input', function(e) {
-
+		// ツールチップに新しいメモを格納
 		let tooltip = $(this).parent().find('span:hidden');
 		tooltip.html($(this).val());
 
-		let _memoList = [];
-		let _memoInputList = $(this);
-
+		// メモを保存
 		let _name = $(this).attr('name');
 		let _value = $(this).val();
-
 		memoDatastore.save(_name, _value);
+
+		if(_value == ''){
+			$(this).removeClass('isShow');
+		}else{
+			$(this).addClass('isShow');
+		}
+
 		e.stopPropagation();
 	});
 	$('body').on('keypress', '.kisiTotuMemo>input', function(e) {
-		if ( e.which != 13 ) {
-			return false;
+		if ( e.keyCode  == 13 ) {
+			$(this).blur();
 		}
-		$(this).blur();
+
 	});
 
 	// モーダル閉じる

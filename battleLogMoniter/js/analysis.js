@@ -507,6 +507,9 @@ class Analysis{
 				  value: memoDatastore.getMemo(val.プリコネーム)
 				});
 			kisiTotuMemo.appendTo(kisiTotuMemoTd);
+			if(memoDatastore.getMemo(val.プリコネーム) != ''){
+				kisiTotuMemoTd.addClass('isShow');
+			}
 
 			let kisiTotuMemoTooltip = $('<div></div>');
 			kisiTotuMemoTooltip.addClass('tooltip');

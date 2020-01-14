@@ -40,6 +40,9 @@ class MemoDatastore{
 	}
 
 	getMemo(name){
+		if(this.memoList[name] === undefined){
+			return '';
+		}
 		return this.memoList[name]
 	}
 

@@ -248,7 +248,7 @@
 	border-radius: 2px;
 	position: absolute;
 	font-size: 0.7rem;
-	bottom: 3px;
+	top: 0px;
 	left: 151px;
 	width: max-content;
 	max-width: 200px;
@@ -257,7 +257,7 @@
 	min-height: 0.7rem;
 }
 
-#render-kisiState .kisiTotuMemo:hover>.tooltip {
+#render-kisiState .kisiTotuMemo.isShow:hover>.tooltip {
 	display: block;
 }
 
