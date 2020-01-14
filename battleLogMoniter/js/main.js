@@ -146,6 +146,12 @@ $(document).ready(function() {
 		memoDatastore.save(_name, _value);
 		e.stopPropagation();
 	});
+	$('body').on('keypress', '.kisiTotuMemo>input', function(e) {
+		if ( e.which != 13 ) {
+			return false;
+		}
+		$(this).blur();
+	});
 
 	// モーダル閉じる
 	$('#modal').on('click', function(event) {

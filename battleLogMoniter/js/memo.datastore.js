@@ -30,7 +30,7 @@ class MemoDatastore{
 
 	save(name, value){
 
-		if(name === undefined || value === undefined || name == ''|| value == ''){
+		if(name === undefined || value === undefined || name == ''){
 			return true;
 		}
 
