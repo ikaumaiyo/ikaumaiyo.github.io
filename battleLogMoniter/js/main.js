@@ -12,7 +12,7 @@ $(document).ready(function() {
 	// ページ初回実行
 	//---------------------------------------------------------------
 	// デバッグ用
-	$('#targetDate').val('2019-12-26');
+//	$('#targetDate').val('2019-12-27');
 	// 日付初期値設定
 //    let date = new Date();
 //    let yyyy = date.getFullYear();
@@ -44,7 +44,7 @@ $(document).ready(function() {
 		_titleSpan.html('リリースノート');
 
 		_titleSpan.appendTo(container);
-		$('<span></span>').html('ヘルプボタン押したら機能見れるようにした').appendTo(container);
+		$('<span></span>').html('本番用に各種整備').appendTo(container);
 
 		$('#modal').show();
 	});
@@ -95,13 +95,12 @@ $(document).ready(function() {
 		}
 	});
 	// ヘルプモーダルのイベントリスナ
-	$('body').on('mousedown', '.help', function(e) {
+	$('body').on('mousedown', '.help, .readme', function(e) {
 
 		let helpTitleSpan = $('<span></span>');
 		helpTitleSpan.addClass('title');
 		helpTitleSpan.html('help');
 
-		console.log($(this).parent().find('.helpMsg:hidden'));
 		let helpMsg = $(this).parent().find('.helpMsg:hidden').html();
 		$('#modal_detail').html('');
 		$('#modal_detail').append(helpTitleSpan);
@@ -310,12 +309,17 @@ let getNowYYYYMMDD = function() {
 let getPriconeDate = function() {
 	let nowdate = new Date();
 	let inputdate = new Date();
-	if ($('#targetDate').val() != "") {
+	let d;
+	let pd;
+	if ($('#targetDate').val() == "") {
+		d = new Date(nowdate.getFullYear(), nowdate.getMonth(), nowdate.getDate(), nowdate.getHours() - 5, nowdate.getMinutes(), nowdate.getSeconds());
+		pd = new Date(d.getFullYear(), d.getMonth(), d.getDate(), 5, 0, 0);
+	}else{
 		// デバッグ用の日付取得
 		inputdate = new Date($('#targetDate').val());
+		d = new Date(inputdate.getFullYear(), inputdate.getMonth(), inputdate.getDate(), nowdate.getHours() - 5, nowdate.getMinutes(), nowdate.getSeconds());
+		pd = new Date(d.getFullYear(), d.getMonth(), d.getDate(), 5, 0, 0);
 	}
-	let d = new Date(inputdate.getFullYear(), inputdate.getMonth(), inputdate.getDate(), nowdate.getHours() - 5, nowdate.getMinutes(), nowdate.getSeconds());
-	let pd = new Date(d.getFullYear(), d.getMonth(), d.getDate(), 5, 0, 0);
 	return pd;
 }
 /** ボス画像をレンダ * */

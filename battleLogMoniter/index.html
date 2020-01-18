@@ -37,11 +37,20 @@
 	<!-- ヘッダ -->
 	<header>
 		<div class="version button">
-			<span>var1.6</span>
+			<span>var1.7</span>
+		</div>
+		<div class="readme button">readme</div>
+		<div class="helpMsg">
+			<ul>
+				<li>初回起動時はヘッダメニューの設定から「uid」「pwd」を設定してください。</li>
+				<li>「uid」「pwd」はリーダーからきいてください。毎月変更します。</li>
+				<li>過去のデータを見たい場合はヘッダメニューの日付を変えてください。</li>
+				<li>設定は「uid」「pwd」以外いじらないでください。</li>
+				<li></li>
+				<li></li>
+			</ul>
 		</div>
 		<div class="reload button">再読み込み</div>
-		<div class="openSpreadSheet button">スプシ</div>
-		<div class="openJson button">json</div>
 		<div class="openSetting button">設定</div>
 		<input type="date" id="targetDate"></input>
 	</header>
@@ -60,7 +69,7 @@
 		<div id="modal-option">
 			<div id="modal-option_content">
 				<span class="error"></span>
-				<button class="option-btn_close button">閉じる</button>
+				<button class="option-btn_close button">登録</button>
 				<button class="option-btn_reset button">リセット</button>
 				<br> <br>
 				<span>uidとpwd以外全て入力しないと設定画面から出られません。</span>
@@ -110,8 +119,11 @@
 					<div class="help">?</div>
 					<div class="helpMsg">
 						<ul>
-							<li>着地予測は現在地が追い越すと消える</li>
-							<li>着地予測は1～3ボス分ブレがあるから信用しないで</li>
+							<li>着地予測は1～3ボス分ブレがあるから目安で。</li>
+							<li>ボスの画像は気分で更新する。</li>
+							<li>↓ここからは13週目以降でのみ機能する↓</li>
+							<li>ボス画像の上にある討伐凸数はボスを１体撃破するのに必要な凸数</li>
+							<li>ボス画像にある@x凸ってやつは着地予測までの必要凸数。これもブレがあるから目安で。</li>
 						</ul>
 					</div>
 					<div class="title">
@@ -126,6 +138,14 @@
 								<div class="successful"></div>
 							</div>
 						</div>
+					</div>
+					<div class="bossStateWrapLine">
+						<div class="emptyBox">討伐凸数</div>
+						<div class="emptyBox requiredCount b1"></div>
+						<div class="emptyBox requiredCount b2"></div>
+						<div class="emptyBox requiredCount b3"></div>
+						<div class="emptyBox requiredCount b4"></div>
+						<div class="emptyBox requiredCount b5"></div>
 					</div>
 					<div class="bossStateWrapLine">
 						<div class="emptyBox title">warp</div>
@@ -192,7 +212,7 @@
 
 
 			<!-- 凸ジェネレーター -->
-			<div id="render-totuGenerator" class="analysis-render-box draggable">
+<!-- 			<div id="render-totuGenerator" class="analysis-render-box draggable">
 				<div class="title">
 					<span class="tete">凸ジェネレーター </span>
 					<span class="genBtn">生成</span>
@@ -223,164 +243,6 @@
 						<td>D111111</td>
 						<td>E111111</td>
 						<td>F111111</td>
-					</tr>
-					<tr>
-						<td>A111111</td>
-						<td>B111111</td>
-						<td>C111111</td>
-						<td>D111111</td>
-						<td>E111111</td>
-						<td>F111111</td>
-					</tr>
-					<tr>
-						<td>A111111</td>
-						<td>B111111</td>
-						<td>C111111</td>
-						<td>D111111</td>
-						<td>E111111</td>
-						<td>F111111</td>
-					</tr>
-					<tr>
-						<td>A111111</td>
-						<td>B111111</td>
-						<td>C111111</td>
-						<td>D111111</td>
-						<td>E111111</td>
-						<td>F111111</td>
-					</tr>
-					<tr>
-						<td>A111111</td>
-						<td>B111111</td>
-						<td>C111111</td>
-						<td>D111111</td>
-						<td>E111111</td>
-						<td>F111111</td>
-					</tr>
-					<tr>
-						<td>A111111</td>
-						<td>B111111</td>
-						<td>C111111</td>
-						<td>D111111</td>
-						<td>E111111</td>
-						<td>F111111</td>
-					</tr>
-					<tr>
-						<td>A111111</td>
-						<td>B111111</td>
-						<td>C111111</td>
-						<td>D111111</td>
-						<td>E111111</td>
-						<td>F111111</td>
-					</tr>
-					<tr>
-						<td>A111111</td>
-						<td>B111111</td>
-						<td>C111111</td>
-						<td>D111111</td>
-						<td>E111111</td>
-						<td>F111111</td>
-					</tr>
-					<tr>
-						<td>A111111</td>
-						<td>B111111</td>
-						<td>C111111</td>
-						<td>D111111</td>
-						<td>E111111</td>
-						<td>F111111</td>
-					</tr>
-					<tr>
-						<td>A111111</td>
-						<td>B111111</td>
-						<td>C111111</td>
-						<td>D111111</td>
-						<td>E111111</td>
-						<td>F111111</td>
-					</tr>
-					<tr>
-						<td>A111111</td>
-						<td>B111111</td>
-						<td>C111111</td>
-						<td>D111111</td>
-						<td>E111111</td>
-						<td>F111111</td>
-					</tr>
-					<tr>
-						<td>A111111</td>
-						<td>B111111</td>
-						<td>C111111</td>
-						<td>D111111</td>
-						<td>E111111</td>
-						<td>F111111</td>
-					</tr>
-					<tr>
-						<td>A111111</td>
-						<td>B111111</td>
-						<td>C111111</td>
-						<td>D111111</td>
-						<td>E111111</td>
-						<td>F111111</td>
-					</tr>
-					<tr>
-						<td>A111111</td>
-						<td>B111111</td>
-						<td>C111111</td>
-						<td>D111111</td>
-						<td>E111111</td>
-						<td>F111111</td>
-					</tr>
-					<tr>
-						<td>A111111</td>
-						<td>B111111</td>
-						<td>C111111</td>
-						<td>D111111</td>
-						<td>E111111</td>
-						<td>F111111</td>
-					</tr>
-					<tr>
-						<td>A111111</td>
-						<td>B111111</td>
-						<td>C111111</td>
-						<td>D111111</td>
-						<td>E111111</td>
-						<td>F111111</td>
-					</tr>
-					<tr>
-						<td>A111111</td>
-						<td>B111111</td>
-						<td>C111111</td>
-						<td>D111111</td>
-						<td>E111111</td>
-						<td>F111111</td>
-					</tr>
-					<tr>
-						<td>A111111</td>
-						<td>B111111</td>
-						<td>C111111</td>
-						<td>D111111</td>
-						<td>E111111</td>
-						<td>F111111</td>
-					</tr>
-				</table>
-			</div>
-
-			<!-- 			<!-- 岸君の凸傾向 -->
-			<!--
-			<div id="render-kisiTrend" class="analysis-render-box draggable">
-				<div class="title">
-					<span class="tete">凸傾向</span>
-				</div>
-				<table id="kisiTrendTable" class="tablesorter">
-					<thead>
-						<tr>
-							<th>名前</th>
-							<th>１</th>
-							<th>２</th>
-							<th>３</th>
-							<th>４</th>
-							<th>５</th>
-						</tr>
-					</thead>
-					<tr>
 					</tr>
 				</table>
 			</div> -->

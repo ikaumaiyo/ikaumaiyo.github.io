@@ -10,8 +10,6 @@ class Analysis{
 		this.member = member;
 		/** プリコネ日 * */
 		this.priconeDate = priconeDate;
-		console.log('report>'+this.report.length);
-		console.log('member>'+this.member.length);
 
 		// プリコネ日(START)をミリ秒に変換
 		this.startPriconeDate_Milli = Date.parse(this.priconeDate);
@@ -53,6 +51,8 @@ class Analysis{
 	/** レンダコントローラ * */
 	render(){
 
+		console.log('Analysis.render start ************************************');
+
 		/** 初期化 * */
 		// 凸数
 		$('#render-battleSuccessful').find('.totuNum').html('');
@@ -68,6 +68,10 @@ class Analysis{
 		if($('#chk-magicUsed').prop('checked')){
 			$('#chk-magicUsed').click();
 		}
+		// ボス@
+		$('.boss').html('');
+
+		this.renderPriconeDate();
 
 		/** 昨日と今日のデータがあれば分析開始 * */
 		if(!(this.todayReport.length == 0 && this.yesterdayReport.length == 0)){
@@ -90,12 +94,14 @@ class Analysis{
 		}
 	}
 
-	/** 凸完了数を表示 * */
-	renderBattleSuccessful(){
-
-		// プリコネ日をセット
+	/** プリコネ日をセット * */
+	renderPriconeDate(){
 		let priconeViewDate = 'プリコネ日：'+this.priconeDate.getFullYear() + '-' + ("0" + (this.priconeDate.getMonth() + 1)).slice(-2) + '-' + ("0" + this.priconeDate.getDate()).slice(-2);
 		$('#render-battleSuccessful').find('p').find('span').html(priconeViewDate);
+	}
+
+	/** 凸完了数を表示 * */
+	renderBattleSuccessful(){
 
 		// 凸数を取得
 		let totuNum = 0;
@@ -190,7 +196,6 @@ class Analysis{
 			nowBoss = this.yesterdayReport[this.yesterdayReport.length-1].ボス;
 			nowWrap = this.yesterdayReport[this.yesterdayReport.length-1].周回;
 		}
-
 		// 現ボスの状態
 		let nowBossReport = this.report.filter(function(_item, _index){
 			if(_item.周回 == nowWrap && _item.ボス == nowBoss
@@ -242,19 +247,28 @@ class Analysis{
 		$('#render-bossState').find('.nowBossState').find('.hpPerBox').find('.hp').html(nowBossHpStateStr);
 
 		// プログレスバー
-		console.log((optionList['boss_hp_w'+nowBossWave+'_0'+nowBoss] - nowBossDmg)/optionList['boss_hp_w'+nowBossWave+'_0'+nowBoss]+'%');
 		$('#render-bossState').find('.nowBossState').find('.hpPerBox').find('.perProgress').find('.successful').css('width',nowBossHpStatePerStr);
 
-
-
 		// 着地予測の終端を計算
-		let outlookBossCount = this.renderBattleState_calc_outlookBossCount(yestWrap,startBoss);
+		let outlookBossCount = this.calc_outlookBossCount(yestWrap,startBoss);
+
+		// ボスの必要凸数を取得
+		let requiredBossTotuCount = this.calc_requiredBossTotuCount(this.report);
+		console.log(requiredBossTotuCount != undefined);
+		let requiredBossTotuCountSum = {};
+		if(Object.keys(requiredBossTotuCount).length != 0){
+			requiredBossTotuCountSum[1] = 0;
+			requiredBossTotuCountSum[2] = 0;
+			requiredBossTotuCountSum[3] = 0;
+			requiredBossTotuCountSum[4] = 0;
+			requiredBossTotuCountSum[5] = 0;
+		}
 
 		// ボス状態をレンダ
 		let firstFlg = 1; // 初回ループフラグ
 		let outlookFlg = 0; // 着地予測割り込みフラグ
 		while(true){
-			if(outlookBossCount < 0 && startWrap > nowWrap){
+			if(outlookBossCount <= 0 && startWrap > nowWrap){
 				break;
 			}
 			let bossStateWrapLine = $('<div></div>').attr('class','bossStateWrapLine render');
@@ -263,46 +277,50 @@ class Analysis{
 			for (  var i = 1;  i < 6;  i++  ) {
 
 				let nowStateDiv = $('<div></div>').attr('class','nowState render');
+				let emptyBoxDiv = $('<div></div>').attr('class','emptyBox render');
+				let outlookDiv = $('<div></div>').attr('class','outlook render').html('着地予測');
+
+				// 現在のボス以下の場合は空ボックス挿入してcontinue
+				if(firstFlg == 1 && i < startBoss){
+					emptyBoxDiv.appendTo(bossStateWrapLine);
+					continue;
+				}
+				// 着地予測の割り込み処理
+				outlookBossCount = outlookBossCount - 1;
+				if(outlookBossCount == 0){
+					// 現在地の場合は特殊ボックス
+					if(startWrap == nowWrap && i == nowBoss){
+						outlookDiv = $('<div></div>').attr('class','nowState render');
+						outlookDiv.html('現在地');
+						outlookDiv.css('box-shadow','rgb(250, 164, 3) 0px 0px 0px 2px inset');
+					}
+					outlookDiv.appendTo(bossStateWrapLine);
+					continue;
+				}
+
+				// 現在のボス以上の場合は空ボックス挿入してcontinue
+				if(startWrap > nowWrap || (startWrap == nowWrap && i > nowBoss)){
+					// ボス必要凸数をカウント
+					if(outlookBossCount > 0 && Object.keys(requiredBossTotuCountSum).length != 0){
+						requiredBossTotuCountSum[i] = requiredBossTotuCountSum[i] + requiredBossTotuCount[i];
+					}
+					// 空ボックス挿入
+					emptyBoxDiv.appendTo(bossStateWrapLine);
+					continue;
+				}
+
 				// 現在地の場合はコメント追加
 				if(startWrap == nowWrap && i == nowBoss){
 					nowStateDiv.html('現在地');
 				}
 
-				// 着地予測の割り込み処理
-				if(outlookBossCount == 0){
-					outlookFlg  = 1; // 割り込み
-					if(firstFlg == 1 && i < startBoss){
-						$('<div></div>').attr('class','emptyBox render').appendTo(bossStateWrapLine);
-					}else if(startWrap <= nowWrap && i <= nowBoss){
-						// 現在地の場合は譲る
-						nowStateDiv.appendTo(bossStateWrapLine);
-					}else{
-						// 他に何もなければ着地予測を出す
-						$('<div></div>').attr('class','outlook render').html('着地予測').appendTo(bossStateWrapLine);
-					}
+				// 現在ボスのレンダ
+				if(startWrap <= nowWrap){
+					nowStateDiv.appendTo(bossStateWrapLine);
+					continue;
 				}
-				outlookBossCount = outlookBossCount - 1;
-
-				// 着地予測に割り込まれなかった場合のみ現在ボスのレンダ
-				if(outlookFlg == 0){
-					// その日のデータが有る場合
-					if(firstFlg == 1){ // 初回ループ
-						if(i < startBoss){
-							$('<div></div>').attr('class','emptyBox render').appendTo(bossStateWrapLine);
-							outlookBossCount = outlookBossCount + 1;
-						}else{
-							nowStateDiv.appendTo(bossStateWrapLine);
-						}
-					}
-					if(firstFlg == 0){ // 二回目以降ループ
-						if(startWrap <= nowWrap && !(startWrap == nowWrap && i > nowBoss)){
-							nowStateDiv.appendTo(bossStateWrapLine);
-						}else{
-							$('<div></div>').attr('class','emptyBox render').appendTo(bossStateWrapLine);
-						}
-					}
-				}
-				outlookFlg = 0;
+				emptyBoxDiv.html('(エラー)');
+				emptyBoxDiv.appendTo(bossStateWrapLine);
 			}
 
 			bossStateWrapLine.appendTo('#render-bossState');
@@ -311,53 +329,20 @@ class Analysis{
 
 		} // while
 
-
-
-
-	}
-	/** ボス状態を表示 - 着地予測の終端を計算 * */
-	renderBattleState_calc_outlookBossCount(yestWrap,startBoss){
-		let optionList = optionDatastore.getOptionList();
-		let b01per = optionList.boss_hp_w3_01/optionDatastore.getW3Sum(); // 1ボスHP割合
-		let b02per = optionList.boss_hp_w3_02/optionDatastore.getW3Sum(); // 2ボスHP割合
-		let b03per = optionList.boss_hp_w3_03/optionDatastore.getW3Sum(); // 3ボスHP割合
-		let b04per = optionList.boss_hp_w3_04/optionDatastore.getW3Sum(); // 4ボスHP割合
-		let b05per = optionList.boss_hp_w3_05/optionDatastore.getW3Sum(); // 5ボスHP割合
-		let yestWrapDecimal = yestWrap - Math.floor(yestWrap); // 昨日周回の小数点以下を取得
-		let outlookStartPoint = startBoss + 1; // 撃破数計算のボス指標
-		let outlookDecimalCount = 0; // 少数部でどれだけ倒すか
-		// ボスの撃破数を予測
-		while(yestWrapDecimal > 0){
-			switch (outlookStartPoint) { // 各ボスのHP分を減算
-			  case 1:
-				  yestWrapDecimal = yestWrapDecimal - b01per;
-			    break;
-			  case 2:
-				  yestWrapDecimal = yestWrapDecimal - b02per;
-			    break;
-			  case 3:
-				  yestWrapDecimal = yestWrapDecimal - b03per;
-			    break;
-			  case 4:
-				  yestWrapDecimal = yestWrapDecimal - b04per;
-			    break;
-			  case 5:
-				  yestWrapDecimal = yestWrapDecimal - b05per;
-			    break;
-			  default:
-				  break;
-			}
-			outlookDecimalCount = outlookDecimalCount + 1; // 撃破数をカウントアップ
-			outlookStartPoint = outlookStartPoint + 1; // ボス指標をカウントアップ
-			if(outlookStartPoint > 5){
-				outlookStartPoint = 1; // 1ボスに戻す
-			}
+		if(Object.keys(requiredBossTotuCountSum).length != 0){
+			$('.requiredCount.b1').html(requiredBossTotuCount[1].toFixed(1)+'凸');
+			$('.requiredCount.b2').html(requiredBossTotuCount[2].toFixed(1)+'凸');
+			$('.requiredCount.b3').html(requiredBossTotuCount[3].toFixed(1)+'凸');
+			$('.requiredCount.b4').html(requiredBossTotuCount[4].toFixed(1)+'凸');
+			$('.requiredCount.b5').html(requiredBossTotuCount[5].toFixed(1)+'凸');
+			$('.boss.b1').html('@'+requiredBossTotuCountSum[1].toFixed(1)+'凸');
+			$('.boss.b2').html('@'+requiredBossTotuCountSum[2].toFixed(1)+'凸');
+			$('.boss.b3').html('@'+requiredBossTotuCountSum[3].toFixed(1)+'凸');
+			$('.boss.b4').html('@'+requiredBossTotuCountSum[4].toFixed(1)+'凸');
+			$('.boss.b5').html('@'+requiredBossTotuCountSum[5].toFixed(1)+'凸');
 		}
 
-		console.log('ボス撃破数予測>'+((Math.floor(yestWrap)*5) + outlookDecimalCount));
 
-
-		return (Math.floor(yestWrap)*5) + outlookDecimalCount; // ボス撃破数予測
 	}
 
 	/** 岸君の凸状況 * */
@@ -398,13 +383,6 @@ class Analysis{
 			}
 			// 凸メーター
 			let totuMater = $('<td></td>').html(totuNum);
-// for(var i=0;i<totuNum-0.5;i++){
-// $('<div></div>').attr('class','stateBox').appendTo(totuMater);
-// }
-// if(totuNum - Math.floor(totuNum) > 0){
-// $('<div></div>').attr('class','stateBox half').appendTo(totuMater);
-// }
-//
 			$.each(kisiTotuReport, function(_i, _v){
 				let div = $('<div></div>');
 				div.addClass('stateBox');
@@ -600,47 +578,90 @@ class Analysis{
 
 	}
 
-	/** 岸君の凸傾向【廃止（凸状況に統合）】 * */
-	renderKisiTrend(){
 
-		if(this.member.length == 0){
-			return false;
+
+	/** ボス状態を表示 - 着地予測の終端を計算 * */
+	calc_outlookBossCount(yestWrap,startBoss){
+		let optionList = optionDatastore.getOptionList();
+		let b01per = optionList.boss_hp_w3_01/optionDatastore.getW3Sum(); // 1ボスHP割合
+		let b02per = optionList.boss_hp_w3_02/optionDatastore.getW3Sum(); // 2ボスHP割合
+		let b03per = optionList.boss_hp_w3_03/optionDatastore.getW3Sum(); // 3ボスHP割合
+		let b04per = optionList.boss_hp_w3_04/optionDatastore.getW3Sum(); // 4ボスHP割合
+		let b05per = optionList.boss_hp_w3_05/optionDatastore.getW3Sum(); // 5ボスHP割合
+		let yestWrapDecimal = yestWrap - Math.floor(yestWrap); // 昨日周回の小数点以下を取得
+		let outlookStartPoint = startBoss + 1; // 撃破数計算のボス指標
+		let outlookDecimalCount = 0; // 少数部でどれだけ倒すか
+		// ボスの撃破数を予測
+		while(yestWrapDecimal > 0){
+			switch (outlookStartPoint) { // 各ボスのHP分を減算
+			  case 1:
+				  yestWrapDecimal = yestWrapDecimal - b01per;
+			    break;
+			  case 2:
+				  yestWrapDecimal = yestWrapDecimal - b02per;
+			    break;
+			  case 3:
+				  yestWrapDecimal = yestWrapDecimal - b03per;
+			    break;
+			  case 4:
+				  yestWrapDecimal = yestWrapDecimal - b04per;
+			    break;
+			  case 5:
+				  yestWrapDecimal = yestWrapDecimal - b05per;
+			    break;
+			  default:
+				  break;
+			}
+			outlookDecimalCount = outlookDecimalCount + 1; // 撃破数をカウントアップ
+			outlookStartPoint = outlookStartPoint + 1; // ボス指標をカウントアップ
+			if(outlookStartPoint > 5){
+				outlookStartPoint = 1; // 1ボスに戻す
+			}
 		}
 
-		// 岸君テーブル
-		let kisiTrendTable = $('#render-kisiTrend').find('#kisiTrendTable');
-		let that = this;
+		return (Math.floor(yestWrap)*5) + outlookDecimalCount; // ボス撃破数予測
+	}
 
-		$.each(this.member, function(index, val){
+	// ボス毎の必要凸数をカウント（３段階目だけ表示する）
+	calc_requiredBossTotuCount(report){
 
-			let tr = $('<tr></tr>').attr('class','render');
+		let optionList = optionDatastore.getOptionList();
+		let requiredBossTotuCount = {};
 
-			$('<td></td>').html(val.プリコネーム).appendTo(tr);
+		let lastLocation = report[report.length-1].周回;
+		if(report[report.length-1].周回 >= Number(optionList.w3_start_wrap)+1){
+			// おっけー
+		}else{
+			return requiredBossTotuCount;
+		}
 
-			let kisiTotuReport = that.report.filter(function(_item, _index){
-				if(_item.プリコネーム == val.プリコネーム
-						&& _item.ダメージ > 2000000){
-					return true;
-				}
-			});
-			for(var i = 1; i < 6; i++){
-				let _ktr = kisiTotuReport.filter(function(o){
-					return o.ボス == i;
-				});
-				if(_ktr.length > 0){
-					let stateTd = $('<td></td>').html(_ktr.length/10);
-					let stateDiv = $('<div></div>').attr('class','stateBox center').css('opacity',_ktr.length/10);
-					stateDiv.appendTo(stateTd);
-					stateTd.appendTo(tr);
-				}else{
-					$('<td></td>').html(0).appendTo(tr);
-				}
+		requiredBossTotuCount[1] = 0;
+		requiredBossTotuCount[2] = 0;
+		requiredBossTotuCount[3] = 0;
+		requiredBossTotuCount[4] = 0;
+		requiredBossTotuCount[5] = 0;
+		let w3report = report.filter(function(_item, _index){
+			if(_item.周回 >= optionList.w3_start_wrap) return true;
+		});
+		let calcTargetReport = w3report.filter(function(_item, _index){
+			if(_item.周回 < lastLocation) return true;
+		});
+		$.each(calcTargetReport, function(i, v){
+			if(v.LA == 1 || v.LA残 == 1){
+				requiredBossTotuCount[v.ボス] = requiredBossTotuCount[v.ボス] + 0.5;
+			}else{
+				requiredBossTotuCount[v.ボス]++;
 			}
-			tr.appendTo(kisiTrendTable);
-
 		});
 
-		$(".tablesorter").trigger("update");
+		let finishedLocation = lastLocation - optionList.w3_start_wrap;
+
+		$.each(requiredBossTotuCount, function(i, v){
+			requiredBossTotuCount[i] = requiredBossTotuCount[i] / finishedLocation;
+		});
+
+		console.table(requiredBossTotuCount);
+		return requiredBossTotuCount;
 
 	}
 
