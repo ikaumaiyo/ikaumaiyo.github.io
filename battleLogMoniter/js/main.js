@@ -312,12 +312,12 @@ let getPriconeDate = function() {
 	let d;
 	let pd;
 	if ($('#targetDate').val() == "") {
-		d = new Date(nowdate.getFullYear(), nowdate.getMonth(), nowdate.getDate(), nowdate.getHours() , nowdate.getMinutes(), nowdate.getSeconds());
+		d = new Date(nowdate.getFullYear(), nowdate.getMonth(), nowdate.getDate(), nowdate.getHours() - 5, nowdate.getMinutes(), nowdate.getSeconds());
 		pd = new Date(d.getFullYear(), d.getMonth(), d.getDate(), 5, 0, 0);
 	}else{
 		// デバッグ用の日付取得
 		inputdate = new Date($('#targetDate').val());
-		d = new Date(inputdate.getFullYear(), inputdate.getMonth(), inputdate.getDate(), nowdate.getHours() - 5, nowdate.getMinutes(), nowdate.getSeconds());
+		d = new Date(inputdate.getFullYear(), inputdate.getMonth(), inputdate.getDate(), nowdate.getHours() , nowdate.getMinutes(), nowdate.getSeconds());
 		pd = new Date(d.getFullYear(), d.getMonth(), d.getDate(), 5, 0, 0);
 	}
 	return pd;
