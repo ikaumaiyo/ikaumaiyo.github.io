@@ -53,10 +53,6 @@ $(document).ready(function() {
 		hideErrorMsg();
 		load(optionDatastore.getOptionList());
 	});
-	// スプシ
-	$('body').on('click', '.openSpreadSheet', function(e) {
-		window.open('https://docs.google.com/spreadsheets/d/1Hvfu_6t2scV-8o8i5k1QpwMjUUngbHtoadetTnmdBzs/edit#gid=764539460', '_blank');
-	});
 	// json
 	$('body').on('click', '.openJson', function(e) {
 		window.open(url, '_blank');
