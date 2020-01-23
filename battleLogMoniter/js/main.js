@@ -254,7 +254,7 @@ let load = function(optionList) {
 		hideLoading();
 	}).fail(function(e){
 		console.error(e);
-		showErrorMsg('ajax通信に失敗');
+		showErrorMsg('通信に失敗しました。設定でuidとpwdを確認してください。');
 		hideLoading();
 	});
 
