@@ -59,10 +59,23 @@ $(document).ready(function() {
 	});
 
 	// 日付
-        $('#targetDate').change(function() {
-		hideErrorMsg();
-		load(optionDatastore.getOptionList());
-        });
+	let targetDateEvent;
+	$('#targetDate').change(function() {
+		 if (navigator.userAgent.indexOf('iPhone') != -1) {
+			event = e;
+		 }else{
+			hideErrorMsg();
+			load(optionDatastore.getOptionList());
+		 }
+	});
+	 if (navigator.userAgent.indexOf('iPhone') != -1) {
+		 $('#targetDate').focusout(function() {
+			 if (event) {
+				hideErrorMsg();
+				load(optionDatastore.getOptionList());
+			 }
+		});
+	 }
 	// 設定
 	$('#body').on('click', '.openSetting', function(e) {
 		$('#modal-option').show();
