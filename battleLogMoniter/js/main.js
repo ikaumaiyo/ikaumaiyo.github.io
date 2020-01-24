@@ -83,7 +83,7 @@ $(document).ready(function() {
 	$('#body').on('click', '.openSetting', function(e) {
 		$('#modal-option').show();
 	});
-	$('#body').on('click', '.option-btn_close', function(e) {
+	$('#body').on('click', '.option-btn_confirm', function(e) {
 		if(!validateOption(optionDatastore.getOptionList())){
 			alert('必須項目を全て入力してください。');
 			return false;
@@ -104,10 +104,7 @@ $(document).ready(function() {
 		showLoading();
 	});
 	$('#modal-option').on('mousedown', function(event) {
-		if(!validateOption(optionDatastore.getOptionList())){
-			return false;
-		}
-		if (!($(event.target).closest($('#modal-option_content')).length) || ($(event.target).closest($(".btn_close")).length)) {
+		if (!($(event.target).closest($('#modal-option_content')).length) || ($(event.target).closest($(".option-btn_close")).length)) {
 			if(!confirm('閉じると編集が破棄されます。よろしいですか？')){
 				return;
 			}
