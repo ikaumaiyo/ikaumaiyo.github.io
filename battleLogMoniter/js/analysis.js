@@ -352,6 +352,8 @@ class Analysis{
 			return false;
 		}
 
+		let optionList = optionDatastore.getOptionList();
+
 		// 岸君テーブル
 		let kisiStateTable = $('#render-kisiState').find('#kisiStateTable');
 		let that = this;
@@ -456,7 +458,8 @@ class Analysis{
 			// 凸傾向
 			let kisiTotuOver20MReport = that.report.filter(function(_item, _index){
 				if(_item.プリコネーム == val.プリコネーム
-						&& _item.ダメージ > 2000000){
+						&& _item.ダメージ > 2000000
+						&& _item.周回 >= optionList.w3_start_wrap){
 					return true;
 				}
 			});
