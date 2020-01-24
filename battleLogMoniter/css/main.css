@@ -77,7 +77,7 @@ header>.button {
 
 header>.button.mobile {
 	height: 4em;
-	line-height: 3.8rem;
+	line-height: 4rem;
 }
 
 header>.button:hover {
