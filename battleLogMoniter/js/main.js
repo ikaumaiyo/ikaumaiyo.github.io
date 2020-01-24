@@ -105,7 +105,7 @@ $(document).ready(function() {
 	});
 	$('#modal-option').on('mousedown', function(event) {
 		if (!($(event.target).closest($('#modal-option_content')).length) || ($(event.target).closest($(".option-btn_close")).length)) {
-			if(!confirm('閉じると編集が破棄されます。よろしいですか？')){
+			if(!confirm('閉じると変更が破棄されます。よろしいですか？')){
 				return;
 			}
 			renderSettingMenu(optionDatastore.getOptionList());
