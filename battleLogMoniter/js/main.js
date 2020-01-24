@@ -47,6 +47,7 @@ $(document).ready(function() {
 		$('<span></span>').html('スマホで表示するとヘッダがでなくなるようにした').appendTo(container);
 		$('<span></span>').html('古いiOSでも動くようにした').appendTo(container);
 		$('<span></span>').html('iOSで日付ドラムがロールするたびに再読み込みされないようにした').appendTo(container);
+		$('<span></span>').html('設定に確認メッセージ追加した').appendTo(container);
 
 		$('#modal').show();
 	});
@@ -84,13 +85,20 @@ $(document).ready(function() {
 	});
 	$('#body').on('click', '.option-btn_close', function(e) {
 		if(!validateOption(optionDatastore.getOptionList())){
+			alert('必須項目を全て入力してください。');
 			return false;
+		}
+		if(!confirm('設定を保存します。よろしいですか？')){
+			return;
 		}
 		saveOption(optionDatastore.getOptionList());
 		$('#modal-option').hide();
 		showLoading();
 	});
 	$('#body').on('click', '.option-btn_reset', function(e) {
+		if(!confirm('設定をリセットします。よろしいですか？')){
+			return;
+		}
 		optionDatastore.reset();
 		$('#modal-option').hide();
 		showLoading();
@@ -100,9 +108,11 @@ $(document).ready(function() {
 			return false;
 		}
 		if (!($(event.target).closest($('#modal-option_content')).length) || ($(event.target).closest($(".btn_close")).length)) {
-			saveOption(optionDatastore.getOptionList());
+			if(!confirm('閉じると編集が破棄されます。よろしいですか？')){
+				return;
+			}
+			renderSettingMenu(optionDatastore.getOptionList());
 			$('#modal-option').hide();
-			showLoading();
 		}
 	});
 	// ヘルプモーダルのイベントリスナ
@@ -345,18 +355,19 @@ let renderBossImg = function(){
 
 /** 設定画面生成 * */
 let renderSettingMenu = function(optionList){
+	$('#modal-option_content').find('.render').remove();
 	$.each(optionList, (i,v) => {
 		let inputtype = 'text';
 		if(i != 'uid' && i != 'pwd'){
 			inputtype = 'number';
 		}
-		$('<span></span>').html(i).appendTo('#modal-option_content');
-		$('<input>').attr({
+		$('<span></span>').addClass('render').html(i).appendTo('#modal-option_content');
+		$('<input>').addClass('render').attr({
 			  type: inputtype,
 			  id: 'option_'+i,
 			  value: v
 			}).appendTo('#modal-option_content');
-		$('<br>').appendTo('#modal-option_content');
+		$('<br>').addClass('render').appendTo('#modal-option_content');
 	});
 }
 // 設定バリデーション
