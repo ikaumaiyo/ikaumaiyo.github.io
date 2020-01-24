@@ -45,6 +45,8 @@ $(document).ready(function() {
 
 		_titleSpan.appendTo(container);
 		$('<span></span>').html('スマホで表示するとヘッダがでなくなるようにした').appendTo(container);
+		$('<span></span>').html('古いiOSでも動くようにした').appendTo(container);
+		$('<span></span>').html('iOSで日付ドラムがロールするたびに再読み込みされないようにした').appendTo(container);
 
 		$('#modal').show();
 	});
