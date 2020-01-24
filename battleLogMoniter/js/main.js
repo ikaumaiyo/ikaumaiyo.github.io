@@ -44,7 +44,7 @@ $(document).ready(function() {
 		_titleSpan.html('リリースノート');
 
 		_titleSpan.appendTo(container);
-		$('<span></span>').html('本番用に各種整備').appendTo(container);
+		$('<span></span>').html('スマホで表示するとヘッダがでなくなるようにした').appendTo(container);
 
 		$('#modal').show();
 	});
