@@ -35,7 +35,7 @@ $(document).ready(function() {
 	// ボタン系のイベントリスナ登録
 	//---------------------------------------------------------------
 	// バージョン
-	$('body').on('click', '.version', function(e) {
+	$('#body').on('click', '.version', function(e) {
 		$('#modal_detail').html('');
 		let container = $('#modal_detail');
 
@@ -49,12 +49,12 @@ $(document).ready(function() {
 		$('#modal').show();
 	});
 	// 再読み込み
-	$('body').on('click', '.reload', function(e) {
+	$('#body').on('click', '.reload', function(e) {
 		hideErrorMsg();
 		load(optionDatastore.getOptionList());
 	});
 	// json
-	$('body').on('click', '.openJson', function(e) {
+	$('#body').on('click', '.openJson', function(e) {
 		window.open(url, '_blank');
 	});
 
@@ -64,10 +64,10 @@ $(document).ready(function() {
 		load(optionDatastore.getOptionList());
         });
 	// 設定
-	$('body').on('click', '.openSetting', function(e) {
+	$('#body').on('click', '.openSetting', function(e) {
 		$('#modal-option').show();
 	});
-	$('body').on('click', '.option-btn_close', function(e) {
+	$('#body').on('click', '.option-btn_close', function(e) {
 		if(!validateOption(optionDatastore.getOptionList())){
 			return false;
 		}
@@ -75,7 +75,7 @@ $(document).ready(function() {
 		$('#modal-option').hide();
 		showLoading();
 	});
-	$('body').on('click', '.option-btn_reset', function(e) {
+	$('#body').on('click', '.option-btn_reset', function(e) {
 		optionDatastore.reset();
 		$('#modal-option').hide();
 		showLoading();
@@ -91,7 +91,7 @@ $(document).ready(function() {
 		}
 	});
 	// ヘルプモーダルのイベントリスナ
-	$('body').on('mousedown', '.help, .readme', function(e) {
+	$('#body').on('mousedown', '.help, .readme', function(e) {
 
 		let helpTitleSpan = $('<span></span>');
 		helpTitleSpan.addClass('title');
@@ -105,7 +105,7 @@ $(document).ready(function() {
 	});
 
 	// 凸詳細モーダルのイベントリスナ
-	$('body').on('mousedown', '#render-kisiState tr.render', function(e) {
+	$('#body').on('mousedown', '#render-kisiState tr.render', function(e) {
 
 		let totuTimeTitleSpan = $('<span></span>');
 		totuTimeTitleSpan.addClass('title');
@@ -120,14 +120,14 @@ $(document).ready(function() {
 		$('#modal').show();
 	});
 	// 凸詳細無効化するやつ
-	$('body').on('mousedown', '.kisiTotuMemo', function(e) {
+	$('#body').on('mousedown', '.kisiTotuMemo', function(e) {
 		e.stopPropagation();
 		$(this).find('input').focus();
 		let _renge = $(this).find('input').val().length;
 		$(this).find('input').get(0).setSelectionRange(_renge, _renge);
 	});
 	// メモ保存
-	$('body').on('focusout', '.kisiTotuMemo>input', function(e) {
+	$('#body').on('focusout', '.kisiTotuMemo>input', function(e) {
 		// ツールチップに新しいメモを格納
 		let tooltip = $(this).parent().find('span:hidden');
 		tooltip.html($(this).val());
@@ -145,7 +145,7 @@ $(document).ready(function() {
 
 		e.stopPropagation();
 	});
-	$('body').on('keypress', '.kisiTotuMemo>input', function(e) {
+	$('#body').on('keypress', '.kisiTotuMemo>input', function(e) {
 		if ( e.keyCode  == 13 ) {
 			$(this).blur();
 		}
@@ -161,7 +161,7 @@ $(document).ready(function() {
 
 	/** チェックボックス系 * */
 	// 3凸排除
-	$('body').on('click', '#chk-hideFin', function() {
+	$('#body').on('click', '#chk-hideFin', function() {
 		if($(this).prop('checked')){
 			$('#render-kisiState').find('.finished').hide();
 		}else{
@@ -169,7 +169,7 @@ $(document).ready(function() {
 		}
 	});
 	// 魔法排除
-	$('body').on('click', '#chk-magicUsed', function() {
+	$('#body').on('click', '#chk-magicUsed', function() {
 		if($(this).prop('checked')){
 			$('#render-kisiState').find('.magicUsed').hide();
 		}else{
@@ -264,7 +264,6 @@ let activationPlugins = function(){
     var ua = navigator.userAgent;
     if (ua.indexOf('iPhone') > 0 || ua.indexOf('Android') > 0 && ua.indexOf('Mobile') > 0) {
         // スマートフォン用コード
-    	$('header').addClass('minimumdisplay');
     	$('header .button').addClass('mobile');
     	$('header input').addClass('mobile');
     } else if (ua.indexOf('iPad') > 0 || ua.indexOf('Android') > 0) {
