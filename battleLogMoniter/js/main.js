@@ -265,6 +265,8 @@ let activationPlugins = function(){
     if (ua.indexOf('iPhone') > 0 || ua.indexOf('Android') > 0 && ua.indexOf('Mobile') > 0) {
         // スマートフォン用コード
     	$('header').addClass('minimumdisplay');
+    	$('header .button').addClass('mobile');
+    	$('header input').addClass('mobile');
     } else if (ua.indexOf('iPad') > 0 || ua.indexOf('Android') > 0) {
         // タブレット用コード
     } else {

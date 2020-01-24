@@ -28,20 +28,20 @@ header {
 }
 
 .help {
-    width: 1.5rem;
-    height: 1.5rem;
-    border: solid 1px #dddddd;
-    position: relative;
-    float: right;
-    border-radius: 20px;
-    padding: 4px;
-    box-shadow: rgba(0, 0, 0, 0.17) 0px 1px 3px;
-    font-size: 1rem;
-    color: #3f51b5c7;
-    line-height: 22px;
-    cursor: pointer;
-    user-select: none;
-    top: -4px;
+	width: 1.5rem;
+	height: 1.5rem;
+	border: solid 1px #dddddd;
+	position: relative;
+	float: right;
+	border-radius: 20px;
+	padding: 4px;
+	box-shadow: rgba(0, 0, 0, 0.17) 0px 1px 3px;
+	font-size: 1rem;
+	color: #3f51b5c7;
+	line-height: 22px;
+	cursor: pointer;
+	user-select: none;
+	top: -4px;
 }
 
 .helpMsg {
@@ -74,6 +74,11 @@ header>.button {
 	user-select: none;
 }
 
+header>.button.mobile {
+	height: 4em;
+	line-height: 3.8rem;
+}
+
 header>.button:hover {
 	cursor: pointer;
 	box-sizing: border-box;
@@ -98,13 +103,11 @@ header>.button.version {
 	left: -24px;
 }
 
-header>.button.version span {
-	transform: skewX(30deg);
-	display: inline-block;
-}
-
-header>.button.version:hover {
-	background-color: #009688e8;
+header>.button.version.mobile {
+	height: 4rem;
+	line-height: 61px;
+	padding: 0rem 2rem 0rem 3rem;
+	left: -28px;
 }
 
 header>input {
@@ -115,10 +118,23 @@ header>input {
 	border: none;
 }
 
+header>input.mobile {
+	height: 4rem;
+}
+
 header>input:hover {
 	cursor: pointer;
 	box-sizing: border-box;
 	border-bottom: solid 2px #2196F3;
+}
+
+header>.button.version span {
+	transform: skewX(30deg);
+	display: inline-block;
+}
+
+header>.button.version:hover {
+	background-color: #009688e8;
 }
 
 .simple-table {
