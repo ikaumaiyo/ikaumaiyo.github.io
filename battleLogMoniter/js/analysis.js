@@ -652,20 +652,52 @@ class Analysis{
 
 		// レンダ
 		// 岸君テーブル
-		let kisiStateTable = $('#render-kisiNextExpected').find('#kisiNextExpectedTable');
+		let kisiNextExpectedArea = $('#render-kisiNextExpected').find('#kisiNextExpectedList');
+		let ul;
 
-		while(true){
-			let tr = $('<tr></tr>').addClass('render');
-			$('<td></td>').appendTo(tr);
-			$('<td></td>').html(yosoList[1].shift()).appendTo(tr);
-			$('<td></td>').html(yosoList[2].shift()).appendTo(tr);
-			$('<td></td>').html(yosoList[3].shift()).appendTo(tr);
-			$('<td></td>').html(yosoList[4].shift()).appendTo(tr);
-			$('<td></td>').html(yosoList[5].shift()).appendTo(tr);
-			tr.appendTo(kisiStateTable);
-			let count = yosoList[1].length + yosoList[2].length + yosoList[3].length + yosoList[4].length + yosoList[5].length;
-			if(count == 0) break;
-		}
+		ul = $('<ul></ul>').addClass('render').addClass('tableCellChanger');
+		$.each(yosoList[0], function(index, val){
+			let _li = $('<li></li>');
+			_li.css('background-color','#cdcdf7');
+			_li.css('border-radius','10px');
+			_li.html(val).appendTo(ul);
+		});
+		ul.appendTo(kisiNextExpectedArea);
+
+		ul = $('<ul></ul>').addClass('render').addClass('tableCellChanger');
+		$.each(yosoList[1], function(index, val){
+			$('<li></li>').html(val).appendTo(ul);
+		});
+		ul.appendTo(kisiNextExpectedArea);
+
+		ul = $('<ul></ul>').addClass('render').addClass('tableCellChanger');
+		$.each(yosoList[2], function(index, val){
+			$('<li></li>').html(val).appendTo(ul);
+		});
+		ul.appendTo(kisiNextExpectedArea);
+
+		ul = $('<ul></ul>').addClass('render').addClass('tableCellChanger');
+		$.each(yosoList[3], function(index, val){
+			$('<li></li>').html(val).appendTo(ul);
+		});
+		ul.appendTo(kisiNextExpectedArea);
+
+		ul = $('<ul></ul>').addClass('render').addClass('tableCellChanger');
+		$.each(yosoList[4], function(index, val){
+			$('<li></li>').html(val).appendTo(ul);
+		});
+		ul.appendTo(kisiNextExpectedArea);
+
+		ul = $('<ul></ul>').addClass('render').addClass('tableCellChanger');
+		$.each(yosoList[5], function(index, val){
+			$('<li></li>').html(val).appendTo(ul);
+		});
+		ul.appendTo(kisiNextExpectedArea);
+
+
+		  $('.tableCellChanger').sortable({
+			  connectWith: '.tableCellChanger'
+		  });
 
 	}
 
@@ -765,7 +797,6 @@ class Analysis{
 			requiredBossTotuCount[i] = requiredBossTotuCount[i] / finishedLocation;
 		});
 
-		console.table(requiredBossTotuCount);
 		return requiredBossTotuCount;
 
 	}

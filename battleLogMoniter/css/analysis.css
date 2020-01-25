@@ -15,6 +15,10 @@
 	box-shadow: rgba(0, 0, 0, 0.17) 0px 1px 3px;
 }
 
+.title {
+	clear: both;
+}
+
 /* プリコネ日 */
 #render-targetDate {
 	color: #ffffff;
@@ -439,6 +443,60 @@
 	user-select: none;
 	border-radius: 3px;
 	font-size: 0.7rem;
+}
+
+/* 岸君の凸先予想 */
+#render-kisiNextExpected .genBtn:hover {
+	cursor: pointer;
+	background-color: #6fb9f7;
+}
+
+#render-kisiNextExpected #kisiNextExpectedBoss {
+	font-size: 0.5rem;
+	margin-top: 1rem;
+	table-layout: fixed;
+}
+
+#render-kisiNextExpected #kisiNextExpectedBoss tr td {
+	width: 50px;
+	display: inline-block;
+}
+
+#render-kisiNextExpected #kisiNextExpectedList ul {
+	padding: 0px;
+	width: 54px;
+	list-style: none;
+	float: left;
+	font-size: 0.6rem;
+	text-align: center;
+	border: none;
+	padding-bottom: 2rem;
+}
+
+#render-kisiNextExpected #kisiNextExpectedList ul li {
+	background-color: #faa40340;
+	list-style: none;
+	border: none;
+	padding: 1px;
+	margin: 1px;
+	flex-flow: nowrap;
+	white-space: nowrap;
+	overflow: hidden;
+	text-indent: 0em;
+}
+
+/* #render-kisiNextExpected #kisiNextExpectedList ul:nth-child(1) li {
+	background-color: #2196f336;
+	border-radius: 10px;
+} */
+
+/** 廃止**/
+#render-kisiNextExpected .boss {
+	width: 50px;
+	height: 50px;
+	border: solid 1px #dddddd;
+	border-radius: 5px;
+	background-size: contain;
 }
 
 #render-totuGenerator .genBtn:hover {

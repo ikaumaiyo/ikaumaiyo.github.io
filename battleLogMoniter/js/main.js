@@ -31,6 +31,9 @@ $(document).ready(function() {
 	// 凸データ反映
 	load(optionDatastore.getOptionList());
 
+	// 開発鯖の場合はラベル付ける
+	renderProductionLabel(optionDatastore.getOptionList());
+
 	//---------------------------------------------------------------
 	// ボタン系のイベントリスナ登録
 	//---------------------------------------------------------------
@@ -296,6 +299,7 @@ let activationPlugins = function(){
 
 	  // テーブルソートするやつ
 	  $('.tablesorter').tablesorter();
+
 }
 
 /** ローディングアニメのやつ * */
@@ -379,6 +383,18 @@ let validateOption = function(optionList){
 		}
 	});
 	return flg;
+
+}
+
+// 開発用ラベル
+let renderProductionLabel = function(optionList){
+	if(optionList.exec_env_param == 0){
+		let header = $('header');
+		let label = $('<div></div>').html('開発サーバー');
+		label.addClass('button');
+		label.css('color','red');
+		label.appendTo(header);
+	}
 
 }
 

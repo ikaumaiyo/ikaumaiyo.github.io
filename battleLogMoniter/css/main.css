@@ -31,7 +31,7 @@ header {
 	width: 1.5rem;
 	height: 1.5rem;
 	border: solid 1px #dddddd;
-	position: relative;
+	position: absolute;
 	float: right;
 	border-radius: 20px;
 	padding: 4px;
@@ -41,7 +41,8 @@ header {
 	line-height: 22px;
 	cursor: pointer;
 	user-select: none;
-	top: -4px;
+	top: 7px;
+	right: 8px;
 }
 
 .helpMsg {
