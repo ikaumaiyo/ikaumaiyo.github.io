@@ -217,7 +217,7 @@ class Analysis{
 
 		// ボス撃破後だった場合は次のボスを現在地に設定
 		if(nowBossDmg >= optionList['boss_hp_w'+nowBossWave+'_0'+nowBoss] ){
-			if(startBoss == nowBoss){
+			if(startBoss == nowBoss && startWrap == nowWrap){
 				startBoss = startBoss + 1;
 			}
 			nowBoss = nowBoss + 1;
@@ -582,6 +582,54 @@ class Analysis{
 	}
 
 
+	/** 岸君の次の凸予想 **/
+	renderKisiNextExpected(){
+		// 岸君テーブル
+		let kisiStateTable = $('#render-kisiNextExpected').find('#kisiNextExpectedTable');
+		let that = this;
+
+		$.each(this.member, function(index, val){
+
+			// 岸君凸配列
+			let kisiTotuReport = that.todayReport.filter(function(_item, _index){
+				if(_item.プリコネーム == val.プリコネーム){
+					return true;
+				}
+			});
+			// 凸数
+			let totuNum = kisiTotuReport.reduce(function(_prev, _item) {
+				if(_item.LA == 1 || _item.LA残 == 1 ){
+					return _prev + 0.5;
+				}else{
+					return _prev + 1;
+				}
+			},0);
+
+			let kisiTotuOver20MReport = that.report.filter(function(_item, _index){
+				if(_item.プリコネーム == val.プリコネーム
+						&& _item.ダメージ > 2000000
+						&& _item.周回 >= optionList.w3_start_wrap){
+					return true;
+				}
+			});
+			for(var i = 1; i < 6; i++){
+				let _ktr = kisiTotuOver20MReport.filter(function(o){
+					return o.ボス == i;
+				});
+				if(_ktr.length > 0){
+					let stateTd = $('<td></td>').html(_ktr.length/10);
+					let stateDiv = $('<div></div>').attr('class','stateBox center trend').css('opacity',_ktr.length/8);
+					stateDiv.appendTo(stateTd);
+					stateTd.appendTo(tr);
+				}else{
+					$('<td></td>').html(0).appendTo(tr);
+				}
+			}
+
+
+		});
+
+	}
 
 	/** ボス状態を表示 - 着地予測の終端を計算 * */
 	calc_outlookBossCount(yestWrap,startBoss){
