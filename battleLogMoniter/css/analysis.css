@@ -483,6 +483,7 @@
 	white-space: nowrap;
 	overflow: hidden;
 	text-indent: 0em;
+	cursor: pointer;
 }
 
 /* #render-kisiNextExpected #kisiNextExpectedList ul:nth-child(1) li {
