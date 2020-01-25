@@ -70,6 +70,8 @@ class Analysis{
 		}
 		// ボス@
 		$('.boss').html('');
+		// 凸予想
+		$('#render-kisiNextExpected').find('.render').remove();
 
 		this.renderPriconeDate();
 
@@ -84,6 +86,8 @@ class Analysis{
 				this.renderBattleState();
 				// 岸君の凸状態を表示
 				this.renderKisiState();
+				// 岸君の次の凸予想
+				this.renderKisiNextExpected();
 				// 岸君の凸傾向を表示
 				// this.renderKisiTrend();
 			}catch(e){
@@ -335,11 +339,11 @@ class Analysis{
 			$('.requiredCount.b3').html(requiredBossTotuCount[3].toFixed(1)+'凸');
 			$('.requiredCount.b4').html(requiredBossTotuCount[4].toFixed(1)+'凸');
 			$('.requiredCount.b5').html(requiredBossTotuCount[5].toFixed(1)+'凸');
-			$('.boss.b1').html('@'+requiredBossTotuCountSum[1].toFixed(1)+'凸');
-			$('.boss.b2').html('@'+requiredBossTotuCountSum[2].toFixed(1)+'凸');
-			$('.boss.b3').html('@'+requiredBossTotuCountSum[3].toFixed(1)+'凸');
-			$('.boss.b4').html('@'+requiredBossTotuCountSum[4].toFixed(1)+'凸');
-			$('.boss.b5').html('@'+requiredBossTotuCountSum[5].toFixed(1)+'凸');
+			$('#render-bossState .boss.b1').html('@'+requiredBossTotuCountSum[1].toFixed(1)+'凸');
+			$('#render-bossState .boss.b2').html('@'+requiredBossTotuCountSum[2].toFixed(1)+'凸');
+			$('#render-bossState .boss.b3').html('@'+requiredBossTotuCountSum[3].toFixed(1)+'凸');
+			$('#render-bossState .boss.b4').html('@'+requiredBossTotuCountSum[4].toFixed(1)+'凸');
+			$('#render-bossState .boss.b5').html('@'+requiredBossTotuCountSum[5].toFixed(1)+'凸');
 		}
 
 
@@ -416,7 +420,8 @@ class Analysis{
 				$('<td></td>').html('✔').appendTo(tr);
 				tr.addClass('magicUsed');
 			}else{
-				$('<td></td>').appendTo(tr);
+				let _td_ = $('<td></td>').css('color','white');
+				_td_.html('0').appendTo(tr);
 			}
 
 			// 実凸
@@ -458,7 +463,7 @@ class Analysis{
 			// 凸傾向
 			let kisiTotuOver20MReport = that.report.filter(function(_item, _index){
 				if(_item.プリコネーム == val.プリコネーム
-						&& _item.ダメージ > 2000000
+						&& _item.ダメージ > 3000000
 						&& _item.周回 >= optionList.w3_start_wrap){
 					return true;
 				}
@@ -584,9 +589,12 @@ class Analysis{
 
 	/** 岸君の次の凸予想 **/
 	renderKisiNextExpected(){
-		// 岸君テーブル
-		let kisiStateTable = $('#render-kisiNextExpected').find('#kisiNextExpectedTable');
+
+		let optionList = optionDatastore.getOptionList();
+
 		let that = this;
+
+		let yosoList = {0:[],1:[],2:[],3:[],4:[],5:[]}; // 0は残凸分
 
 		$.each(this.member, function(index, val){
 
@@ -604,30 +612,76 @@ class Analysis{
 					return _prev + 1;
 				}
 			},0);
-
-			let kisiTotuOver20MReport = that.report.filter(function(_item, _index){
-				if(_item.プリコネーム == val.プリコネーム
-						&& _item.ダメージ > 2000000
-						&& _item.周回 >= optionList.w3_start_wrap){
-					return true;
-				}
-			});
+			// 残凸
+			let zanTotuNum = 3 - totuNum;
+			// ボスごとの予想
+			let kisiYosoCountList = {};
 			for(var i = 1; i < 6; i++){
-				let _ktr = kisiTotuOver20MReport.filter(function(o){
-					return o.ボス == i;
+				kisiYosoCountList[i] = 0;
+				let iBossList = that.report.filter(function(_item, _index){
+					if(_item.プリコネーム == val.プリコネーム
+							&& _item.ダメージ > 2000000
+							&& _item.周回 >= optionList.w3_start_wrap
+							&& _item.ボス == i){
+						return true;
+					}
 				});
-				if(_ktr.length > 0){
-					let stateTd = $('<td></td>').html(_ktr.length/10);
-					let stateDiv = $('<div></div>').attr('class','stateBox center trend').css('opacity',_ktr.length/8);
-					stateDiv.appendTo(stateTd);
-					stateTd.appendTo(tr);
-				}else{
-					$('<td></td>').html(0).appendTo(tr);
+				kisiYosoCountList[i] = iBossList.length;
+			}
+			// 予想リストに追加していく
+			for(var i = 0; i< zanTotuNum; i++){
+				if(zanTotuNum - i == 0.5){
+					yosoList[0].push(val.プリコネーム);
+					break;
 				}
+				let maxLoc = that.getMaxValLocation(kisiYosoCountList);
+				yosoList[maxLoc].push(val.プリコネーム);
+				delete kisiYosoCountList[maxLoc];
 			}
 
-
 		});
+
+		console.log('KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK');
+		console.table(yosoList[0]);
+		console.table(yosoList[1]);
+		console.table(yosoList[2]);
+		console.table(yosoList[3]);
+		console.table(yosoList[4]);
+		console.table(yosoList[5]);
+
+
+		// レンダ
+		// 岸君テーブル
+		let kisiStateTable = $('#render-kisiNextExpected').find('#kisiNextExpectedTable');
+
+		while(true){
+			let tr = $('<tr></tr>').addClass('render');
+			$('<td></td>').appendTo(tr);
+			$('<td></td>').html(yosoList[1].shift()).appendTo(tr);
+			$('<td></td>').html(yosoList[2].shift()).appendTo(tr);
+			$('<td></td>').html(yosoList[3].shift()).appendTo(tr);
+			$('<td></td>').html(yosoList[4].shift()).appendTo(tr);
+			$('<td></td>').html(yosoList[5].shift()).appendTo(tr);
+			tr.appendTo(kisiStateTable);
+			let count = yosoList[1].length + yosoList[2].length + yosoList[3].length + yosoList[4].length + yosoList[5].length;
+			if(count == 0) break;
+		}
+
+	}
+
+	/** オブジェクト配列の最大値の指標を返す（数値じゃなきゃだめ） **/
+	getMaxValLocation(list){
+		let maxLocation;
+		$.each(list, function(i, v){
+			if(maxLocation === undefined){
+				maxLocation = i;
+				return true;//continue
+			}
+			if(list[maxLocation] < v){
+				maxLocation = i;
+			}
+		});
+		return maxLocation;
 
 	}
 
