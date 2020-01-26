@@ -31,6 +31,7 @@
 
 /* 凸完了数を表示 */
 #render-battleSuccessful {
+	position: relative;
 	width: 320px;
 }
 
@@ -95,6 +96,7 @@
 
 /* ボスの状態を表示 */
 #render-bossState {
+	position: relative;
 	width: 320px;
 }
 
@@ -230,6 +232,7 @@
 
 /* 岸君の凸状態を表示 */
 #render-kisiState {
+	position: relative;
 
 }
 
@@ -409,6 +412,7 @@
 
 /* 岸君の凸傾向を表示 */
 #render-kisiTrend {
+	position: relative;
 
 }
 
@@ -445,6 +449,10 @@
 	font-size: 0.7rem;
 }
 
+/* 岸君の凸先予想 */
+#render-kisiNextExpected {
+	position: relative;
+}
 /* 岸君の凸先予想 */
 #render-kisiNextExpected .genBtn:hover {
 	cursor: pointer;
