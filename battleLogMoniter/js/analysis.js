@@ -787,7 +787,7 @@ class Analysis{
 			}
 		});
 		// 何週分のレポートを処理したかを保存する
-		let finishedLocation = lastLocation - optionList.w3_start_wrap;
+		let finishedLocation = lastLocation - calcTargetReport[0].周回;
 		// 処理したレポート分でボス凸数を割る
 		$.each(requiredBossTotuCount, function(i, v){
 			requiredBossTotuCount[i] = requiredBossTotuCount[i] / finishedLocation;
