@@ -756,24 +756,29 @@ class Analysis{
 		let optionList = optionDatastore.getOptionList();
 		let requiredBossTotuCount = {};
 
-		let lastLocation = report[report.length-1].周回;
-		if(report[report.length-1].周回 >= Number(optionList.w3_start_wrap)+1){
+		// 昨日と今日のレポートを結合
+		let concatReport = this.yesterdayReport.concat(this.todayReport);
+		console.table(concatReport);
+
+		// 現時点で３段階目突入していたら作動する
+		let lastLocation = concatReport[concatReport.length-1].周回;
+		if(lastLocation >= Number(optionList.w3_start_wrap)+1){
 			// おっけー
 		}else{
 			return requiredBossTotuCount;
 		}
+
 
 		requiredBossTotuCount[1] = 0;
 		requiredBossTotuCount[2] = 0;
 		requiredBossTotuCount[3] = 0;
 		requiredBossTotuCount[4] = 0;
 		requiredBossTotuCount[5] = 0;
-		let w3report = report.filter(function(_item, _index){
-			if(_item.周回 >= optionList.w3_start_wrap) return true;
+		// w3レポートのみ抽出(現在週は除く)
+		let calcTargetReport = concatReport.filter(function(_item, _index){
+			if(_item.周回 >= optionList.w3_start_wrap && _item.周回 < lastLocation) return true;
 		});
-		let calcTargetReport = w3report.filter(function(_item, _index){
-			if(_item.周回 < lastLocation) return true;
-		});
+		// ボスごとに凸数をカウントしていく
 		$.each(calcTargetReport, function(i, v){
 			if(v.LA == 1 || v.LA残 == 1){
 				requiredBossTotuCount[v.ボス] = requiredBossTotuCount[v.ボス] + 0.5;
@@ -781,9 +786,9 @@ class Analysis{
 				requiredBossTotuCount[v.ボス]++;
 			}
 		});
-
+		// 何週分のレポートを処理したかを保存する
 		let finishedLocation = lastLocation - optionList.w3_start_wrap;
-
+		// 処理したレポート分でボス凸数を割る
 		$.each(requiredBossTotuCount, function(i, v){
 			requiredBossTotuCount[i] = requiredBossTotuCount[i] / finishedLocation;
 		});
