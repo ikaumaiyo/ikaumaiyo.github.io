@@ -258,7 +258,6 @@ class Analysis{
 
 		// ボスの必要凸数を取得
 		let requiredBossTotuCount = this.calc_requiredBossTotuCount(this.report);
-		console.log(requiredBossTotuCount != undefined);
 		let requiredBossTotuCountSum = {};
 		if(Object.keys(requiredBossTotuCount).length != 0){
 			requiredBossTotuCountSum[1] = 0;
@@ -640,14 +639,6 @@ class Analysis{
 			}
 
 		});
-
-		console.log('KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK');
-		console.table(yosoList[0]);
-		console.table(yosoList[1]);
-		console.table(yosoList[2]);
-		console.table(yosoList[3]);
-		console.table(yosoList[4]);
-		console.table(yosoList[5]);
 
 
 		// レンダ
