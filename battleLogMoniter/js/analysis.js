@@ -420,7 +420,7 @@ class Analysis{
 				tr.addClass('magicUsed');
 			}else{
 				let _td_ = $('<td></td>').css('color','white');
-				_td_.html('0').appendTo(tr);
+				_td_.html('_').appendTo(tr);
 			}
 
 			// 実凸
