@@ -33,7 +33,7 @@
 
 #render-battleLog .logArea {
 	width: 300px;
-	height: 100%;
+	height: 98%;
 	float: right;
 	overflow: scroll;
 	padding-top: 1rem;
