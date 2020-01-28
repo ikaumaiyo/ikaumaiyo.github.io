@@ -184,6 +184,10 @@ $(document).ready(function() {
 		}
 	});
 
+	$('#render-battleLog .slideButton').on('click', function(event) {
+		$('#render-battleLog').toggleClass('show');
+	});
+
 	/** チェックボックス系 * */
 	// 3凸排除
 	$('#body').on('click', '#chk-hideFin', function() {

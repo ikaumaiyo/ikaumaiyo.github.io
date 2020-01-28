@@ -72,6 +72,8 @@ class Analysis{
 		$('.boss').html('');
 		// 凸予想
 		$('#render-kisiNextExpected').find('.render').remove();
+		// バトルログ
+		$('#render-battleLog').find('.logArea').html('');
 
 		this.renderPriconeDate();
 
@@ -88,8 +90,12 @@ class Analysis{
 				this.renderKisiState();
 				// 岸君の次の凸予想
 				this.renderKisiNextExpected();
+				// バトルログを表示
+				this.renderBattleLog();
 				// 岸君の凸傾向を表示
 				// this.renderKisiTrend();
+
+				renderBossImg();
 			}catch(e){
 				return e;
 			}
@@ -586,7 +592,7 @@ class Analysis{
 	}
 
 
-	/** 岸君の次の凸予想 **/
+	/** 岸君の次の凸予想 * */
 	renderKisiNextExpected(){
 
 		let optionList = optionDatastore.getOptionList();
@@ -698,13 +704,43 @@ class Analysis{
 
 	}
 
-	/** オブジェクト配列の最大値の指標を返す（数値じゃなきゃだめ） **/
+	/** バトルログ * */
+	renderBattleLog(){
+		let logArea = $('#render-battleLog').find('.logArea');
+		console.log('start');
+		$.each(this.todayReport, function(i, v){
+			let log = $('<div></div>').addClass('log');
+
+			let bossImg = $('<div></div>').addClass('boss b'+v.ボス);
+			bossImg.appendTo(log);
+
+			let msg = $('<div></div>').addClass('msg');
+			let insertMsg = v.プリコネーム + ' が<br>' + v.ダメージ.toLocaleString() +' ダメージ';
+			if(v.LA == 1){
+				insertMsg = insertMsg + ' で撃破'
+			}
+			if(v.LA残 == 1){
+				insertMsg = insertMsg + ' を持越し'
+			}
+			msg.html(insertMsg);
+			msg.appendTo(log);
+			log.prependTo(logArea);
+
+			if(v.ボス == 5 && v.LA == 1){
+				let sep = $('<div class="log" style="height:1.5rem"><div class="separator">'+(v.周回+1)+'週目開始</div></div>');
+				sep.prependTo(logArea);
+			}
+
+		});
+	}
+
+	/** オブジェクト配列の最大値の指標を返す（数値じゃなきゃだめ） * */
 	getMaxValLocation(list){
 		let maxLocation;
 		$.each(list, function(i, v){
 			if(maxLocation === undefined){
 				maxLocation = i;
-				return true;//continue
+				return true;// continue
 			}
 			if(list[maxLocation] < v){
 				maxLocation = i;
@@ -764,7 +800,6 @@ class Analysis{
 
 		// 昨日と今日のレポートを結合
 		let concatReport = this.yesterdayReport.concat(this.todayReport);
-		console.table(concatReport);
 
 		// 現時点で３段階目突入していたら作動する
 		let lastLocation = concatReport[concatReport.length-1].周回;

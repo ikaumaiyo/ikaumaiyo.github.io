@@ -1,0 +1,70 @@
+#render-battleLog {
+	position: fixed;
+	height: 100vh;
+	right: -300px;
+	z-index: 1000;
+	box-shadow: rgba(0, 0, 0, 0.17) 0px 1px 3px;
+	background-color: #ffffff;
+	transition: all 100ms 0s ease;
+}
+
+#render-battleLog.show {
+	right: 0px;
+}
+
+#render-battleLog .slideButton {
+	width: 3rem;
+	height: 100%;
+	background-color: #ffffff;
+	float: right;
+}
+
+#render-battleLog .slideButton span::after {
+	content: "◀";
+	line-height: 47px;
+	font-size: 1.2rem;
+	padding-left: 16px;
+	color: #2296f2;
+}
+
+#render-battleLog.show .slideButton span::after {
+	content: "▶";
+}
+
+#render-battleLog .logArea {
+	width: 300px;
+	height: 100%;
+	float: right;
+	overflow: scroll;
+	padding-top: 1rem;
+}
+
+#render-battleLog .log {
+	height: 48px;
+	border-bottom: solid 1px #cccccc;
+	margin-bottom: 6px;
+}
+
+#render-battleLog .boss {
+	width: 40px;
+	height: 40px;
+	border: solid 1px #dddddd;
+	border-radius: 5px;
+	display: inline-block;
+	float: left;
+	background-size: contain;
+	margin: 0rem 1rem;
+}
+
+#render-battleLog .msg {
+	font-size: 0.8rem;
+	line-height: 20px;
+}
+
+#render-battleLog .separator {
+	font-size: 0.8rem;
+	line-height: 19px;
+	text-align: center;
+	background-color: #dee4fe;
+	border-radius: 7px;
+}

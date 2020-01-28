@@ -24,6 +24,7 @@
 <link rel="stylesheet" type="text/css" href="css/setting.css">
 <link rel="stylesheet" type="text/css" href="css/modal.css">
 <link rel="stylesheet" type="text/css" href="css/analysis.css">
+<link rel="stylesheet" type="text/css" href="css/battleLog.slidebar.css">
 </head>
 <body>
 	<div id="body">
@@ -94,6 +95,15 @@
 
 			<!-- 分析結果 -->
 			<div id="analysis">
+
+				<!-- バトルログ -->
+				<div id="render-battleLog">
+					<div class="logArea"></div>
+					<div class="slideButton">
+						<span></span>
+					</div>
+
+				</div>
 
 				<div style="float: left; display: grid;">
 					<!-- 凸数 -->
@@ -228,7 +238,7 @@
 					</div>
 					<table id="kisiNextExpectedBoss">
 						<tr>
-							<td>持越し中</td>
+							<td>持越し中
 							<td class="boss b1">１</td>
 							<td class="boss b2">１</td>
 							<td class="boss b3">１</td>

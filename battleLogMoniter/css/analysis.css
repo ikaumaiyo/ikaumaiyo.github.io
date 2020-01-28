@@ -1,6 +1,6 @@
 #analysis {
 	display: inline-block;
-	width: 100vw;
+	width: 100%;
 	min-width: 1200px;
 }
 
@@ -233,7 +233,6 @@
 /* 岸君の凸状態を表示 */
 #render-kisiState {
 	position: relative;
-
 }
 
 #render-kisiState .kisiTotuMemo input {
@@ -413,7 +412,6 @@
 /* 岸君の凸傾向を表示 */
 #render-kisiTrend {
 	position: relative;
-
 }
 
 #render-kisiTrend>table .stateBox {
