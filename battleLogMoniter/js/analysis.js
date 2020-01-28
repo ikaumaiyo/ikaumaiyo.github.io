@@ -619,7 +619,7 @@ class Analysis{
 				kisiYosoCountList[i] = 0;
 				let iBossList = that.report.filter(function(_item, _index){
 					if(_item.プリコネーム == val.プリコネーム
-							&& _item.ダメージ > 2000000
+							&& _item.ダメージ > 3000000
 							&& _item.周回 >= optionList.w3_start_wrap
 							&& _item.ボス == i){
 						return true;
@@ -627,6 +627,12 @@ class Analysis{
 				});
 				kisiYosoCountList[i] = iBossList.length;
 			}
+			// 凸済のボスをボス予想リストから削除
+			$.each(kisiTotuReport, function(_i, _v){
+				if(_v.ダメージ > 3000000){
+					delete kisiYosoCountList[_v.ボス];
+				}
+			});
 			// 予想リストに追加していく
 			for(var i = 0; i< zanTotuNum; i++){
 				if(zanTotuNum - i == 0.5){
