@@ -706,13 +706,20 @@ class Analysis{
 
 	/** バトルログ * */
 	renderBattleLog(){
+		let that = this;
+
 		let logArea = $('#render-battleLog').find('.logArea');
-		console.log('start');
+
+
 		$.each(this.todayReport, function(i, v){
 			let log = $('<div></div>').addClass('log');
 
 			let bossImg = $('<div></div>').addClass('boss b'+v.ボス);
 			bossImg.appendTo(log);
+			let time = $('<div></div>').addClass('time');
+			time.html(that.calcDiffMili(v.タイムスタンプ));
+
+			time.appendTo(log);
 
 			let msg = $('<div></div>').addClass('msg');
 			let insertMsg = v.プリコネーム + ' が<br>' + v.ダメージ.toLocaleString() +' ダメージ';
@@ -732,6 +739,29 @@ class Analysis{
 			}
 
 		});
+	}
+
+	/** 時間の差分を返す **/
+	calcDiffMili(mili){
+		let t1 = new Date();
+		let t2 = new Date(mili);
+
+		let diff = t1.getTime() - t2.getTime();
+
+		//HH部分取得
+		let diffHour = diff / (1000 * 60 * 60);
+		//MM部分取得
+		let diffMinute = (diffHour - Math.floor(diffHour)) * 60;
+		//SS部分取得
+		let diffSecond = (diffMinute - Math.floor(diffMinute)) * 60;
+
+		if(('00' + Math.floor(diffHour)).slice(-2) == '00'){
+			return Number(('00' + Math.floor(diffMinute)).slice(-2)) + '分前';
+		}else{
+			return Number(('00' + Math.floor(diffHour)).slice(-2))  + '時間前';
+		}
+
+		return ('00' + Math.floor(diffHour)).slice(-2) + ':' + ('00' + Math.floor(diffMinute)).slice(-2) + ':' + ('00' + Math.round(diffSecond)).slice(-2);
 	}
 
 	/** オブジェクト配列の最大値の指標を返す（数値じゃなきゃだめ） * */
