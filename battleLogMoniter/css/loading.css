@@ -1,113 +1,132 @@
-.loading{
+.loading {
 	display: none;
-    position:fixed;
-    width:100%;
-    height:100%;
-    left:0;
-    top:0;
-    background:#000;
-    filter:alpha(opacity=60);
-    -moz-opacity:0.60;
-    opacity:0.60;
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	left: 0;
+	top: 0;
+	background: #000000c7;
 	z-index: 9001;
 }
 
 /* ローディングアニメーション */
-.spinner {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
-  -webkit-transform-origin: center;
-          transform-origin: center;
-  width: 120px;
-  height: 120px;
+.loading .spinner {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	-webkit-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	-webkit-transform-origin: center;
+	transform-origin: center;
+	width: 600px;
+	height: 500px;
+	background-size: contain;
+	background-repeat: space;
 }
 
 /* Loading テキスト */
-.spinner span {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
-  font-size: 30px;
-  color : white;
+.loading .lodingMsg {
+	width: max-content;
+	height: fit-content;
+	position: absolute;
+	bottom: 30px;
+	right: 30px;
+	color: white;
+	background: linear-gradient(to right, rgb(0, 0, 0) 25%,
+		rgb(255, 255, 255) 75%);
+	-webkit-background-clip: text;
 }
-
 
 /* 1番目のアニメーションの場合 */
-.spinner.type1 {
-  border-radius: 50%;
-  border-width: 8px;
-  border-style: solid;
-  border-color: #fff rgba(255, 255, 255, 0.12) rgba(255, 255, 255, 0.12);
-  /* ローディング要素のアニメーションを指定 */
-  -webkit-animation: spinner1_1 1.5s infinite linear forwards;
-          animation: spinner1_1 1.5s infinite linear forwards;
-}
-.spinner.type1 span {
-  /* Loading テキストのアニメーションを指定 */
-  animation: spinner_loading_text 1.5s infinite linear forwards reverse;
+.loading .spinner.type1 {
+	background-image: url(https://redive.estertion.win/comic/100101_01.webp);
 }
 
-/* ローディング要素のアニメーション内容 */
-@-webkit-keyframes spinner1_1 {
-  0% {
-    -webkit-transform: translate(-50%, -50%) rotate(0);
-            transform: translate(-50%, -50%) rotate(0);
-  }
-  100% {
-    -webkit-transform: translate(-50%, -50%) rotate(360deg);
-            transform: translate(-50%, -50%) rotate(360deg);
-  }
+.loading .spinner.type1 span {
+	/* Loading テキストのアニメーションを指定 */
+	animation: spinner_loading_text 1.5s infinite linear forwards reverse;
 }
 
-@keyframes spinner1_1 {
-  0% {
-    -webkit-transform: translate(-50%, -50%) rotate(0);
-            transform: translate(-50%, -50%) rotate(0);
-  }
-  100% {
-    -webkit-transform: translate(-50%, -50%) rotate(360deg);
-            transform: translate(-50%, -50%) rotate(360deg);
-  }
+.loading .lodingMsg span { /*各テキストにanimationを設定*/
+    line-height: 5rem;
+    font-size: 5rem;
+    font-weight: bold;
+    position: relative;
+    animation: line-height 1s ease-out infinite;
+    background: linear-gradient( to bottom, rgb(255, 255, 255) 25%, rgb(174, 229, 255) 90% );
+    -webkit-background-clip: text;
+    color: transparent;
+	}
+
+@keyframes line-height {
+  0%     {top: 0px;}
+  20%  {top: -20px;}
+  40%  {top: 0px;}
 }
 
-/* Loading テキストのアニメーション内容 */
-@-webkit-keyframes spinner_loading_text {
-  0% {
-    opacity: 1;
-    -webkit-transform: translate(-50%, -50%) rotate(0deg);
-            transform: translate(-50%, -50%) rotate(0deg);
-  }
-  50% {
-    opacity: 0;
-    -webkit-transform: translate(-50%, -50%) rotate(180deg);
-            transform: translate(-50%, -50%) rotate(180deg);
-  }
-  100% {
-    opacity: 1;
-    -webkit-transform: translate(-50%, -50%) rotate(360deg);
-            transform: translate(-50%, -50%) rotate(360deg);
-  }
+.lodingMsg span:nth-child(1) { /*一文字ずつ遅延させる*/
+	animation-delay: 0.1s;
 }
-@keyframes spinner_loading_text {
-  0% {
-    opacity: 1;
-    -webkit-transform: translate(-50%, -50%) rotate(0deg);
-            transform: translate(-50%, -50%) rotate(0deg);
-  }
-  50% {
-    opacity: 0;
-    -webkit-transform: translate(-50%, -50%) rotate(180deg);
-            transform: translate(-50%, -50%) rotate(180deg);
-  }
-  100% {
-    opacity: 1;
-    -webkit-transform: translate(-50%, -50%) rotate(360deg);
-            transform: translate(-50%, -50%) rotate(360deg);
-  }
+.lodingMsg span:nth-child(2) {
+	animation-delay: 0.2s;
 }
 
+.lodingMsg span:nth-child(3) {
+	animation-delay: 0.3s;
+}
+
+.lodingMsg span:nth-child(4) {
+	animation-delay: 0.4s;
+}
+
+.lodingMsg span:nth-child(5) {
+	animation-delay: 0.5s;
+}
+
+.lodingMsg span:nth-child(6) {
+	animation-delay: 0.6s;
+}
+
+.lodingMsg span:nth-child(7) {
+	animation-delay: 0.7s;
+}
+
+.lodingMsg span:nth-child(8) {
+	animation-delay: 0.8s;
+}
+
+.lodingMsg span:nth-child(9) {
+	animation-delay: 0.9s;
+}
+
+.lodingMsg span:nth-child(10) {
+	animation-delay: 1.0s;
+}
+
+.lodingMsg span:nth-child(11) {
+	animation-delay: 1.1s;
+}
+
+.lodingMsg span:nth-child(12) {
+	animation-delay: 1.2s;
+}
+.lodingMsg span:nth-child(13) {
+	animation-delay: 1.3s;
+}
+
+
+.loading .connecting {
+	position: absolute;
+	right: 30px;
+	top: 30px;
+	width: fit-content;
+	height: fit-content;
+	line-height: 3rem;
+	font-size: 3rem;
+	font-weight: bold;
+	background: linear-gradient(to bottom, rgb(255, 255, 255) 25%,
+		rgb(174, 229, 255) 90%);
+	-webkit-background-clip: text;
+	color: transparent;
+	text-shadow: blue;
+}

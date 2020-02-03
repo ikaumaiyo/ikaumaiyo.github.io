@@ -12,7 +12,8 @@
 	background-color: white;
 	float: left;
 	text-align: center;
-	box-shadow: rgba(0, 0, 0, 0.17) 0px 1px 3px;
+	box-shadow: 0 0 3px 1px #9a9485 inset, 0 0 0 2px #ffcd3d, 0 -1px 0px 2px
+		#ffffff, 0 1px 2px 4px #1010106b;
 }
 
 .title {

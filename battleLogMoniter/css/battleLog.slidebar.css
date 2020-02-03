@@ -6,6 +6,9 @@
 	box-shadow: rgba(0, 0, 0, 0.17) 0px 1px 3px;
 	background-color: #ffffff;
 	transition: all 100ms 0s ease;
+	box-shadow: 0 0 4px 0px #9a9485 inset, 0 0 0 2px #ffcd3d, 0 -1px 0px 2px
+		#ffffff, 0 1px 2px 4px #1010106b;
+	border-radius: 10px;
 }
 
 #render-battleLog.show {
@@ -17,6 +20,7 @@
 	height: 100%;
 	background-color: #ffffff;
 	float: right;
+	margin: 0.5rem;
 }
 
 #render-battleLog .slideButton span::after {

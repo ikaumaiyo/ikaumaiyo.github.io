@@ -269,6 +269,7 @@ let load = function(optionList) {
 	$.when.apply($, ajax_list).done(function(){
 		analysis = new Analysis(report, member, getPriconeDate());
 		try{
+			hideLoadingConnectMsg();
 			showErrorMsg(analysis.render());
 			hideLoading();
 		}catch(e){
@@ -308,10 +309,16 @@ let activationPlugins = function(){
 
 /** ローディングアニメのやつ * */
 let showLoading = function() {
+	let comicLoc = comic[Math.floor(Math.random() * comic.length)];
+	$('.loading .spinner').css('background-image','url(https://redive.estertion.win/comic/'+comicLoc+'.webp)');
+	$('.loading .connecting').show();
 	$('.loading').show();
 }
 let hideLoading = function() {
 	$('.loading').hide();
+}
+let hideLoadingConnectMsg = function() {
+	$('.loading .connecting').hide();
 }
 
 /** エラーのやつ * */

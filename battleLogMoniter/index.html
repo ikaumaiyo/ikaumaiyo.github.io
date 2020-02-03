@@ -14,10 +14,11 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.2/js/jquery.tablesorter.min.js"></script>
 <link rel="stylesheet" href="css/theme.default.css">
-<script src="js/main.js"></script>
 <script src="js/option.datastore.js"></script>
 <script src="js/memo.datastore.js"></script>
+<script src="js/comic.const.js"></script>
 <script src="js/analysis.js"></script>
+<script src="js/main.js"></script>
 
 <link rel="stylesheet" type="text/css" href="css/main.css">
 <link rel="stylesheet" type="text/css" href="css/loading.css">
@@ -35,6 +36,7 @@
 		<input type="hidden" id="bossImg03" value="https://redive.estertion.win/icon/unit/304500.webp" />
 		<input type="hidden" id="bossImg04" value="https://redive.estertion.win/icon/unit/305800.webp" />
 		<input type="hidden" id="bossImg05" value="https://redive.estertion.win/icon/unit/302900.webp" />
+		<input type="hidden" id="comicImg01" value="https://redive.estertion.win/comic/100101_01.webp" />
 		<!-- ヘッダ -->
 		<header>
 			<div class="version button">
@@ -63,8 +65,10 @@
 			<div class="error contents"></div>
 			<!-- ローディングアニメーション -->
 			<div class="loading">
-				<div class="spinner type1">
-					<span>('ω')</span>
+				<div class="spinner type1"></div>
+				<div class="connecting">CONNECTING</div>
+				<div class="lodingMsg">
+					<span>N</span> <span>o</span> <span>w</span> <span>L</span> <span>o</span> <span>a</span> <span>d</span> <span>i</span> <span>n</span> <span>g</span> <span>.</span> <span>.</span> <span>.</span>
 				</div>
 			</div>
 			<!-- 設定画面 -->
@@ -74,12 +78,7 @@
 					<button class="option-btn_confirm button">登録</button>
 					<button class="option-btn_close button">閉じる</button>
 					<button class="option-btn_reset button">リセット</button>
-					<br> <br>
-					<span>uidとpwd以外全て入力しないと設定画面から出られません。</span>
-					<br>
-					<span>わからなくなったらリセットしてください。</span>
-					<br> <br>
-					<span>exec_env_param→ 本番:1, 開発0</span>
+					<br> <br> <span>uidとpwd以外全て入力しないと設定画面から出られません。</span> <br> <span>わからなくなったらリセットしてください。</span> <br> <br> <span>exec_env_param→ 本番:1, 開発0</span>
 					<hr>
 				</div>
 			</div>
@@ -144,8 +143,7 @@
 						<div class="nowBossState">
 							<div class="boss"></div>
 							<div class="hpPerBox">
-								<span class="wave"></span>
-								<span class="hp"></span>
+								<span class="wave"></span> <span class="hp"></span>
 								<div class="perProgress">
 									<div class="successful"></div>
 								</div>
@@ -185,11 +183,7 @@
 						</ul>
 					</div>
 					<div class="title">
-						<span class="tete">凸状況 </span>
-						&nbsp&nbsp
-						<span class="stateBox">物理凸</span>
-						<span class="stateBox magic">魔法凸</span>
-						<span class="stateBox center trend" style="opacity: 0.8;">凸傾向</span>
+						<span class="tete">凸状況 </span> &nbsp&nbsp <span class="stateBox">物理凸</span> <span class="stateBox magic">魔法凸</span> <span class="stateBox center trend" style="opacity: 0.8;">凸傾向</span>
 					</div>
 					<div class="chkOption">
 						<input type="checkbox" id="chk-hideFin" value="1">
