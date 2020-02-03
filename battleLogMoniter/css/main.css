@@ -21,7 +21,7 @@ html {
 	font-family: "HiraKakuProN-W3", sans-serif;
 	height: 100%;
 	cursor: url(../img/corsor.png), url(../img/corsor.png), auto;
-	}
+}
 
 body {
 	margin: 0;
@@ -39,6 +39,7 @@ body {
 
 div#main-contents {
 	display: inline-block;
+	height: 100vw;
 }
 
 header {
