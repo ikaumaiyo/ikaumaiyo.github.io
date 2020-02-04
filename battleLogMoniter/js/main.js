@@ -20,6 +20,7 @@ $(document).ready(function() {
 //    let dd = ("0"+date.getDate()).slice(-2);
 //    $('#targetDate').val(yyyy+'-'+mm+'-'+dd);
 
+	changeBgColor();      // 背景変更
 	activationPlugins();    // プラグイン系を活性化
 	renderBossImg();      // ボス画像をレンダ
 	hideErrorMsg();         // エラーメッセージ削除
@@ -57,6 +58,7 @@ $(document).ready(function() {
 	// 再読み込み
 	$('#body').on('click', '.reload', function(e) {
 		hideErrorMsg();
+		changeBgColor();
 		load(optionDatastore.getOptionList());
 	});
 	// json
@@ -402,6 +404,31 @@ let validateOption = function(optionList){
 	});
 	return flg;
 
+}
+
+// 背景色変更
+let changeBgColor = function(){
+		let now = new Date();
+		let x16Prm = 0;//0~255
+		if(0 < now.getHours()  && now.getHours() < 5){
+			x16Prm = 255;
+		}
+		if(5 < now.getHours()  && now.getHours() < 8){
+			x16Prm = 150;
+		}
+		if(8 < now.getHours()  && now.getHours() < 15){
+			x16Prm = 0;
+		}
+		if(15 < now.getHours()  && now.getHours() < 17){
+			x16Prm = 100;
+		}
+		if(17 < now.getHours()  && now.getHours() < 20){
+			x16Prm = 150;
+		}
+		if(20 < now.getHours()  && now.getHours() <= 23){
+			x16Prm = 200;
+		}
+		$('body').css('background-color','rgb(10, 12, 23, '+(x16Prm/255)+')');
 }
 
 // 開発用ラベル
