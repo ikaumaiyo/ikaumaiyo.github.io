@@ -305,10 +305,10 @@ let activationPlugins = function(){
         // スマートフォン用コード
     	$('header .button').addClass('mobile');
     	$('header input').addClass('mobile');
-    	$( ".pchar.draggable" ).draggable({ containment: "#body", scroll: false },{stack: '.draggable'});
+    	$( ".pchar" ).draggable({ containment: "#body", scroll: false },{stack: '.draggable'});
     } else if (ua.indexOf('iPad') > 0 || ua.indexOf('Android') > 0) {
         // タブレット用コード
-    	$( ".pchar.draggable" ).draggable({ containment: "#body", scroll: false },{stack: '.draggable'});
+    	$( ".pchar" ).draggable({ containment: "#body", scroll: false },{stack: '.draggable'});
     } else {
     	$( ".draggable" ).draggable({ containment: "#body", scroll: false },{stack: '.draggable'});
     }
