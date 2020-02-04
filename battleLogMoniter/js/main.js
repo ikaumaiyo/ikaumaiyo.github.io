@@ -205,6 +205,13 @@ $(document).ready(function() {
 			$('#render-kisiState').find('.magicUsed').show();
 		}
 	});
+	//pキャラ
+	$('#body').on('click', '.pchar-summon', function(e) {
+		$('.pchar').show();
+	});
+	$('#body').on('click', '.pchar', function(e) {
+		$(this).toggleClass('mirror');
+	});
 
 
 });
@@ -299,7 +306,7 @@ let activationPlugins = function(){
     } else if (ua.indexOf('iPad') > 0 || ua.indexOf('Android') > 0) {
         // タブレット用コード
     } else {
-    	$( ".draggable" ).draggable({ containment: "#analysis", scroll: false },{stack: '.draggable'});
+    	$( ".draggable" ).draggable({ containment: "#body", scroll: false },{stack: '.draggable'});
     }
 
 	  // テーブルソートするやつ
