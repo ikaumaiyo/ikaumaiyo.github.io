@@ -20,7 +20,6 @@ html {
 	-webkit-appearance: none;
 	font-family: "HiraKakuProN-W3", sans-serif;
 	height: 100%;
-	cursor: url(../img/corsor.png), auto;
 }
 
 body {
@@ -56,10 +55,24 @@ header {
 }
 
 .error.contents {
-	display: none;
+display: none;
 	color: #ff0000;
-	background-color: #ffebeb;
-}
+	margin: 1rem 1rem;
+	padding: 1rem 3rem;
+	border: solid 1px #dddddd;
+	border-radius: 5px;
+	float: left;
+	box-shadow: 0 0 3px 1px #9a9485 inset, 0 0 0 2px #ffcd3d, 0 -1px 0px 2px
+		#ffffff, 0 3px 7px 2px #3351af9c;
+	background-color: #fff1f1;
+	background-size: 40px 40px;
+	background-image: linear-gradient(45deg, #fbfbfbab 25%, #fbfbfbab 25%, transparent 25%,
+		transparent 75%, #fbfbfbab 75%, #fbfbfbab 75%),
+		linear-gradient(-45deg, #fbfbfbab 25%, #fbfbfb 25%, transparent 25%,
+		transparent 75%, #fbfbfb 75%, #fbfbfb 75%);
+	position: relative;
+	left: -3rem;
+	top: -23px;}
 
 .help {
 	width: 1.5rem;
@@ -73,7 +86,7 @@ header {
 	font-size: 1rem;
 	color: #3f51b5c7;
 	line-height: 22px;
-	cursor: url(../img/corsor2.png), auto;
+	cursor: pointer;
 	user-select: none;
 	top: 7px;
 	right: 8px;
@@ -81,6 +94,10 @@ header {
 
 .helpMsg {
 	display: none;
+}
+
+i {
+	margin: 0px 0.5rem 0px 0px;
 }
 
 ul {
@@ -115,7 +132,7 @@ header>.button.mobile {
 }
 
 header>.button:hover {
-	cursor: url(../img/corsor2.png), auto;
+	cursor: pointer;
 	box-sizing: border-box;
 	border-bottom: solid 2px #2196F3;
 }
@@ -159,7 +176,7 @@ header>input.mobile {
 }
 
 header>input:hover {
-	cursor: url(../img/corsor2.png), auto;
+	cursor: pointer;
 	box-sizing: border-box;
 	border-bottom: solid 2px #2196F3;
 }

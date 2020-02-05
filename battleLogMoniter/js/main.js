@@ -248,7 +248,6 @@ let load = function(optionList) {
 			}
 		}).fail(function(e){
 			showErrorMsg(e);
-			console.error(e);
 		})
 	);
 
@@ -270,7 +269,6 @@ let load = function(optionList) {
 			}
 		}).fail(function(e){
 			showErrorMsg(e);
-			console.error(e);
 		})
 	);
 
@@ -282,13 +280,11 @@ let load = function(optionList) {
 			showErrorMsg(analysis.render());
 			hideLoading();
 		}catch(e){
-			console.error(e);
 			showErrorMsg(e);
 			hideLoading();
 		}
 		hideLoading();
 	}).fail(function(e){
-		console.error(e);
 		showErrorMsg('通信に失敗しました。設定でuidとpwdを確認してください。');
 		hideLoading();
 	});
@@ -334,11 +330,12 @@ let hideLoadingConnectMsg = function() {
 
 /** エラーのやつ * */
 let showErrorMsg = function(e) {
+	if(e == '' || e === undefined ) return;
 	let span = $('<span></span>').html(e);
 	span.appendTo($('.error.contents'));
 	$('.error').css('display','grid');
 }
-let hideErrorMsg = function(e) {
+let hideErrorMsg = function() {
 	$('.error.contents').html('');
 	$('.error.contents').hide();
 }
