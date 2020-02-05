@@ -306,9 +306,9 @@ let activationPlugins = function(){
     } else if (ua.indexOf('iPad') > 0 || ua.indexOf('Android') > 0) {
         // タブレット用コード
     } else {
-    	$( ".draggable" ).draggable({ containment: "#body", scroll: false },{stack: '.draggable'});
     }
 
+	$( ".draggable" ).draggable({ containment: "#body", scroll: false },{stack: '.draggable'});
 	  // テーブルソートするやつ
 	  $('.tablesorter').tablesorter();
 
