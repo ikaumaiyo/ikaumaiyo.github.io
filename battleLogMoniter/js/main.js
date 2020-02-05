@@ -408,29 +408,24 @@ let validateOption = function(optionList){
 
 }
 
-// 背景色変更
+// 背景変更
 let changeBgColor = function(){
 		let now = new Date();
-		let x16Prm = 0;//0~255
-		if(0 < now.getHours()  && now.getHours() < 5){
-			x16Prm = 255;
+		if(0 < now.getHours()  && now.getHours() <= 5){
+			$('body').css('background-image','url(img/bg_Night.png)');
 		}
-		if(5 < now.getHours()  && now.getHours() < 8){
-			x16Prm = 150;
+		if(5 < now.getHours()  && now.getHours() <= 9){
+			$('body').css('background-image','url(img/bg_Evening.png)');
 		}
-		if(8 < now.getHours()  && now.getHours() < 15){
-			x16Prm = 0;
+		if(9 < now.getHours()  && now.getHours() <= 16){
+			$('body').css('background-image','url(img/bg_Daytime.png)');
 		}
-		if(15 < now.getHours()  && now.getHours() < 17){
-			x16Prm = 100;
+		if(16 < now.getHours()  && now.getHours() <= 18){
+			$('body').css('background-image','url(img/bg_Evening.png)');
 		}
-		if(17 < now.getHours()  && now.getHours() < 20){
-			x16Prm = 150;
+		if(18 < now.getHours()  && now.getHours() <= 23){
+			$('body').css('background-image','url(img/bg_Night.png)');
 		}
-		if(20 < now.getHours()  && now.getHours() <= 23){
-			x16Prm = 200;
-		}
-		$('body').css('background-color','rgb(10, 12, 23, '+(x16Prm/255)+')');
 }
 
 // 開発用ラベル

@@ -28,14 +28,14 @@ body {
 	padding: 0;
 	background-color: #fafafa;
 	-webkit-appearance: none;
-	background-image: url(../img/bg.png);
+	background-image: url(../img/bg_Daytime.png);
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: cover;
 	height: auto;
 	background-color: rgba(255, 255, 255, 0.3);
 	background-blend-mode: overlay;
-	background-color: #0a0c1700;
+	background-color: #40415000;
 }
 
 div#main-contents {
