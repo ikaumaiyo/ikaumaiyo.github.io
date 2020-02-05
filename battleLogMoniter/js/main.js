@@ -20,6 +20,7 @@ $(document).ready(function() {
 //    let dd = ("0"+date.getDate()).slice(-2);
 //    $('#targetDate').val(yyyy+'-'+mm+'-'+dd);
 
+
 	changeBgColor();      // 背景変更
 	activationPlugins();    // プラグイン系を活性化
 	renderBossImg();      // ボス画像をレンダ
@@ -34,6 +35,7 @@ $(document).ready(function() {
 
 	// 開発鯖の場合はラベル付ける
 	renderProductionLabel(optionDatastore.getOptionList());
+
 
 	//---------------------------------------------------------------
 	// ボタン系のイベントリスナ登録
@@ -290,7 +292,7 @@ let load = function(optionList) {
 	});
 
 
-
+	$('body').scrollTop(0);
 
 }// load()
 
@@ -301,10 +303,8 @@ let activationPlugins = function(){
         // スマートフォン用コード
     	$('header .button').addClass('mobile');
     	$('header input').addClass('mobile');
-    	$( ".pchar" ).draggable({ containment: "#body", scroll: false },{stack: '.draggable'});
     } else if (ua.indexOf('iPad') > 0 || ua.indexOf('Android') > 0) {
         // タブレット用コード
-    	$( ".pchar" ).draggable({ containment: "#body", scroll: false },{stack: '.draggable'});
     } else {
     	$( ".draggable" ).draggable({ containment: "#body", scroll: false },{stack: '.draggable'});
     }

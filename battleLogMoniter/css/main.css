@@ -16,10 +16,9 @@
 html {
 	margin: 0;
 	padding: 0;
-	background-color: #fafafa;
+	background-color: white;
 	-webkit-appearance: none;
 	font-family: "HiraKakuProN-W3", sans-serif;
-	height: 100%;
 }
 
 body {
@@ -31,7 +30,6 @@ body {
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: cover;
-	height: auto;
 	background-color: rgba(255, 255, 255, 0.3);
 	background-blend-mode: overlay;
 	background-color: #40415000;
@@ -55,24 +53,22 @@ header {
 }
 
 .error.contents {
-display: none;
-	color: #ff0000;
-	margin: 1rem 1rem;
-	padding: 1rem 3rem;
-	border: solid 1px #dddddd;
-	border-radius: 5px;
-	float: left;
-	box-shadow: 0 0 3px 1px #9a9485 inset, 0 0 0 2px #ffcd3d, 0 -1px 0px 2px
-		#ffffff, 0 3px 7px 2px #3351af9c;
-	background-color: #fff1f1;
-	background-size: 40px 40px;
-	background-image: linear-gradient(45deg, #fbfbfbab 25%, #fbfbfbab 25%, transparent 25%,
-		transparent 75%, #fbfbfbab 75%, #fbfbfbab 75%),
-		linear-gradient(-45deg, #fbfbfbab 25%, #fbfbfb 25%, transparent 25%,
-		transparent 75%, #fbfbfb 75%, #fbfbfb 75%);
-	position: relative;
-	left: -3rem;
-	top: -23px;}
+    display: none;
+    color: #ff0000;
+    margin: 1rem 1rem;
+    padding: 1rem 1rem;
+    border: solid 1px #dddddd;
+    border-radius: 5px;
+    float: left;
+    box-shadow: 0 0 3px 1px #9a9485 inset, 0 0 0 2px #d64f00, 0 -1px 0px 2px #ffffff, 0 3px 19px 6px #1d24339c;
+    background-color: #fff1f1;
+    background-size: 40px 40px;
+    background-image: linear-gradient(45deg, #fbfbfbab 25%, #fbfbfbab 25%, transparent 25%, transparent 75%, #fbfbfbab 75%, #fbfbfbab 75%), linear-gradient(-45deg, #fbfbfbab 25%, #fbfbfb 25%, transparent 25%, transparent 75%, #fbfbfb 75%, #fbfbfb 75%);
+    position: sticky;
+    z-index: 9000;
+    left: 0rem;
+    top: 2rem;
+}
 
 .help {
 	width: 1.5rem;
