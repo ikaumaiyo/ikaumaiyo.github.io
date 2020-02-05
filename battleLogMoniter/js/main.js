@@ -317,7 +317,7 @@ let activationPlugins = function(){
 /** ローディングアニメのやつ * */
 let showLoading = function() {
 	let comicLoc = comic[Math.floor(Math.random() * comic.length)];
-	$('.loading .spinner').css('background-image','url(https://redive.estertion.win/comic/'+comicLoc+'.webp)');
+	//$('.loading .spinner').css('background-image','url(https://redive.estertion.win/comic/'+comicLoc+'.webp)');
 	$('.loading .connecting').show();
 	$('.loading').show();
 }
@@ -409,19 +409,19 @@ let validateOption = function(optionList){
 let changeBgColor = function(){
 		let now = new Date();
 		if(0 < now.getHours()  && now.getHours() <= 5){
-			$('body').css('background-image','url(img/bg_Night.png)');
+			$('body').css('background-image','url(img/bg_Night.webp)');
 		}
 		if(5 < now.getHours()  && now.getHours() <= 9){
-			$('body').css('background-image','url(img/bg_Evening.png)');
+			$('body').css('background-image','url(img/bg_Evening.webp)');
 		}
 		if(9 < now.getHours()  && now.getHours() <= 16){
-			$('body').css('background-image','url(img/bg_Daytime.png)');
+			$('body').css('background-image','url(img/bg_Daytime.webp)');
 		}
 		if(16 < now.getHours()  && now.getHours() <= 18){
-			$('body').css('background-image','url(img/bg_Evening.png)');
+			$('body').css('background-image','url(img/bg_Evening.webp)');
 		}
 		if(18 < now.getHours()  && now.getHours() <= 23){
-			$('body').css('background-image','url(img/bg_Night.png)');
+			$('body').css('background-image','url(img/bg_Night.webp)');
 		}
 }
 

@@ -39,7 +39,7 @@
 
 /* 1番目のアニメーションの場合 */
 .loading .spinner.type1 {
-	background-image: url(https://redive.estertion.win/comic/100101_01.webp);
+	/* background-image: url(https://redive.estertion.win/comic/100101_01.webp); */
 }
 
 .loading .spinner.type1 span {
