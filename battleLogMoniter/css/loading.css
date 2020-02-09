@@ -48,20 +48,20 @@
 }
 
 .loading .lodingMsg span { /*各テキストにanimationを設定*/
-    line-height: 5rem;
+    line-height: 7rem;
     font-size: 5rem;
     font-weight: bold;
     position: relative;
-    animation: line-height 1s ease-out infinite;
+/*     animation: line-height 1s ease-out infinite; */
     background: linear-gradient( to bottom, rgb(255, 255, 255) 25%, rgb(174, 229, 255) 90% );
     -webkit-background-clip: text;
     color: transparent;
 	}
 
 @keyframes line-height {
-  0%     {top: 0px;}
-  20%  {top: -20px;}
-  40%  {top: 0px;}
+  0%     {bottom: 0px;}
+  20%  {bottom: 20px;}
+  40%  {bottom: 0px;}
 }
 
 .lodingMsg span:nth-child(1) { /*一文字ずつ遅延させる*/
