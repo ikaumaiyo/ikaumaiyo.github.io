@@ -24,7 +24,6 @@ html {
 body {
 	margin: 0;
 	padding: 0;
-	position: sticky;
 	-webkit-appearance: none;
 	background-image: url(../img/bg_Daytime.jpg);
 	background-repeat: no-repeat;
@@ -32,21 +31,6 @@ body {
 	background-size: cover;
 }
 
-body:before {
-    content: '';
-    background: inherit;
-    -webkit-filter: blur(2px);
-    -moz-filter: blur(2px);
-    -o-filter: blur(2px);
-    -ms-filter: blur(2px);
-    filter: blur(2px);
-    position: absolute;
-    top: -5px;
-    left: 0px;
-    right: 0px;
-    bottom: -5px;
-    z-index: -1;
-}
 
 div#main-contents {
 	display: inline-block;
