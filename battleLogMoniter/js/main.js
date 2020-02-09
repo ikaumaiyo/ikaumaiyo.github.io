@@ -409,19 +409,19 @@ let validateOption = function(optionList){
 let changeBgColor = function(){
 		let now = new Date();
 		if(0 < now.getHours()  && now.getHours() <= 5){
-			$('body').css('background-image','url(img/bg_Night.webp)');
+			$('body').css('background-image','url(img/bg_Night.jpg)');
 		}
 		if(5 < now.getHours()  && now.getHours() <= 9){
-			$('body').css('background-image','url(img/bg_Evening.webp)');
+			$('body').css('background-image','url(img/bg_Evening.jpg)');
 		}
 		if(9 < now.getHours()  && now.getHours() <= 16){
-			$('body').css('background-image','url(img/bg_Daytime.webp)');
+			$('body').css('background-image','url(img/bg_Daytime.jpg)');
 		}
 		if(16 < now.getHours()  && now.getHours() <= 18){
-			$('body').css('background-image','url(img/bg_Evening.webp)');
+			$('body').css('background-image','url(img/bg_Evening.jpg)');
 		}
 		if(18 < now.getHours()  && now.getHours() <= 23){
-			$('body').css('background-image','url(img/bg_Night.webp)');
+			$('body').css('background-image','url(img/bg_Night.jpg)');
 		}
 }
 
