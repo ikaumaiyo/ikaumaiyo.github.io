@@ -411,10 +411,7 @@ let changeBgColor = function(){
 		if(0 < now.getHours()  && now.getHours() <= 5){
 			$('body').css('background-image','url(img/bg_Night.jpg)');
 		}
-		if(5 < now.getHours()  && now.getHours() <= 9){
-			$('body').css('background-image','url(img/bg_Evening.jpg)');
-		}
-		if(9 < now.getHours()  && now.getHours() <= 16){
+		if(5 < now.getHours()  && now.getHours() <= 16){
 			$('body').css('background-image','url(img/bg_Daytime.jpg)');
 		}
 		if(16 < now.getHours()  && now.getHours() <= 18){
