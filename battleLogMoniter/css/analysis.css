@@ -55,7 +55,6 @@
 #render-battleSuccessful p.priconeDate span {
 	font-size: 0.8rem;
 	padding: 2px 0.5rem;
-	border-bottom: solid 1px #f1f1f1;
 }
 
 #render-battleSuccessful>.totuNum {
