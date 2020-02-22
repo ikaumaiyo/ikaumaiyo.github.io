@@ -18,9 +18,15 @@ const optionList_adam = {
 		boss_hp_w3_03 : 13000000,
 		boss_hp_w3_04 : 15000000,
 		boss_hp_w3_05 : 20000000,
+		boss_hp_w4_01 : 15000000,
+		boss_hp_w4_02 : 16000000,
+		boss_hp_w4_03 : 18000000,
+		boss_hp_w4_04 : 19000000,
+		boss_hp_w4_05 : 20000000,
 		w1_start_wrap : 1,
 		w2_start_wrap : 4,
 		w3_start_wrap : 11,
+		w4_start_wrap : 35,
 }
 
 class OptionDatastore{
@@ -65,14 +71,18 @@ class OptionDatastore{
 	getOptionList(){
 		return this.optionList;
 	}
+
 	getW1Sum(){
-		return this.optionList.boss_hp_w1_01 + this.optionList.boss_hp_w1_02 + this.optionList.boss_hp_w1_03 + this.optionList.boss_hp_w1_04 + this.optionList.boss_hp_w1_05;
+		return Number(this.optionList.boss_hp_w1_01) + Number(this.optionList.boss_hp_w1_02) + Number(this.optionList.boss_hp_w1_03) + Number(this.optionList.boss_hp_w1_04) + Number(this.optionList.boss_hp_w1_05);
 	}
 	getW2Sum(){
-		return this.optionList.boss_hp_w2_01 + this.optionList.boss_hp_w2_02 + this.optionList.boss_hp_w2_03 + this.optionList.boss_hp_w2_04 + this.optionList.boss_hp_w2_05;
+		return Number(this.optionList.boss_hp_w2_01) + Number(this.optionList.boss_hp_w2_02) + Number(this.optionList.boss_hp_w2_03) + Number(this.optionList.boss_hp_w2_04) + Number(this.optionList.boss_hp_w2_05);
 	}
 	getW3Sum(){
 		return Number(this.optionList.boss_hp_w3_01) + Number(this.optionList.boss_hp_w3_02) + Number(this.optionList.boss_hp_w3_03) + Number(this.optionList.boss_hp_w3_04) + Number(this.optionList.boss_hp_w3_05);
+	}
+	getW4Sum(){
+		return Number(this.optionList.boss_hp_w4_01) + Number(this.optionList.boss_hp_w4_02) + Number(this.optionList.boss_hp_w4_03) + Number(this.optionList.boss_hp_w4_04) + Number(this.optionList.boss_hp_w4_05);
 	}
 
 

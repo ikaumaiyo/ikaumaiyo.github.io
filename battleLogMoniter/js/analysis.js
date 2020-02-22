@@ -217,7 +217,9 @@ class Analysis{
 		let nowBossDmg = nowBossReport.reduce((prev, item) => prev + item.ダメージ ,0);
 		// 現wave
 		let nowBossWave = 1;
-		if(nowWrap >= optionList.w3_start_wrap){
+		if(nowWrap >= optionList.w4_start_wrap){
+			nowBossWave = 4;
+		}else if(nowWrap >= optionList.w3_start_wrap){
 			nowBossWave = 3;
 		}else if(nowWrap >= optionList.w2_start_wrap){
 			nowBossWave = 2;
@@ -469,7 +471,7 @@ class Analysis{
 			let kisiTotuOver20MReport = that.report.filter(function(_item, _index){
 				if(_item.プリコネーム == val.プリコネーム
 						&& _item.ダメージ > 3000000
-						&& _item.周回 >= optionList.w3_start_wrap){
+						&& _item.周回 >= optionList.w4_start_wrap){
 					return true;
 				}
 			});
@@ -626,7 +628,7 @@ class Analysis{
 				let iBossList = that.report.filter(function(_item, _index){
 					if(_item.プリコネーム == val.プリコネーム
 							&& _item.ダメージ > 3000000
-							&& _item.周回 >= optionList.w3_start_wrap
+							&& _item.周回 >= optionList.w4_start_wrap
 							&& _item.ボス == i){
 						return true;
 					}
