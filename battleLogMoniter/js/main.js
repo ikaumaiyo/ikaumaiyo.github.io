@@ -12,7 +12,7 @@ $(document).ready(function() {
 	// ページ初回実行
 	//---------------------------------------------------------------
 	// デバッグ用
-	$('#targetDate').val('2020-01-28');
+//	$('#targetDate').val('2020-01-28');
 	// 日付初期値設定
 //    let date = new Date();
 //    let yyyy = date.getFullYear();
