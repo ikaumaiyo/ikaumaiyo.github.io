@@ -188,6 +188,9 @@ class Analysis{
 		} ,0);
 		// 昨日の周回数
 		let yestWrap = yesterdayDmg / optionDatastore.getW3Sum();
+		if(this.todayReport[0].周回 >= optionList.w4_start_wrap){
+			yestWrap = yesterdayDmg / optionDatastore.getW4Sum();
+		}
 
 		// 今日のボス情報を取得
 		let startBoss = 0;  // ボス開始
@@ -852,7 +855,7 @@ class Analysis{
 		}else{
 			return requiredBossTotuCount;
 		}
-		
+
 		// 4週目の場合はそっちに切り替える
 		let targetWrap = optionList.w3_start_wrap;
 		if(lastLocation >= Number(optionList.w4_start_wrap)+1){
