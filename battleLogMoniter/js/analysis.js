@@ -341,6 +341,7 @@ class Analysis{
 		} // while
 
 		if(Object.keys(requiredBossTotuCountSum).length != 0){
+			$('.bossStateWrapLine').find('.emptyBox')[0].innerHTML = '周速 '+requiredBossTotuCount[0].toFixed(1);
 			$('.requiredCount.b1').html(requiredBossTotuCount[1].toFixed(1)+'凸');
 			$('.requiredCount.b2').html(requiredBossTotuCount[2].toFixed(1)+'凸');
 			$('.requiredCount.b3').html(requiredBossTotuCount[3].toFixed(1)+'凸');
@@ -835,7 +836,7 @@ class Analysis{
 		return (Math.floor(yestWrap)*5) + outlookDecimalCount; // ボス撃破数予測
 	}
 
-	// ボス毎の必要凸数をカウント（３段階目だけ表示する）
+	// ボス毎の必要凸数をカウント（３or４段階目だけ表示する）
 	calc_requiredBossTotuCount(report){
 
 		let optionList = optionDatastore.getOptionList();
@@ -851,16 +852,21 @@ class Analysis{
 		}else{
 			return requiredBossTotuCount;
 		}
-
+		
+		// 4週目の場合はそっちに切り替える
+		let targetWrap = optionList.w3_start_wrap;
+		if(lastLocation >= Number(optionList.w4_start_wrap)+1){
+			targetWrap = optionList.w4_start_wrap;
+		}
 
 		requiredBossTotuCount[1] = 0;
 		requiredBossTotuCount[2] = 0;
 		requiredBossTotuCount[3] = 0;
 		requiredBossTotuCount[4] = 0;
 		requiredBossTotuCount[5] = 0;
-		// w3レポートのみ抽出(現在週は除く)
+		// w3or4レポートのみ抽出(現在週は除く)
 		let calcTargetReport = concatReport.filter(function(_item, _index){
-			if(_item.周回 >= optionList.w3_start_wrap && _item.周回 < lastLocation) return true;
+			if(_item.周回 >= targetWrap && _item.周回 < lastLocation) return true;
 		});
 		// ボスごとに凸数をカウントしていく
 		$.each(calcTargetReport, function(i, v){
@@ -876,6 +882,13 @@ class Analysis{
 		$.each(requiredBossTotuCount, function(i, v){
 			requiredBossTotuCount[i] = requiredBossTotuCount[i] / finishedLocation;
 		});
+
+		requiredBossTotuCount[0] =
+		+ requiredBossTotuCount[1]
+		+ requiredBossTotuCount[2]
+		+ requiredBossTotuCount[3]
+		+ requiredBossTotuCount[4]
+		+ requiredBossTotuCount[5];
 
 		return requiredBossTotuCount;
 
