@@ -188,7 +188,7 @@ class Analysis{
 		} ,0);
 		// 昨日の周回数
 		let yestWrap = yesterdayDmg / optionDatastore.getW3Sum();
-		if(this.todayReport[0].周回 >= optionList.w4_start_wrap){
+		if(this.yesterdayReport[this.yesterdayReport.length-1].周回 >= optionList.w4_start_wrap){
 			yestWrap = yesterdayDmg / optionDatastore.getW4Sum();
 		}
 

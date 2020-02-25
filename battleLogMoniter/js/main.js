@@ -334,6 +334,7 @@ let showErrorMsg = function(e) {
 	let span = $('<span></span>').html(e);
 	span.appendTo($('.error.contents'));
 	$('.error').css('display','grid');
+	console.log(e);
 }
 let hideErrorMsg = function() {
 	$('.error.contents').html('');
