@@ -474,9 +474,9 @@ class Analysis{
 			// 凸傾向
 			let _nowloc = that.report[that.report.length-1].周回;
 			let keikoTargetWrap = optionList.w1_start_wrap;
-			keikoTargetWrap = _nowloc >= optionList.w4_start_wrap ? optionList.w4_start_wrap : keikoTargetWrap;
-			keikoTargetWrap = _nowloc >= optionList.w3_start_wrap ? optionList.w3_start_wrap : keikoTargetWrap;
 			keikoTargetWrap = _nowloc >= optionList.w2_start_wrap ? optionList.w2_start_wrap : keikoTargetWrap;
+			keikoTargetWrap = _nowloc >= optionList.w3_start_wrap ? optionList.w3_start_wrap : keikoTargetWrap;
+			keikoTargetWrap = _nowloc >= optionList.w4_start_wrap ? optionList.w4_start_wrap : keikoTargetWrap;
 
 			let kisiTotuOver20MReport = that.report.filter(function(_item, _index){
 				if(_item.プリコネーム == val.プリコネーム
