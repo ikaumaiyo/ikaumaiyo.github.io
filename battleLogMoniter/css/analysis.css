@@ -73,12 +73,15 @@
 	width: 100%;
 	height: 5px;
 	background-color: #cfeaff;
+	border-radius: 20px;
+	border: solid 1px #0000001a;
 }
 
 #render-battleSuccessful>.perProgress>.successful {
 	width: 50%;
 	height: 5px;
 	background-color: #2196F3;
+	border-radius: 20px;
 }
 
 #render-battleSuccessful>.perNum {
@@ -156,12 +159,15 @@
 	height: 5px;
 	background-color: #d0ead1;
 	float: left;
+	border-radius: 20px;
+	border: solid 1px #0000001a;
 }
 
 #render-bossState .nowBossState .hpPerBox .perProgress>.successful {
 	width: 50%;
 	height: 5px;
 	background-color: #4CAF50;
+	border-radius: 20px;
 }
 
 #render-bossState>.bossStateWrapLine {
