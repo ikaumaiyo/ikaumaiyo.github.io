@@ -16,13 +16,13 @@ init();
 
 function init() {
   //three.jsの設定
-  
+
   //シーンの新規作成(init)
   scene = new THREE.Scene();
 
   //レンダーの設定
   renderer = new THREE.WebGLRenderer({ antialias: true,alpha: true});
-  
+
   renderer.setPixelRatio( window.devicePixelRatio );
   renderer.setSize( window.innerWidth, window.innerHeight );
 
@@ -51,8 +51,8 @@ function init() {
       source.copyElementSizeTo(context.arController.canvas);
     }
   }
-  
-  
+
+
   //マーカートラッキングの設定
   source = new THREEx.ArToolkitSource({
     sourceType: "webcam",
@@ -65,10 +65,10 @@ function init() {
   context = new THREEx.ArToolkitContext({
     debug: false,
     cameraParametersUrl:  THREEx.ArToolkitContext.baseURL + '../data/data/camera_para.dat',
-    detectionMode: "mono", 
+    detectionMode: "mono",
     imageSmoothingEnabled: true,
     maxDetectionRate: 60,
-    canvasWidth: source.parameters.sourceWidth, 
+    canvasWidth: source.parameters.sourceWidth,
   });
 
   context.init(function onCompleted(){
@@ -77,7 +77,7 @@ function init() {
 
 
   //リサイズ処理
-  window.addEventListener("resize", function() { 
+  window.addEventListener("resize", function() {
     onResize();
   });
 
@@ -98,25 +98,25 @@ function init() {
       console.log( Math.round( percentComplete, 2 ) + '% downloaded' );
     }
   };
-    
+
   function onError( xhr ) {
   };
-    
+
   /* pmd, vmd File */
   var modelFile = './mmd/pmd/Lat式ミクVer2.31_Sailor夏服エッジ無し専用.pmd'; //エッジ無しverにしないと描画が変になる
-  
-  var vmdFiles = ['./mmd/vmd/地球最後の告白を_Latミクv2.31S_b.vmd'];
+
+  var vmdFiles = [''];
 
   /* Music File */
   var audioFile = './mmd/music/music.mp3';
   var audioParams = { delayTime: 0 };
 
-  
-  
+
+
   helper = new THREE.MMDAnimationHelper( {
     afterglow: 2.0
   });
-    
+
   new THREE.MMDLoader().loadWithAnimation( modelFile, vmdFiles, function ( mmd ) {
     mesh = mmd.mesh;
 
@@ -135,14 +135,14 @@ function init() {
 
     //add maker
     marker.add(model);
-    
+
     //Audio
     // new THREE.AudioLoader().load(audioFile, function(buffer){
     //   var listener = new THREE.AudioListener();
     //   var audio = new THREE.Audio( listener ).setBuffer( buffer );
 
     //   listener.position.z = 1;
-      
+
     //   helper.add( audio, audioParams );
     //   marker.add( listener );
 
@@ -162,7 +162,7 @@ function init() {
 //   if(source.ready === false){ return; }
 
 //   context.update(source.domElement);
-  
+
 //   if(ready){
 //     helper.update(clock.getDelta());
 //   }
