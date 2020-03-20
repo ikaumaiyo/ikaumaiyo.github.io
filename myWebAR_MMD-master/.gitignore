@@ -1,0 +1,8 @@
+#vscodeの設定ファイル
+.vscode
+
+## 二次配布禁止のものはアップロードしない
+
+# 音楽を削除
+mmd/music/*.mp3
+!mmd/music/.gitkeep
