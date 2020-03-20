@@ -265,7 +265,7 @@ class Analysis{
 		$('#render-bossState').find('.nowBossState').find('.hpPerBox').find('.perProgress').find('.successful').css('width',nowBossHpStatePerStr);
 
 		// 着地予測の終端を計算
-		let outlookBossCount = this.calc_outlookBossCount(yestWrap,startBoss);
+		let outlookBossCount = this.calc_outlookBossCount(yestWrap,startBoss,startWrap);
 
 		// ボスの必要凸数を取得
 		let requiredBossTotuCount = this.calc_requiredBossTotuCount(this.report);
@@ -798,13 +798,26 @@ class Analysis{
 	}
 
 	/** ボス状態を表示 - 着地予測の終端を計算 * */
-	calc_outlookBossCount(yestWrap,startBoss){
+	calc_outlookBossCount(yestWrap,startBoss,startWrap){
 		let optionList = optionDatastore.getOptionList();
-		let b01per = optionList.boss_hp_w3_01/optionDatastore.getW3Sum(); // 1ボスHP割合
-		let b02per = optionList.boss_hp_w3_02/optionDatastore.getW3Sum(); // 2ボスHP割合
-		let b03per = optionList.boss_hp_w3_03/optionDatastore.getW3Sum(); // 3ボスHP割合
-		let b04per = optionList.boss_hp_w3_04/optionDatastore.getW3Sum(); // 4ボスHP割合
-		let b05per = optionList.boss_hp_w3_05/optionDatastore.getW3Sum(); // 5ボスHP割合
+		let dmgSum = optionDatastore.getW3Sum();
+		if(startWrap >= optionList.w4_start_wrap){
+			dmgSum = optionDatastore.getW4Sum();
+		}
+
+		let b01per = optionList.boss_hp_w3_01/dmgSum; // 1ボスHP割合
+		let b02per = optionList.boss_hp_w3_02/dmgSum; // 2ボスHP割合
+		let b03per = optionList.boss_hp_w3_03/dmgSum; // 3ボスHP割合
+		let b04per = optionList.boss_hp_w3_04/dmgSum; // 4ボスHP割合
+		let b05per = optionList.boss_hp_w3_05/dmgSum; // 5ボスHP割合
+		if(startWrap >= optionList.w4_start_wrap){
+			let b01per = optionList.boss_hp_w4_01/dmgSum; // 1ボスHP割合
+			let b02per = optionList.boss_hp_w4_02/dmgSum; // 2ボスHP割合
+			let b03per = optionList.boss_hp_w4_03/dmgSum; // 3ボスHP割合
+			let b04per = optionList.boss_hp_w4_04/dmgSum; // 4ボスHP割合
+			let b05per = optionList.boss_hp_w4_05/dmgSum; // 5ボスHP割合
+		}
+
 		let yestWrapDecimal = yestWrap - Math.floor(yestWrap); // 昨日周回の小数点以下を取得
 		let outlookStartPoint = startBoss + 1; // 撃破数計算のボス指標
 		let outlookDecimalCount = 0; // 少数部でどれだけ倒すか
