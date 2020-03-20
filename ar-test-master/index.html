@@ -10,10 +10,19 @@
         <a-asset-item id="santa-obj" src="model_obj/santa/cottage_obj.obj"></a-asset-item>
         <a-asset-item id="santa-mtl" src="model_obj/santa/cottage_obj.mtl"></a-asset-item>
     </a-assets>
-    <a-marker preset="hiro">
+    <a-marker type='pattern' url='pattern-marker.patt'>
         <a-obj-model id="santa" src="#santa-obj" mtl="#santa-mtl" position="0 0 0" scale="0.1 0.1 0.1" rotation="0 0 0"></a-obj-model>
         <a-text value="Merry X'mas!!!" position="0 1.3 0" align="center"></a-text>
     </a-marker>
+
+<!--       <a-marker type='pattern' url='pattern-marker.patt'>
+	    <a-sphere scale=".25 .25 .25" position="0 .5 0" color="#f00">
+	      <a-animation attribute="position" to="0 1 0" direction="alternate" dur="2000" repeat="indefinite">
+	      </a-animation>
+	    </a-sphere>
+	  </a-marker> -->
+
+
     <a-entity camera></a-entity>
 </a-scene>
 </body>
