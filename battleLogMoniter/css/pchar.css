@@ -1,9 +1,0 @@
-.pchar {
-	position: absolute;
-	z-index: 9000;
-	display: none;
-}
-
-.pchar.mirror {
-	transform: scale(-1, 1);
-}
